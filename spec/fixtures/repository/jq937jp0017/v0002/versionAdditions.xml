@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileInventory type="additions" objectId="druid:jq937jp0017" versionId="2" inventoryDatetime="2012-05-10T20:55:22Z" fileCount="4" byteCount="35584" blockCount="37">
+  <fileGroup groupId="content" dataSource="" fileCount="1" byteCount="32915" blockCount="33">
+    <file>
+      <fileSignature size="32915" md5="c1c34634e2f18a354cd3e3e1574c3194" sha1="0616a0bd7927328c364b2ea0b4a79c507ce915ed"/>
+      <fileInstance path="page-1.jpg" datetime="2012-05-10T19:03:39Z"/>
+    </file>
+  </fileGroup>
+  <fileGroup groupId="metadata" dataSource="" fileCount="3" byteCount="2669" blockCount="4">
+    <file>
+      <fileSignature size="1135" md5="d74bfa778653b6c1b285b2d0c2f07c5b" sha1="0ee15e133c17ae3312b87247adb310b0327ca3df"/>
+      <fileInstance path="contentMetadata.xml" datetime="2012-05-10T19:03:39Z"/>
+    </file>
+    <file>
+      <fileSignature size="564" md5="351e4c872148e0bc9dc24874c7ef6c08" sha1="565473bbc865b1c6f88efc99b6b5b73fd5cadbc8"/>
+      <fileInstance path="provenanceMetadata.xml" datetime="2012-05-10T19:03:39Z"/>
+    </file>
+    <file>
+      <fileSignature size="970" md5="8a3b0051d89a90a6db90edb7b76ef63f" sha1="7e18ec3a00f7e64d561a9c1c2bc2950ef7deea33"/>
+      <fileInstance path="versionMetadata.xml" datetime="2012-05-10T19:03:39Z"/>
+    </file>
+  </fileGroup>
+</fileInventory>

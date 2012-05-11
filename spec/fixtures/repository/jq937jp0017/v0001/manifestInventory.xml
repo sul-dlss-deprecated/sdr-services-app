@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileInventory type="manifests" objectId="druid:jq937jp0017" versionId="1" inventoryDatetime="2012-05-10T20:55:23Z" fileCount="4" byteCount="11664" blockCount="13">
+  <fileGroup groupId="manifests" dataSource="/Users/wmene/dev/afsgit/sdr/moab-versioning/spec/fixtures/derivatives/ingests/jq937jp0017/v0001" fileCount="4" byteCount="11664" blockCount="13">
+    <file>
+      <fileSignature size="3212" md5="73401a69e2b176339e31a6cb3414a7d2" sha1="3465472c00c73a03eb1170879130267132f288d8"/>
+      <fileInstance path="fileInventoryDifference.xml" datetime="2012-05-10T20:55:23Z"/>
+    </file>
+    <file>
+      <fileSignature size="2513" md5="bf666e9b43c4cf51d330f1c1ca9227a8" sha1="d5d13703c3cd6d3e1c6b76fd434432bd43b82267"/>
+      <fileInstance path="signatureCatalog.xml" datetime="2012-05-10T20:55:23Z"/>
+    </file>
+    <file>
+      <fileSignature size="2885" md5="6f40873da8ef977d4b119a210ddcf613" sha1="f9fd75e9189eb19c520a225d8bfd4bce31322e90"/>
+      <fileInstance path="versionAdditions.xml" datetime="2012-05-10T20:55:22Z"/>
+    </file>
+    <file>
+      <fileSignature size="3054" md5="586db78a04afb16b66774f953d57e3ec" sha1="5ccb5fff4927df2a2e86ac6e144b744543c9083e"/>
+      <fileInstance path="versionInventory.xml" datetime="2012-05-10T20:55:22Z"/>
+    </file>
+  </fileGroup>
+</fileInventory>
