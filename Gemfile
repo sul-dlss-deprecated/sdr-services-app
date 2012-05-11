@@ -8,5 +8,6 @@ group :test do
     gem 'ruby-debug'
     gem 'rspec'
     gem 'rack-test', :require => "rack/test"
+    gem 'lyberteam-devel'
 end
 
