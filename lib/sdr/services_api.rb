@@ -4,7 +4,9 @@ module Sdr
   class ServicesApi < Sinatra::Base
 
     # TODO add exception logging
-    get '/sdr/objects' { 'ok' }
+    get '/sdr/objects' do 
+      'ok'
+    end
         
     post '/sdr/objects/:druid/cm-inv-diff' do
       request.body.rewind
