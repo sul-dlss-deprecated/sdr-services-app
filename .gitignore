@@ -1,2 +1,8 @@
 *.log
 coverage
+.bundle/
+.idea/
+.yardoc/
+coverage/
+coverage.data
+doc/
