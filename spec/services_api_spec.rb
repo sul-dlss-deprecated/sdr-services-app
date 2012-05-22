@@ -38,11 +38,53 @@ describe Sdr::ServicesApi do
       last_response.body.should =~ /<fileInventoryDifference/
     end
     
+    it "returns versionAdditions xml between content metadata and a specific version" do
+      post '/sdr/objects/druid:jq937jp0017/cm-adds?version=3', content_md
+      last_response.should be_ok
+      last_response.body.should =~ /<fileInventory type="additions"/
+    end
+
     it "handles version as an optional paramater" do
       post '/sdr/objects/druid:jq937jp0017/cm-inv-diff', content_md
       last_response.should be_ok
       last_response.body.should =~ /<fileInventoryDifference/
     end
-    
+
+    it "returns current version number" do
+      get '/sdr/objects/druid:jq937jp0017/current_version'
+      last_response.should be_ok
+      last_response.body.should == '<currentVersion>3</currentVersion>'
+    end
+
+    it "returns current version metadata" do
+      get '/sdr/objects/druid:jq937jp0017/version_metadata'
+      last_response.should be_ok
+      last_response.body.should =~ /<versionMetadata objectId="druid:ab123cd4567">/
+    end
+
+    it "returns a version differences report" do
+      get '/sdr/objects/druid:jq937jp0017/version_differences?base=1&compare=3'
+      last_response.should be_ok
+      last_response.body.should =~ /<fileInventoryDifference objectId="druid:jq937jp0017"/
+    end
+
+    it "returns a content file" do
+      get '/sdr/objects/druid:jq937jp0017/content/title.jpg?version=1'
+      last_response.should be_ok
+      last_response.header["content-type"].should == "application/octet-stream\""
+    end
+
+    it "returns a metadata file" do
+      get '/sdr/objects/druid:jq937jp0017/metadata/provenanceMetadata.xml'
+      last_response.should be_ok
+      last_response.body.should =~ /<provenanceMetadata/
+    end
+
+    it "returns the most recent manifest file if version param is omitted" do
+      get '/sdr/objects/druid:jq937jp0017/manifest/signatureCatalog.xml'
+      last_response.should be_ok
+      last_response.body.should =~ /<signatureCatalog objectId="druid:jq937jp0017" versionId="3"/
+    end
+
   end
 end
