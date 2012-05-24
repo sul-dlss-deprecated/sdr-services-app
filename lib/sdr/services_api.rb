@@ -24,24 +24,38 @@ module Sdr
     end
 
     get '/sdr/objects/:druid/content/:filename' do
-      content_file = Stanford::StorageServices.retrieve_file(:content, params[:filename], params[:druid], version_param())
-      [200, {'content-type' => 'application/octet-stream"'}, content_file.read]
+      if params.has_key?('signature')
+        signature = Stanford::StorageServices.retrieve_file_signature('content', params[:filename], params[:druid], version_param())
+        [200, {'content-type' => 'application/xml'}, signature.to_xml]
+      else
+        content_file = Stanford::StorageServices.retrieve_file('content', params[:filename], params[:druid], version_param())
+        [200, {'content-type' => 'application/octet-stream"'}, content_file.read]
+      end
     end
 
     get '/sdr/objects/:druid/metadata/:filename' do
-      metadata_file = Stanford::StorageServices.retrieve_file(:metadata, params[:filename], params[:druid], version_param())
-      [200, {'content-type' => 'application/xml'}, metadata_file.read]
+      if params.has_key?('signature')
+        signature = Stanford::StorageServices.retrieve_file_signature('metadata', params[:filename], params[:druid], version_param())
+        [200, {'content-type' => 'application/xml'}, signature.to_xml]
+      else
+        metadata_file = Stanford::StorageServices.retrieve_file('metadata', params[:filename], params[:druid], version_param())
+        [200, {'content-type' => 'application/xml'}, metadata_file.read]
+      end
     end
 
     get '/sdr/objects/:druid/manifest/:filename' do
-      manifest_file = Stanford::StorageServices.retrieve_file(:manifest, params[:filename], params[:druid], version_param())
-      [200, {'content-type' => 'application/xml'}, manifest_file.read]
+      if params.has_key?('signature')
+        signature = Stanford::StorageServices.retrieve_file_signature('manifest', params[:filename], params[:druid], version_param())
+        [200, {'content-type' => 'application/xml'}, signature.to_xml]
+      else
+        manifest_file = Stanford::StorageServices.retrieve_file('manifest', params[:filename], params[:druid], version_param())
+        [200, {'content-type' => 'application/xml'}, manifest_file.read]
+      end
     end
 
-      post '/sdr/objects/:druid/cm-inv-diff' do
+    post '/sdr/objects/:druid/cm-inv-diff' do
       request.body.rewind
       cmd_xml = request.body.read
-
       diff = Stanford::StorageServices.compare_cm_to_version_inventory(cmd_xml, params[:druid], version_param())
       [200, {'content-type' => 'application/xml'}, diff.to_xml]
     end
@@ -49,7 +63,6 @@ module Sdr
     post '/sdr/objects/:druid/cm-adds' do
       request.body.rewind
       cmd_xml = request.body.read
-
       additions = Stanford::StorageServices.cm_version_additions(cmd_xml, params[:druid], version_param())
       [200, {'content-type' => 'application/xml'}, additions.to_xml]
     end

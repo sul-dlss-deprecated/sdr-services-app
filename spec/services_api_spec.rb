@@ -71,7 +71,14 @@ describe Sdr::ServicesApi do
     it "returns a content file" do
       get '/sdr/objects/druid:jq937jp0017/content/title.jpg?version=1'
       last_response.should be_ok
-      last_response.header["content-type"].should == "application/octet-stream\""
+      last_response.header["content-type"].should =~ /application\/octet-stream/
+    end
+
+    it "returns a content file signature" do
+      get '/sdr/objects/druid:jq937jp0017/content/title.jpg?signature=true'
+      last_response.should be_ok
+      last_response.header["content-type"].should =~ /application\/xml/
+      last_response.body.should =~ /<fileSignature size="40873" md5="1a726cd7963bd6d3ceb10a8c353ec166" sha1="583220e0572640abcd3ddd97393d224e8053a6ad"\/>/
     end
 
     it "returns a metadata file" do
@@ -80,10 +87,22 @@ describe Sdr::ServicesApi do
       last_response.body.should =~ /<provenanceMetadata/
     end
 
+    it "returns a metadata file signature" do
+       get '/sdr/objects/druid:jq937jp0017/metadata/provenanceMetadata.xml?signature'
+       last_response.should be_ok
+       last_response.body.should =~ /<fileSignature size="564" md5="17071e4607de4b272f3f06ec76be4c4a" sha1="b796a0b569bde53953ba0835bb47f4009f654349"\/>/
+     end
+
     it "returns the most recent manifest file if version param is omitted" do
       get '/sdr/objects/druid:jq937jp0017/manifest/signatureCatalog.xml'
       last_response.should be_ok
       last_response.body.should =~ /<signatureCatalog objectId="druid:jq937jp0017" versionId="3"/
+    end
+
+    it "returns a manifest file signature" do
+      get '/sdr/objects/druid:jq937jp0017/manifest/signatureCatalog.xml?signature'
+      last_response.should be_ok
+      last_response.body.should =~ /<fileSignature size="4210" md5="a4b5e6f14bcf0fd5f8e295c0001b6f19" sha1="e9804e90bf742b2f0c05858e7d37653552433183"\/>/
     end
 
   end
