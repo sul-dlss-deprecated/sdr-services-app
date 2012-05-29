@@ -38,6 +38,21 @@ describe Sdr::ServicesApi do
       last_response.body.should =~ /<fileInventoryDifference/
     end
     
+    it "returns a diff against the latest version if the version parameter is not passed in" do
+      post '/sdr/objects/druid:jq937jp0017/cm-inv-diff', content_md
+      last_response.should be_ok
+            
+      diff = Nokogiri::XML(last_response.body)
+      diff.at_xpath('/fileInventoryDifference/@basis').value.should == 'v3'
+    end
+
+    it "returns a diff against the latest version if an empty version param (?version=) is passed in" do
+      post '/sdr/objects/druid:jq937jp0017/cm-inv-diff?version=', content_md
+      last_response.should be_ok
+      diff = Nokogiri::XML(last_response.body)
+      diff.at_xpath('/fileInventoryDifference/@basis').value.should == 'v3'
+    end
+
     it "returns versionAdditions xml between content metadata and a specific version" do
       post '/sdr/objects/druid:jq937jp0017/cm-adds?version=3', content_md
       last_response.should be_ok

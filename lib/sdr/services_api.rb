@@ -66,24 +66,13 @@ module Sdr
       additions = Stanford::StorageServices.cm_version_additions(cmd_xml, params[:druid], version_param())
       [200, {'content-type' => 'application/xml'}, additions.to_xml]
     end
-    
-    # I did this to be able to wrap my app in Rack::Auth::Digest for example
-    ## Example:
-    ## def self.new(*)
-    ##  app = Rack::Auth::Digest::MD5.new(super) do |username|
-    ##    {'foo' => 'bar'}[username]
-    ##  end
-    ##  app.realm = 'Foobar::Foo'
-    ##  app.opaque = 'secretstuff'
-    ##  app
-    ## end   
-    
+        
     def self.new(*)
       super
     end
 
     def version_param()
-      params[:version] ? params[:version].to_i : nil
+      (params[:version].nil? || params[:version].strip.empty?) ? nil : params[:version].to_i
     end
     
   end
