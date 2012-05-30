@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fileInventory type="version" objectId="druid:jq937jp0017" versionId="2" inventoryDatetime="2012-05-10T20:55:22Z" fileCount="9" byteCount="150981" blockCount="151">
-  <fileGroup groupId="content" dataSource="/Users/wmene/dev/afsgit/sdr/moab-versioning/spec/fixtures/data/jq937jp0017/v2/content" fileCount="4" byteCount="132363" blockCount="131">
+<fileInventory type="version" objectId="druid:jq937jp0017" versionId="2" inventoryDatetime="2012-05-30T22:10:45Z" fileCount="9" byteCount="138439" blockCount="139">
+  <fileGroup groupId="content" dataSource="/Users/rnanders/Code/Ruby/moab-versioning/spec/fixtures/data/jq937jp0017/v2/content" fileCount="4" byteCount="132363" blockCount="131">
     <file>
       <fileSignature size="32915" md5="c1c34634e2f18a354cd3e3e1574c3194" sha1="0616a0bd7927328c364b2ea0b4a79c507ce915ed"/>
-      <fileInstance path="page-1.jpg" datetime="2012-05-10T19:03:39Z"/>
+      <fileInstance path="page-1.jpg" datetime="2012-03-26T15:35:15Z"/>
     </file>
     <file>
       <fileSignature size="39450" md5="82fc107c88446a3119a51a8663d1e955" sha1="d0857baa307a2e9efff42467b5abd4e1cf40fcd5"/>
-      <fileInstance path="page-2.jpg" datetime="2012-05-10T19:03:39Z"/>
+      <fileInstance path="page-2.jpg" datetime="2012-03-26T15:23:36Z"/>
     </file>
     <file>
       <fileSignature size="19125" md5="a5099878de7e2e064432d6df44ca8827" sha1="c0ccac433cf02a6cee89c14f9ba6072a184447a2"/>
-      <fileInstance path="page-3.jpg" datetime="2012-05-10T19:03:39Z"/>
+      <fileInstance path="page-3.jpg" datetime="2012-03-26T15:24:39Z"/>
     </file>
     <file>
       <fileSignature size="40873" md5="1a726cd7963bd6d3ceb10a8c353ec166" sha1="583220e0572640abcd3ddd97393d224e8053a6ad"/>
-      <fileInstance path="title.jpg" datetime="2012-05-10T19:03:39Z"/>
+      <fileInstance path="title.jpg" datetime="2012-03-26T14:15:11Z"/>
     </file>
   </fileGroup>
-  <fileGroup groupId="metadata" dataSource="/Users/wmene/dev/afsgit/sdr/moab-versioning/spec/fixtures/data/jq937jp0017/v2/metadata" fileCount="5" byteCount="18618" blockCount="20">
+  <fileGroup groupId="metadata" dataSource="/Users/rnanders/Code/Ruby/moab-versioning/spec/fixtures/data/jq937jp0017/v2/metadata" fileCount="5" byteCount="6076" blockCount="8">
     <file>
       <fileSignature size="1135" md5="d74bfa778653b6c1b285b2d0c2f07c5b" sha1="0ee15e133c17ae3312b87247adb310b0327ca3df"/>
-      <fileInstance path="contentMetadata.xml" datetime="2012-05-10T19:03:39Z"/>
+      <fileInstance path="contentMetadata.xml" datetime="2012-03-28T14:04:24Z"/>
     </file>
     <file>
       <fileSignature size="3046" md5="a60bb487db6a1ceb5e0b5bb3cae2dfa2" sha1="edefc0e1d7cffd5bd3c7db6a393ab7632b70dc2d"/>
-      <fileInstance path="descMetadata.xml" datetime="2012-05-10T19:03:39Z"/>
+      <fileInstance path="descMetadata.xml" datetime="2012-03-26T17:43:49Z"/>
     </file>
     <file>
-      <fileSignature size="12903" md5="ccb5bf2ae0c2c6ad0b89692fa1e10145" sha1="3badb0d06aef40f14e4664d2594c6060b9e9716b"/>
-      <fileInstance path="identityMetadata.xml" datetime="2012-05-10T19:03:39Z"/>
+      <fileSignature size="932" md5="f0815d7b45530491931d5897ccbe2dd1" sha1="4065ff5523e227c1914098372a3dc587f739030e"/>
+      <fileInstance path="identityMetadata.xml" datetime="2012-05-23T19:38:35Z"/>
     </file>
     <file>
       <fileSignature size="564" md5="351e4c872148e0bc9dc24874c7ef6c08" sha1="565473bbc865b1c6f88efc99b6b5b73fd5cadbc8"/>
-      <fileInstance path="provenanceMetadata.xml" datetime="2012-05-10T19:03:39Z"/>
+      <fileInstance path="provenanceMetadata.xml" datetime="2012-03-26T19:22:18Z"/>
     </file>
     <file>
-      <fileSignature size="970" md5="8a3b0051d89a90a6db90edb7b76ef63f" sha1="7e18ec3a00f7e64d561a9c1c2bc2950ef7deea33"/>
-      <fileInstance path="versionMetadata.xml" datetime="2012-05-10T19:03:39Z"/>
+      <fileSignature size="399" md5="97f5dd88b67cca440ac8949ad5fc6883" sha1="55a22cf78597951eea0b1aec44078e48c0b3c3b9"/>
+      <fileInstance path="versionMetadata.xml" datetime="2012-05-29T12:16:15Z"/>
     </file>
   </fileGroup>
 </fileInventory>

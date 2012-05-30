@@ -65,6 +65,24 @@ describe Sdr::ServicesApi do
       last_response.body.should =~ /<fileInventoryDifference/
     end
 
+  end
+
+  describe "Version information" do
+
+    it "returns a menu" do
+      get '/sdr/objects/druid:jq937jp0017'
+      last_response.body.should == <<-EOF
+<html><head><title>Object druid:jq937jp0017</title></head><body><ul>
+<li><a href='http://example.org/sdr/objects/druid:jq937jp0017/current_version'>get currentversion</a></li>
+<li><a href='http://example.org/sdr/objects/druid:jq937jp0017/version_metadata'>get version metadata</a></li>
+<li><a href='http://example.org/sdr/objects/druid:jq937jp0017/version_differences?base=0&compare=1'>get difference between versions 0 and 1</a></li>
+<li><a href='http://example.org/sdr/objects/druid:jq937jp0017/list/content'>get content list</a></li>
+<li><a href='http://example.org/sdr/objects/druid:jq937jp0017/list/metadata'>get metadata list</a></li>
+<li><a href='http://example.org/sdr/objects/druid:jq937jp0017/list/manifests'>get manifest list</a></li>
+</ul></body></html>
+EOF
+    end
+
     it "returns current version number" do
       get '/sdr/objects/druid:jq937jp0017/current_version'
       last_response.should be_ok
@@ -77,24 +95,49 @@ describe Sdr::ServicesApi do
       last_response.body.should =~ /<versionMetadata objectId="druid:ab123cd4567">/
     end
 
+  end
+
+  describe "version differences" do
+
     it "returns a version differences report" do
       get '/sdr/objects/druid:jq937jp0017/version_differences?base=1&compare=3'
       last_response.should be_ok
       last_response.body.should =~ /<fileInventoryDifference objectId="druid:jq937jp0017"/
     end
 
+  end
+
+  describe "file list" do
+
+    it "should return a list of manifest files" do
+      get '/sdr/objects/druid:jq937jp0017/list/manifests'
+      last_response.body.should =~ %r{<title>Object druid:jq937jp0017 - manifests</title>}
+    end
+  end
+
+  describe "file retrieval" do
+
     it "returns a content file" do
       get '/sdr/objects/druid:jq937jp0017/content/title.jpg?version=1'
       last_response.should be_ok
-      last_response.header["content-type"].should =~ /application\/octet-stream/
+      last_response.header["content-type"].should =~ %r{image/jpeg}
     end
 
-    it "returns a content file signature" do
-      get '/sdr/objects/druid:jq937jp0017/content/title.jpg?signature=true'
+    it "returns a content file using a signature" do
+      get '/sdr/objects/druid:jq937jp0017/content/title.jpg?signature=40873,1a726cd7963bd6d3ceb10a8c353ec166,583220e0572640abcd3ddd97393d224e8053a6ad'
       last_response.should be_ok
-      last_response.header["content-type"].should =~ /application\/xml/
-      last_response.body.should =~ /<fileSignature size="40873" md5="1a726cd7963bd6d3ceb10a8c353ec166" sha1="583220e0572640abcd3ddd97393d224e8053a6ad"\/>/
+      last_response.header["content-type"].should =~ %r{image/jpeg}
     end
+
+
+    #it "returns a content file signature" do
+    #  get '/sdr/objects/druid:jq937jp0017/content/title.jpg?signature=true'
+    #  last_response.should be_ok
+    #  last_response.header["content-type"].should =~ %r{application/xml}
+    #  last_response.body.should =~ /<fileSignature size="40873" md5="1a726cd7963bd6d3ceb10a8c353ec166" sha1="583220e0572640abcd3ddd97393d224e8053a6ad"\/>/
+    #end
+
+    it "returns a content file"
 
     it "returns a metadata file" do
       get '/sdr/objects/druid:jq937jp0017/metadata/provenanceMetadata.xml'
@@ -102,11 +145,11 @@ describe Sdr::ServicesApi do
       last_response.body.should =~ /<provenanceMetadata/
     end
 
-    it "returns a metadata file signature" do
-       get '/sdr/objects/druid:jq937jp0017/metadata/provenanceMetadata.xml?signature'
-       last_response.should be_ok
-       last_response.body.should =~ /<fileSignature size="564" md5="17071e4607de4b272f3f06ec76be4c4a" sha1="b796a0b569bde53953ba0835bb47f4009f654349"\/>/
-     end
+    #it "returns a metadata file signature" do
+    #   get '/sdr/objects/druid:jq937jp0017/metadata/provenanceMetadata.xml?signature'
+    #   last_response.should be_ok
+    #   last_response.body.should =~ /<fileSignature size="564" md5="17071e4607de4b272f3f06ec76be4c4a" sha1="b796a0b569bde53953ba0835bb47f4009f654349"\/>/
+    # end
 
     it "returns the most recent manifest file if version param is omitted" do
       get '/sdr/objects/druid:jq937jp0017/manifest/signatureCatalog.xml'
@@ -114,11 +157,12 @@ describe Sdr::ServicesApi do
       last_response.body.should =~ /<signatureCatalog objectId="druid:jq937jp0017" versionId="3"/
     end
 
-    it "returns a manifest file signature" do
-      get '/sdr/objects/druid:jq937jp0017/manifest/signatureCatalog.xml?signature'
-      last_response.should be_ok
-      last_response.body.should =~ /<fileSignature size="4210" md5="a4b5e6f14bcf0fd5f8e295c0001b6f19" sha1="e9804e90bf742b2f0c05858e7d37653552433183"\/>/
-    end
+    #it "returns a manifest file signature" do
+    #  get '/sdr/objects/druid:jq937jp0017/manifest/signatureCatalog.xml?signature'
+    #  last_response.should be_ok
+    #  last_response.body.should =~ /<fileSignature size="4210" md5="a4b5e6f14bcf0fd5f8e295c0001b6f19" sha1="e9804e90bf742b2f0c05858e7d37653552433183"\/>/
+    #end
 
   end
+
 end

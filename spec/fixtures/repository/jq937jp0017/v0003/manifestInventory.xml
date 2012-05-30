@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<fileInventory type="manifests" objectId="druid:jq937jp0017" versionId="3" inventoryDatetime="2012-05-10T20:55:23Z" fileCount="4" byteCount="11872" blockCount="14">
-  <fileGroup groupId="manifests" dataSource="/Users/wmene/dev/afsgit/sdr/moab-versioning/spec/fixtures/derivatives/ingests/jq937jp0017/v0003" fileCount="4" byteCount="11872" blockCount="14">
+<fileInventory type="manifests" objectId="druid:jq937jp0017" versionId="3" inventoryDatetime="2012-05-30T22:10:46Z" fileCount="4" byteCount="11856" blockCount="14">
+  <fileGroup groupId="manifests" dataSource="/Users/rnanders/Code/Ruby/moab-versioning/spec/fixtures/derivatives/ingests/jq937jp0017/v0003" fileCount="4" byteCount="11856" blockCount="14">
     <file>
-      <fileSignature size="3492" md5="540ed7aa1b9f6e4ae92200c4f0d1561a" sha1="760e879f3c550893783f68521fbf6b4517b66142"/>
-      <fileInstance path="fileInventoryDifference.xml" datetime="2012-05-10T20:55:23Z"/>
+      <fileSignature size="3489" md5="447598933eccf0232fda448b4a9b2643" sha1="cfcc2f5775998d263f377024d8447cfb177ccb01"/>
+      <fileInstance path="fileInventoryDifference.xml" datetime="2012-05-30T22:10:46Z"/>
     </file>
     <file>
-      <fileSignature size="4210" md5="a4b5e6f14bcf0fd5f8e295c0001b6f19" sha1="e9804e90bf742b2f0c05858e7d37653552433183"/>
-      <fileInstance path="signatureCatalog.xml" datetime="2012-05-10T20:55:23Z"/>
+      <fileSignature size="4207" md5="68323d0c4385eb85a41e630122c8d5ce" sha1="2d7dc13eb92fd6290af5c2607696dc76d2e2f317"/>
+      <fileInstance path="signatureCatalog.xml" datetime="2012-05-30T22:10:46Z"/>
     </file>
     <file>
-      <fileSignature size="1336" md5="4f4684f8b371462629e6b3bcb933d00b" sha1="3055a64ccd737a96e200a9be90d8ccf16ecf0a81"/>
-      <fileInstance path="versionAdditions.xml" datetime="2012-05-10T20:55:23Z"/>
+      <fileSignature size="1335" md5="099dcca1362da93129688d0019ced0ec" sha1="7c8612769604f9bb302771f9f1a309ae9a5924d1"/>
+      <fileInstance path="versionAdditions.xml" datetime="2012-05-30T22:10:46Z"/>
     </file>
     <file>
-      <fileSignature size="2834" md5="894f943afceb13429ce899ba17f17ce7" sha1="3431a6b890ef7ba0293e78f5ec332a5d04ae9740"/>
-      <fileInstance path="versionInventory.xml" datetime="2012-05-10T20:55:23Z"/>
+      <fileSignature size="2825" md5="1c843415689621e0aa987cbe027d9190" sha1="0ba90c9f6f0817241974d4f02f811382a943f761"/>
+      <fileInstance path="versionInventory.xml" datetime="2012-05-30T22:10:46Z"/>
     </file>
   </fileGroup>
 </fileInventory>

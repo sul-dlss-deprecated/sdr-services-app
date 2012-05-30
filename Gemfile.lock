@@ -36,7 +36,7 @@ GEM
       rake (>= 0.8.7)
       rest-client
     mime-types (1.18)
-    moab-versioning (0.5)
+    moab-versioning (0.6)
       confstruct
       happymapper
       hashery
@@ -88,7 +88,7 @@ PLATFORMS
 
 DEPENDENCIES
   lyberteam-devel
-  moab-versioning (>= 0.5)
+  moab-versioning (>= 0.6)
   rack-test
   rspec
   ruby-debug

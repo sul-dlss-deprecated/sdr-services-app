@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<signatureCatalog objectId="druid:jq937jp0017" versionId="1" catalogDatetime="2012-05-10T20:55:23Z" fileCount="11" byteCount="229690" blockCount="228">
+<signatureCatalog objectId="druid:jq937jp0017" versionId="1" catalogDatetime="2012-05-30T22:10:46Z" fileCount="11" byteCount="217559" blockCount="216">
   <entry originalVersion="1" groupId="content" storagePath="intro-1.jpg">
     <fileSignature size="41981" md5="915c0305bf50c55143f1506295dc122c" sha1="60448956fbe069979fce6a6e55dba4ce1f915178"/>
   </entry>
@@ -25,12 +25,12 @@
     <fileSignature size="3046" md5="a60bb487db6a1ceb5e0b5bb3cae2dfa2" sha1="edefc0e1d7cffd5bd3c7db6a393ab7632b70dc2d"/>
   </entry>
   <entry originalVersion="1" groupId="metadata" storagePath="identityMetadata.xml">
-    <fileSignature size="12903" md5="ccb5bf2ae0c2c6ad0b89692fa1e10145" sha1="3badb0d06aef40f14e4664d2594c6060b9e9716b"/>
+    <fileSignature size="932" md5="f0815d7b45530491931d5897ccbe2dd1" sha1="4065ff5523e227c1914098372a3dc587f739030e"/>
   </entry>
   <entry originalVersion="1" groupId="metadata" storagePath="provenanceMetadata.xml">
     <fileSignature size="5306" md5="17193dbf595571d728ba59aa31638db9" sha1="c8b91eacf9ad7532a42dc52b3c9cf03b4ad2c7f6"/>
   </entry>
   <entry originalVersion="1" groupId="metadata" storagePath="versionMetadata.xml">
-    <fileSignature size="384" md5="f16a2564fae2706a8c82cda6dccdb4d9" sha1="7aaf84f63a1db803d272352f03935d303f066560"/>
+    <fileSignature size="224" md5="64e002bea8f3f4bd7e91882aa43d2f1d" sha1="0f344673dc1e51758a4d8ed589630cde6744d4ad"/>
   </entry>
 </signatureCatalog>
