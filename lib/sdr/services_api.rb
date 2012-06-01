@@ -4,6 +4,17 @@ module Sdr
   class ServicesApi < Sinatra::Base
 
     helpers do
+      def latest_version
+        unless @latest_version
+          @latest_version = Stanford::StorageServices.current_version(params[:druid])
+        end
+        @latest_version
+      end
+
+      def caption(version)
+        "Object = #{params[:druid]} - Version = #{version ? version.to_s : latest_version} of #{latest_version}"
+      end
+
       def version_param()
         (params[:version].nil? || params[:version].strip.empty?) ? nil : params[:version].to_i
       end
@@ -39,35 +50,49 @@ module Sdr
       end
 
       def file_list(druid, category, version)
-        title = "Object #{druid} - #{category}#{version ? ' - Version '+version : ''}"
         ul = Array.new
         file_group = Stanford::StorageServices.retrieve_file_group(category, druid, version)
         file_group.path_hash.each do |file_id,signature|
           href = url("/sdr/objects/#{druid}/#{category}/#{file_id}?signature=#{signature.fixity.join(',')}")
           ul << "<li><a href='#{href}'>#{file_id}</a></li>"
         end
-        list = ul.join("\n")
-        "<html><head><title>#{title}</title></head><body><ul>\n#{list}\n</ul></body></html>"
+        title = "<title>#{caption(version)} - #{category.capitalize}</title>\n"
+        h3 = "<h3>#{caption(version)} - #{category.capitalize}</h3>\n"
+        list = "<ul>\n#{ul.join("\n")}\n</ul>\n"
+        "<html><head>\n#{title}</head><body>\n#{h3}#{list}</body></html>\n"
       end
 
       def menu(druid, version)
-        title = "Object #{druid}#{version ? ' - Version '+version : ''}"
         vopt = version ? "?version=#{version}" : ""
         ul = Array.new
-        href = url("/sdr/objects/#{druid}/current_version")
-        ul << "<li><a href='#{href}'>get currentversion</a></li>"
-        href = url("/sdr/objects/#{druid}/version_metadata")
-        ul << "<li><a href='#{href}'>get version metadata#{vopt}</a></li>"
-        href = url("/sdr/objects/#{druid}/version_differences?base=0&compare=1")
-        ul << "<li><a href='#{href}'>get difference between versions 0 and 1</a></li>"
         href = url("/sdr/objects/#{druid}/list/content#{vopt}")
         ul << "<li><a href='#{href}'>get content list</a></li>"
         href = url("/sdr/objects/#{druid}/list/metadata#{vopt}")
         ul << "<li><a href='#{href}'>get metadata list</a></li>"
         href = url("/sdr/objects/#{druid}/list/manifests#{vopt}")
         ul << "<li><a href='#{href}'>get manifest list</a></li>"
-        list = ul.join("\n")
-        "<html><head><title>#{title}</title></head><body><ul>\n#{list}\n</ul></body></html>\n"
+        href = url("/sdr/objects/#{druid}/version_list")
+        ul << "<li><a href='#{href}'>get version list#{vopt}</a></li>"
+
+        title = "<title>#{caption(version)}</title>\n"
+        h3 = "<h3>#{caption(version)}</h3>\n"
+        list = "<ul>\n#{ul.join("\n")}\n</ul>\n"
+        "<html><head>\n#{title}</head><body>\n#{h3}#{list}</body></html>\n"
+      end
+
+      def version_list
+        ul = Array.new
+        version_metadata_file = Stanford::StorageServices.version_metadata(params[:druid])
+        vm = Moab::VersionMetadata.parse(version_metadata_file.read)
+        vm.versions.each do |v|
+          v.inspect
+          href = url("/sdr/objects/#{params[:druid]}?version=#{v.version_id.to_s}")
+          ul << "<li><a href='#{href}'>Version #{v.version_id.to_s} - #{v.description}</a></li>"
+        end
+        title = "<title>Object = #{params[:druid]} - Versions</title>\n"
+        h3 = "<h3>Object = #{params[:druid]} - Versions</h3>\n"
+        list = "<ul>\n#{ul.join("\n")}\n</ul>\n"
+        "<html><head>\n#{title}</head><body>\n#{h3}#{list}</body></html>\n"
       end
 
     end
@@ -89,6 +114,10 @@ module Sdr
     get '/sdr/objects/:druid/version_metadata' do
       version_metadata = Stanford::StorageServices.version_metadata(params[:druid])
       [200, {'content-type' => 'application/xml'}, version_metadata.read]
+    end
+
+    get '/sdr/objects/:druid/version_list' do
+      [200, {'content-type' => 'text/html'}, version_list]
     end
 
     get '/sdr/objects/:druid/version_differences' do
@@ -125,7 +154,11 @@ module Sdr
       additions = Stanford::StorageServices.cm_version_additions(cmd_xml, params[:druid], version_param())
       [200, {'content-type' => 'application/xml'}, additions.to_xml]
     end
-        
+
+    get '/test/file_id_param/*' do
+      file_id_param
+    end
+
     def self.new(*)
       super
     end

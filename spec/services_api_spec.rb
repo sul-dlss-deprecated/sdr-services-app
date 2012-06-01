@@ -72,14 +72,17 @@ describe Sdr::ServicesApi do
     it "returns a menu" do
       get '/sdr/objects/druid:jq937jp0017'
       last_response.body.should == <<-EOF
-<html><head><title>Object druid:jq937jp0017</title></head><body><ul>
-<li><a href='http://example.org/sdr/objects/druid:jq937jp0017/current_version'>get currentversion</a></li>
-<li><a href='http://example.org/sdr/objects/druid:jq937jp0017/version_metadata'>get version metadata</a></li>
-<li><a href='http://example.org/sdr/objects/druid:jq937jp0017/version_differences?base=0&compare=1'>get difference between versions 0 and 1</a></li>
+<html><head>
+<title>Object = druid:jq937jp0017 - Version = 3 of 3</title>
+</head><body>
+<h3>Object = druid:jq937jp0017 - Version = 3 of 3</h3>
+<ul>
 <li><a href='http://example.org/sdr/objects/druid:jq937jp0017/list/content'>get content list</a></li>
 <li><a href='http://example.org/sdr/objects/druid:jq937jp0017/list/metadata'>get metadata list</a></li>
 <li><a href='http://example.org/sdr/objects/druid:jq937jp0017/list/manifests'>get manifest list</a></li>
-</ul></body></html>
+<li><a href='http://example.org/sdr/objects/druid:jq937jp0017/version_list'>get version list</a></li>
+</ul>
+</body></html>
 EOF
     end
 
@@ -93,6 +96,12 @@ EOF
       get '/sdr/objects/druid:jq937jp0017/version_metadata'
       last_response.should be_ok
       last_response.body.should =~ /<versionMetadata objectId="druid:ab123cd4567">/
+    end
+
+    it "returns version list" do
+      get '/sdr/objects/druid:jq937jp0017/version_list'
+      last_response.should be_ok
+      last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Versions</title>}
     end
 
   end
@@ -111,7 +120,7 @@ EOF
 
     it "should return a list of manifest files" do
       get '/sdr/objects/druid:jq937jp0017/list/manifests'
-      last_response.body.should =~ %r{<title>Object druid:jq937jp0017 - manifests</title>}
+      last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Manifests</title>}
     end
   end
 
@@ -162,6 +171,16 @@ EOF
     #  last_response.should be_ok
     #  last_response.body.should =~ /<fileSignature size="4210" md5="a4b5e6f14bcf0fd5f8e295c0001b6f19" sha1="e9804e90bf742b2f0c05858e7d37653552433183"\/>/
     #end
+
+  end
+
+  describe "helpers" do
+    it "should correctly handle file paths" do
+      get '/test/file_id_param/a'
+      last_response.body.should == 'a'
+      get '/test/file_id_param/a/b'
+      last_response.body.should == 'a/b'
+    end
 
   end
 
