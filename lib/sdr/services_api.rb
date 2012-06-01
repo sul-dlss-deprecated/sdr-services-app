@@ -55,7 +55,7 @@ module Sdr
         file_group.path_hash.each do |file_id,signature|
           vopt = version ? "?version=#{version}" : ""
           if category =~ /manifest/
-            href = url("/sdr/objects/#{druid}/#{category}/#{file_id}?}#{vopt}")
+            href = url("/sdr/objects/#{druid}/#{category}/#{file_id}#{vopt}")
           else
             href = url("/sdr/objects/#{druid}/#{category}/#{file_id}?signature=#{signature.fixity.join(',')}")
           end
