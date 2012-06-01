@@ -53,7 +53,12 @@ module Sdr
         ul = Array.new
         file_group = Stanford::StorageServices.retrieve_file_group(category, druid, version)
         file_group.path_hash.each do |file_id,signature|
-          href = url("/sdr/objects/#{druid}/#{category}/#{file_id}?signature=#{signature.fixity.join(',')}")
+          vopt = version ? "?version=#{version}" : ""
+          if category =~ /manifest/
+            href = url("/sdr/objects/#{druid}/#{category}/#{file_id}?}#{vopt}")
+          else
+            href = url("/sdr/objects/#{druid}/#{category}/#{file_id}?signature=#{signature.fixity.join(',')}")
+          end
           ul << "<li><a href='#{href}'>#{file_id}</a></li>"
         end
         title = "<title>#{caption(version)} - #{category.capitalize}</title>\n"
@@ -72,7 +77,7 @@ module Sdr
         href = url("/sdr/objects/#{druid}/list/manifests#{vopt}")
         ul << "<li><a href='#{href}'>get manifest list</a></li>"
         href = url("/sdr/objects/#{druid}/version_list")
-        ul << "<li><a href='#{href}'>get version list#{vopt}</a></li>"
+        ul << "<li><a href='#{href}'>get version list</a></li>"
 
         title = "<title>#{caption(version)}</title>\n"
         h3 = "<h3>#{caption(version)}</h3>\n"
@@ -138,6 +143,10 @@ module Sdr
     end
 
     get '/sdr/objects/:druid/manifest/*' do
+      retrieve_file(params[:druid],'manifest',file_id_param, version_param, signature_param)
+    end
+
+    get '/sdr/objects/:druid/manifests/*' do
       retrieve_file(params[:druid],'manifest',file_id_param, version_param, signature_param)
     end
 
