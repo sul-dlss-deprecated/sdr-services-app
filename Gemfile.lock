@@ -36,7 +36,7 @@ GEM
       rake (>= 0.8.7)
       rest-client
     mime-types (1.18)
-    moab-versioning (0.6)
+    moab-versioning (0.7)
       confstruct
       happymapper
       hashery
@@ -52,7 +52,7 @@ GEM
       net-ssh (>= 1.99.1)
     net-ssh-kerberos (0.2.7)
       net-ssh (>= 2.0)
-    nokogiri (1.5.2)
+    nokogiri (1.5.4)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
@@ -88,7 +88,7 @@ PLATFORMS
 
 DEPENDENCIES
   lyberteam-devel
-  moab-versioning (>= 0.6)
+  moab-versioning (>= 0.7)
   rack-test
   rspec
   ruby-debug

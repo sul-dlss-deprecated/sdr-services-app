@@ -15,6 +15,10 @@ module Sdr
         "Object = #{params[:druid]} - Version = #{version ? version.to_s : latest_version} of #{latest_version}"
       end
 
+      def subset_param()
+        (params[:subset].nil? || params[:version].strip.empty?) ? 'all' : params[:subset]
+      end
+
       def version_param()
         (params[:version].nil? || params[:version].strip.empty?) ? nil : params[:version].to_i
       end
@@ -153,7 +157,7 @@ module Sdr
     post '/sdr/objects/:druid/cm-inv-diff' do
       request.body.rewind
       cmd_xml = request.body.read
-      diff = Stanford::StorageServices.compare_cm_to_version_inventory(cmd_xml, params[:druid], version_param())
+      diff = Stanford::StorageServices.compare_cm_to_version(cmd_xml, params[:druid], subset_param(), version_param())
       [200, {'content-type' => 'application/xml'}, diff.to_xml]
     end
 
