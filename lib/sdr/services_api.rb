@@ -16,7 +16,7 @@ module Sdr
       end
 
       def subset_param()
-        (params[:subset].nil? || params[:version].strip.empty?) ? 'all' : params[:subset]
+        (params[:subset].nil? || params[:subset].strip.empty?) ? 'all' : params[:subset]
       end
 
       def version_param()
