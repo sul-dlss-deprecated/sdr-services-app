@@ -2,7 +2,6 @@ GEM
   remote: http://rubygems.org/
   remote: http://sulair-rails-dev.stanford.edu/
   specs:
-    blankslate (2.1.2.4)
     capistrano (2.12.0)
       highline
       net-scp (>= 1.0.0)
@@ -14,8 +13,7 @@ GEM
     diff-lcs (1.1.3)
     happymapper (0.4.0)
       libxml-ruby (~> 2.0)
-    hashery (1.5.0)
-      blankslate
+    hashery (2.0.0)
     highline (1.6.12)
     jruby-pageant (1.0.2)
     json (1.7.3)
@@ -36,10 +34,10 @@ GEM
       rake (>= 0.8.7)
       rest-client
     mime-types (1.18)
-    moab-versioning (0.7)
+    moab-versioning (0.8.1)
       confstruct
       happymapper
-      hashery
+      hashery (>= 2.0.0)
       json
       nokogiri
     net-scp (1.0.4)
@@ -88,7 +86,7 @@ PLATFORMS
 
 DEPENDENCIES
   lyberteam-devel
-  moab-versioning (>= 0.7)
+  moab-versioning (>= 0.8.1)
   rack-test
   rspec
   ruby-debug

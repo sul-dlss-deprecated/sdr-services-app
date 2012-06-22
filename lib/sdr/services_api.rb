@@ -113,7 +113,7 @@ module Sdr
 
     get '/sdr/objects/:druid' do
       [200, {'content-type' => 'text/html'}, menu(params[:druid], version_param)]
-    end
+      end
 
     get '/sdr/objects/:druid/current_version' do
       current_version = Stanford::StorageServices.current_version(params[:druid])
@@ -176,6 +176,9 @@ module Sdr
       super
     end
 
+    error do
+      'An error occured: ' + request.env['sinatra.error'].message
+    end
 
   end
 
