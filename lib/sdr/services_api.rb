@@ -3,6 +3,8 @@ require 'moab_stanford'
 module Sdr
   class ServicesApi < Sinatra::Base
 
+    disable :raise_errors
+
     helpers do
       def latest_version
         unless @latest_version
@@ -106,6 +108,18 @@ module Sdr
 
     end
 
+    error Moab::ObjectNotFoundException do
+      [404, request.env['sinatra.error'].message]
+    end
+
+    error Moab::InvalidMetadataException do
+      [400, "Bad Request: Invalid contentMetadata - " + request.env['sinatra.error'].message]
+    end
+
+    error do
+      [500, 'Unexpected Error: ' + request.env['sinatra.error'].message]
+    end
+
     # TODO add exception logging
     get '/sdr/objects' do 
       'ok'
@@ -176,9 +190,6 @@ module Sdr
       super
     end
 
-    error do
-      'An error occured: ' + request.env['sinatra.error'].message
-    end
 
   end
 

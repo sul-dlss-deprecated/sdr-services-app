@@ -31,11 +31,37 @@ describe Sdr::ServicesApi do
       </contentMetadata>
       EOXML
     }
-    
+
+    let(:bad_content_md) { <<-EOXML
+      <contentMetadata type="sample" objectId="druid:jq937jp0017">
+        <resource type="version" sequence="1" id="version-2">
+          <file datetime="2012-03-26T08:15:11-06:00" size="40873" id="title.jpg" shelve="yes" publish="yes" preserve="yes">
+            <checksum type="SHA-1">583220e0572640abcd3ddd97393d224e8053a6ad</checksum>
+          </file>
+          <file datetime="2012-03-26T09:35:15-06:00"  id="page-1.jpg" shelve="yes" publish="yes" preserve="yes">
+            <checksum type="MD5">c1c34634e2f18a354cd3e3e1574c3194</checksum>
+            <checksum type="SHA-1">0616a0bd7927328c364b2ea0b4a79c507ce915ed</checksum>
+          </file>
+    EOXML
+    }
+
+    # RSpec uses a method_missing trick for the be_* expectation.
+    # Whenever it catches a call to be_foo, it creates an expectation to
+    # match that #foo? on the receiver is true.
+    # Since Rack's response object responds to #ok?, the be_ok expectation works.
+
+
     it "returns diff xml between content metadata and a specific version" do
       post '/sdr/objects/druid:jq937jp0017/cm-inv-diff?version=1', content_md
       last_response.should be_ok
       last_response.body.should =~ /<fileInventoryDifference/
+    end
+
+    it "returns diff xml between content metadata and a specific version" do
+      post '/sdr/objects/druid:jq937jp0017/cm-inv-diff?version=1', bad_content_md
+      last_response.should_not be_ok
+      last_response.status.should == 400
+      last_response.body.should =~ /Bad Request: Invalid contentMetadata - File node having id='title.jpg' is missing md5 .../
     end
     
     it "returns a diff against the latest version if the version parameter is not passed in" do
@@ -90,6 +116,13 @@ EOF
       get '/sdr/objects/druid:jq937jp0017/current_version'
       last_response.should be_ok
       last_response.body.should == '<currentVersion>3</currentVersion>'
+    end
+
+    it "returns 404 if object not in SDR" do
+      get '/sdr/objects/druid:zz999yy0000/current_version'
+      last_response.should_not be_ok
+      last_response.status.should == 404
+      last_response.body.should =~ /No object found for druid:zz999yy0000/
     end
 
     it "returns current version metadata" do

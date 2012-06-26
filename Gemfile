@@ -2,7 +2,7 @@ source :rubygems
 source 'http://sulair-rails-dev.stanford.edu'
 
 gem 'sinatra'
-gem 'moab-versioning', ">= 0.8.1"
+gem 'moab-versioning', ">= 0.8.4"
 
 group :test do
     gem 'ruby-debug'
