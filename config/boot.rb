@@ -1,6 +1,3 @@
-# require 'socket'
-# ENV["RACK_ENV"] = "test" if(Socket.gethostname =~ /stacks-test/)
-  
 ENV["RACK_ENV"] ||= "development"
 
 require 'rubygems'
@@ -21,6 +18,16 @@ require 'sdr/services_api'
 #  LyberCore::Log.set_level(0)
 #end
 
-env_file = File.expand_path(File.dirname(__FILE__) + "/environments/#{ENV['RACK_ENV']}")
-require env_file
+env_file = case ENV["RACK_ENV"].to_sym
+  when :development
+    "development.rb"
+  when :test
+    "sdr-services-test.rb"
+  when :prod
+    "sdr-services.rb"
+  else
+    "development.rb"
+  end
+env_path = File.expand_path(File.dirname(__FILE__) + "/environments/#{env_file}")
+require env_path
 

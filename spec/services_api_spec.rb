@@ -60,8 +60,9 @@ describe Sdr::ServicesApi do
     it "returns diff xml between content metadata and a specific version" do
       post '/sdr/objects/druid:jq937jp0017/cm-inv-diff?version=1', bad_content_md
       last_response.should_not be_ok
-      last_response.status.should == 400
-      last_response.body.should =~ /Bad Request: Invalid contentMetadata - File node having id='title.jpg' is missing md5 .../
+      last_response.status.should == 500
+      last_response.body.should =~ /Moab::InvalidMetadataException/
+      last_response.body.should =~ /missing md5/
     end
     
     it "returns a diff against the latest version if the version parameter is not passed in" do
@@ -121,8 +122,8 @@ EOF
     it "returns 404 if object not in SDR" do
       get '/sdr/objects/druid:zz999yy0000/current_version'
       last_response.should_not be_ok
-      last_response.status.should == 404
-      last_response.body.should =~ /No object found for druid:zz999yy0000/
+      last_response.status.should == 500
+      last_response.body.should =~ /Moab::ObjectNotFoundException/
     end
 
     it "returns current version metadata" do
