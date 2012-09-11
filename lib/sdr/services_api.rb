@@ -3,6 +3,10 @@ require 'moab_stanford'
 module Sdr
   class ServicesApi < Sinatra::Base
 
+    configure do
+      enable :logging
+    end
+
     disable :raise_errors
 
     helpers do
@@ -117,11 +121,14 @@ module Sdr
     end
 
     error do
-      [500, 'Unexpected Error: ' + request.env['sinatra.error'].message]
+      errmsg = 'Unexpected Error: ' + request.env['sinatra.error'].message
+      logger.error errmsg
+      [500, errmsg]
     end
 
     # TODO add exception logging
     get '/objects' do
+      logger.info 'logging is working'
       'ok'
     end
 
