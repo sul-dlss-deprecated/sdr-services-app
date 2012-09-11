@@ -61,9 +61,9 @@ module Sdr
         file_group.path_hash.each do |file_id,signature|
           vopt = version ? "?version=#{version}" : ""
           if category =~ /manifest/
-            href = url("/sdr/objects/#{druid}/#{category}/#{file_id}#{vopt}")
+            href = url("/objects/#{druid}/#{category}/#{file_id}#{vopt}")
           else
-            href = url("/sdr/objects/#{druid}/#{category}/#{file_id}?signature=#{signature.fixity.join(',')}")
+            href = url("/objects/#{druid}/#{category}/#{file_id}?signature=#{signature.fixity.join(',')}")
           end
           ul << "<li><a href='#{href}'>#{file_id}</a></li>"
         end
@@ -76,13 +76,13 @@ module Sdr
       def menu(druid, version)
         vopt = version ? "?version=#{version}" : ""
         ul = Array.new
-        href = url("/sdr/objects/#{druid}/list/content#{vopt}")
+        href = url("/objects/#{druid}/list/content#{vopt}")
         ul << "<li><a href='#{href}'>get content list</a></li>"
-        href = url("/sdr/objects/#{druid}/list/metadata#{vopt}")
+        href = url("/objects/#{druid}/list/metadata#{vopt}")
         ul << "<li><a href='#{href}'>get metadata list</a></li>"
-        href = url("/sdr/objects/#{druid}/list/manifests#{vopt}")
+        href = url("/objects/#{druid}/list/manifests#{vopt}")
         ul << "<li><a href='#{href}'>get manifest list</a></li>"
-        href = url("/sdr/objects/#{druid}/version_list")
+        href = url("/objects/#{druid}/version_list")
         ul << "<li><a href='#{href}'>get version list</a></li>"
 
         title = "<title>#{caption(version)}</title>\n"
@@ -97,7 +97,7 @@ module Sdr
         vm = Moab::VersionMetadata.parse(version_metadata_file.read)
         vm.versions.each do |v|
           v.inspect
-          href = url("/sdr/objects/#{params[:druid]}?version=#{v.version_id.to_s}")
+          href = url("/objects/#{params[:druid]}?version=#{v.version_id.to_s}")
           ul << "<li><a href='#{href}'>Version #{v.version_id.to_s} - #{v.description}</a></li>"
         end
         title = "<title>Object = #{params[:druid]} - Versions</title>\n"
@@ -121,61 +121,61 @@ module Sdr
     end
 
     # TODO add exception logging
-    get '/sdr/objects' do 
+    get '/objects' do
       'ok'
     end
 
-    get '/sdr/objects/:druid' do
+    get '/objects/:druid' do
       [200, {'content-type' => 'text/html'}, menu(params[:druid], version_param)]
       end
 
-    get '/sdr/objects/:druid/current_version' do
+    get '/objects/:druid/current_version' do
       current_version = Stanford::StorageServices.current_version(params[:druid])
       [200, {'content-type' => 'application/xml'}, "<currentVersion>#{current_version.to_s}</currentVersion>"]
     end
 
-    get '/sdr/objects/:druid/version_metadata' do
+    get '/objects/:druid/version_metadata' do
       version_metadata = Stanford::StorageServices.version_metadata(params[:druid])
       [200, {'content-type' => 'application/xml'}, version_metadata.read]
     end
 
-    get '/sdr/objects/:druid/version_list' do
+    get '/objects/:druid/version_list' do
       [200, {'content-type' => 'text/html'}, version_list]
     end
 
-    get '/sdr/objects/:druid/version_differences' do
+    get '/objects/:druid/version_differences' do
       version_differences = Stanford::StorageServices.version_differences(params[:druid], params[:base].to_i, params[:compare].to_i)
       [200, {'content-type' => 'application/xml'}, version_differences.to_xml]
     end
 
-    get '/sdr/objects/:druid/list/:category' do
+    get '/objects/:druid/list/:category' do
       [200, {'content-type' => 'text/html'}, file_list( params[:druid], params[:category], version_param)]
     end
 
-    get '/sdr/objects/:druid/content/*' do
+    get '/objects/:druid/content/*' do
       retrieve_file(params[:druid],'content',file_id_param, version_param, signature_param)
     end
 
-    get '/sdr/objects/:druid/metadata/*' do
+    get '/objects/:druid/metadata/*' do
       retrieve_file(params[:druid],'metadata',file_id_param, version_param, signature_param)
     end
 
-    get '/sdr/objects/:druid/manifest/*' do
+    get '/objects/:druid/manifest/*' do
       retrieve_file(params[:druid],'manifest',file_id_param, version_param, signature_param)
     end
 
-    get '/sdr/objects/:druid/manifests/*' do
+    get '/objects/:druid/manifests/*' do
       retrieve_file(params[:druid],'manifest',file_id_param, version_param, signature_param)
     end
 
-    post '/sdr/objects/:druid/cm-inv-diff' do
+    post '/objects/:druid/cm-inv-diff' do
       request.body.rewind
       cmd_xml = request.body.read
       diff = Stanford::StorageServices.compare_cm_to_version(cmd_xml, params[:druid], subset_param(), version_param())
       [200, {'content-type' => 'application/xml'}, diff.to_xml]
     end
 
-    post '/sdr/objects/:druid/cm-adds' do
+    post '/objects/:druid/cm-adds' do
       request.body.rewind
       cmd_xml = request.body.read
       additions = Stanford::StorageServices.cm_version_additions(cmd_xml, params[:druid], version_param())
