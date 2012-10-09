@@ -9,6 +9,12 @@ module Sdr
 
     disable :raise_errors
 
+    use Rack::Auth::Basic, "Restricted Area" do |username, password|
+      [username, password] == [SdrServices::Config.username, SdrServices::Config.password]
+    end
+
+
+
     helpers do
       def latest_version
         unless @latest_version
@@ -141,7 +147,7 @@ module Sdr
       [200, {'content-type' => 'application/xml'}, "<currentVersion>#{current_version.to_s}</currentVersion>"]
     end
 
-    get '/objects/:druid/version_metadata' do
+      get '/objects/:druid/version_metadata' do
       version_metadata = Stanford::StorageServices.version_metadata(params[:druid])
       [200, {'content-type' => 'application/xml'}, version_metadata.read]
     end

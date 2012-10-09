@@ -18,6 +18,14 @@ require 'sdr/services_api'
 #  LyberCore::Log.set_level(0)
 #end
 
+module SdrServices
+  Config = Confstruct::Configuration.new do
+      username  nil
+      password nil
+  end
+end
+
+
 env_file = case ENV["RACK_ENV"].to_sym
   when :development
     "development.rb"

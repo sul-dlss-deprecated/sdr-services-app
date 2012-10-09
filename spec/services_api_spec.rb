@@ -7,6 +7,7 @@ describe Sdr::ServicesApi do
   end
 
   describe "POST '/objects/{druid}/cm-inv-diff'" do
+
     let(:content_md) { <<-EOXML
       <?xml version="1.0"?>
       <contentMetadata type="sample" objectId="druid:jq937jp0017">
@@ -52,12 +53,14 @@ describe Sdr::ServicesApi do
 
 
     it "returns diff xml between content metadata and a specific version" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff?version=1', content_md
       last_response.should be_ok
       last_response.body.should =~ /<fileInventoryDifference/
     end
 
     it "returns 400 Bad Request if posted content metadata is invalid" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff?version=1', bad_content_md
       last_response.should_not be_ok
       # last_response.status.should == 400 #(but error handlers not translating errors in dev)
@@ -66,6 +69,7 @@ describe Sdr::ServicesApi do
     end
     
     it "returns a diff against the latest version if the version parameter is not passed in" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff', content_md
       last_response.should be_ok
             
@@ -74,6 +78,7 @@ describe Sdr::ServicesApi do
     end
 
     it "returns a diff against the latest version if an empty version param (?version=) is passed in" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff?version=', content_md
       last_response.should be_ok
       diff = Nokogiri::XML(last_response.body)
@@ -81,12 +86,14 @@ describe Sdr::ServicesApi do
     end
 
     it "returns versionAdditions xml between content metadata and a specific version" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-adds?version=3', content_md
       last_response.should be_ok
       last_response.body.should =~ /<fileInventory type="additions"/
     end
 
     it "handles version as an optional paramater" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff', content_md
       last_response.should be_ok
       last_response.body.should =~ /<fileInventoryDifference/
@@ -97,6 +104,7 @@ describe Sdr::ServicesApi do
   describe "Version information" do
 
     it "returns a menu" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017'
       last_response.body.should == <<-EOF
 <html><head>
@@ -114,12 +122,14 @@ EOF
     end
 
     it "returns current version number" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/current_version'
       last_response.should be_ok
       last_response.body.should == '<currentVersion>3</currentVersion>'
     end
 
     it "returns 404 if object not in SDR" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:zz999yy0000/current_version'
       last_response.should_not be_ok
       # last_response.status.should == 404 #(but error handlers not translating errors in dev)
@@ -127,12 +137,14 @@ EOF
     end
 
     it "returns current version metadata" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/version_metadata'
       last_response.should be_ok
       last_response.body.should =~ /<versionMetadata objectId="druid:ab123cd4567">/
     end
 
     it "returns version list" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/version_list'
       last_response.should be_ok
       last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Versions</title>}
@@ -143,6 +155,7 @@ EOF
   describe "version differences" do
 
     it "returns a version differences report" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/version_differences?base=1&compare=3'
       last_response.should be_ok
       last_response.body.should =~ /<fileInventoryDifference objectId="druid:jq937jp0017"/
@@ -153,6 +166,7 @@ EOF
   describe "file list" do
 
     it "should return a list of manifest files" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/list/manifests'
       last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Manifests</title>}
     end
@@ -161,12 +175,14 @@ EOF
   describe "file retrieval" do
 
     it "returns a content file" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/content/title.jpg?version=1'
       last_response.should be_ok
       last_response.header["content-type"].should =~ %r{image/jpeg}
     end
 
     it "returns a content file using a signature" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/content/title.jpg?signature=40873,1a726cd7963bd6d3ceb10a8c353ec166,583220e0572640abcd3ddd97393d224e8053a6ad'
       last_response.should be_ok
       last_response.header["content-type"].should =~ %r{image/jpeg}
@@ -174,6 +190,7 @@ EOF
 
 
     #it "returns a content file signature" do
+    #  authorize SdrServices::Config.username, SdrServices::Config.password
     #  get '/objects/druid:jq937jp0017/content/title.jpg?signature=true'
     #  last_response.should be_ok
     #  last_response.header["content-type"].should =~ %r{application/xml}
@@ -183,24 +200,28 @@ EOF
     it "returns a content file"
 
     it "returns a metadata file" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/metadata/provenanceMetadata.xml'
       last_response.should be_ok
       last_response.body.should =~ /<provenanceMetadata/
     end
 
     #it "returns a metadata file signature" do
+    #   authorize SdrServices::Config.username, SdrServices::Config.password
     #   get '/objects/druid:jq937jp0017/metadata/provenanceMetadata.xml?signature'
     #   last_response.should be_ok
     #   last_response.body.should =~ /<fileSignature size="564" md5="17071e4607de4b272f3f06ec76be4c4a" sha1="b796a0b569bde53953ba0835bb47f4009f654349"\/>/
     # end
 
     it "returns the most recent manifest file if version param is omitted" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/manifest/signatureCatalog.xml'
       last_response.should be_ok
       last_response.body.should =~ /<signatureCatalog objectId="druid:jq937jp0017" versionId="3"/
     end
 
     #it "returns a manifest file signature" do
+    #  authorize SdrServices::Config.username, SdrServices::Config.password
     #  get '/objects/druid:jq937jp0017/manifest/signatureCatalog.xml?signature'
     #  last_response.should be_ok
     #  last_response.body.should =~ /<fileSignature size="4210" md5="a4b5e6f14bcf0fd5f8e295c0001b6f19" sha1="e9804e90bf742b2f0c05858e7d37653552433183"\/>/
@@ -210,6 +231,7 @@ EOF
 
   describe "helpers" do
     it "should correctly handle file paths" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
       get '/test/file_id_param/a'
       last_response.body.should == 'a'
       get '/test/file_id_param/a/b'
