@@ -9,5 +9,6 @@ group :development do
     gem 'rspec'
     gem 'rack-test', :require => "rack/test"
     gem 'lyberteam-devel'
+    gem "equivalent-xml", ">=0.2.2"
 end
 

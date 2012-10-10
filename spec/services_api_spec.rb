@@ -46,6 +46,36 @@ describe Sdr::ServicesApi do
     EOXML
     }
 
+    let(:empty_subset_md) { <<-EOXML
+      <contentMetadata type="image" objectId="druid:ms205ty4764">
+        <resource type="image" sequence="1" id="ms205ty4764_1">
+          <label>Item 1</label>
+          <file preserve="no" shelve="no" id="DLC1120b_001_001r_0_B_0365_packflat8.tif" publish="no" mimetype="image/tiff" size="39100812">
+            <checksum type="md5">f3a8a45d5526ca9911b7eea600b2124a</checksum>
+            <checksum type="sha1">d9cbce3070942e63b1e4bebc4e6f8232fceb148a</checksum>
+            <imageData width="7216" height="5412"/>
+          </file>
+        </resource>
+        <resource type="image" sequence="2" id="ms205ty4764_2">
+          <label>Item 2</label>
+          <file preserve="no" shelve="no" id="DLC1120b_001_001r_0_B_0450_packflat8.tif" publish="no" mimetype="image/tiff" size="39100812">
+            <checksum type="md5">af1ae04394731b20a455c3f3b6abc804</checksum>
+            <checksum type="sha1">9b883f6e234ed2a1912722bdee21ac9113530ac2</checksum>
+            <imageData width="7216" height="5412"/>
+          </file>
+        </resource>
+        <resource type="image" sequence="3" id="ms205ty4764_3">
+          <label>Item 3</label>
+          <file preserve="no" shelve="no" id="DLC1120b_001_001r_0_B_0465_packflat8.tif" publish="no" mimetype="image/tiff" size="39100812">
+            <checksum type="md5">5e7a1dbf0f0bed4589ac6096770eb273</checksum>
+            <checksum type="sha1">a098c4a0d00d1ec8c564e266efedc9adfc0dd583</checksum>
+            <imageData width="7216" height="5412"/>
+          </file>
+        </resource>
+      </contentMetadata>
+    EOXML
+    }
+
     # RSpec uses a method_missing trick for the be_* expectation.
     # Whenever it catches a call to be_foo, it creates an expectation to
     # match that #foo? on the receiver is true.
@@ -84,6 +114,26 @@ describe Sdr::ServicesApi do
       diff = Nokogiri::XML(last_response.body)
       diff.at_xpath('/fileInventoryDifference/@basis').value.should == 'v3-contentMetadata-all'
     end
+
+    it "returns an empty diff if the base version does not exist and the requested subset is empty" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      post '/objects/druid:ms205ty4764/cm-inv-diff?subset=shelve', empty_subset_md
+      last_response.should be_ok
+      diff = Nokogiri::XML(last_response.body)
+      inventory_diff = <<-EOF
+        <fileInventoryDifference objectId="druid:ms205ty4764" differenceCount="0" basis="v0" other="new-contentMetadata-shelve" >
+          <fileGroupDifference groupId="content" differenceCount="0" identical="0" renamed="0" modified="0" deleted="0" added="0">
+            <subset change="identical" count="0"/>
+            <subset change="renamed" count="0"/>
+            <subset change="modified" count="0"/>
+            <subset change="deleted" count="0"/>
+            <subset change="added" count="0"/>
+          </fileGroupDifference>
+        </fileInventoryDifference>
+      EOF
+      diff.to_xml.gsub(/reportDatetime=".*?"/,'').should be_equivalent_to(inventory_diff)
+    end
+
 
     it "returns versionAdditions xml between content metadata and a specific version" do
       authorize SdrServices::Config.username, SdrServices::Config.password
