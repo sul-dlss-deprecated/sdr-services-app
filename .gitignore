@@ -6,3 +6,4 @@ coverage
 coverage/
 coverage.data
 doc/
+.rvmrc

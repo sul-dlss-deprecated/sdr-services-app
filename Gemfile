@@ -1,14 +1,14 @@
 source :rubygems
-source 'http://sulair-rails-dev.stanford.edu'
+source 'http://sul-gems.stanford.edu'
 
 gem 'sinatra'
-gem 'moab-versioning', ">= 0.8.7"
+gem 'moab-versioning', ">= 1.0.0"
 
 group :development do
     gem 'ruby-debug'
     gem 'rspec'
     gem 'rack-test', :require => "rack/test"
-    gem 'lyberteam-devel'
+    gem 'lyberteam-devel', ">=1.0.0"
     gem "equivalent-xml", ">=0.2.2"
 end
 
