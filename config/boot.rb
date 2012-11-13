@@ -31,7 +31,7 @@ env_file = case ENV["RACK_ENV"].to_sym
     "development.rb"
   when :test
     "sdr-services-test.rb"
-  when :prod
+  when :prod, :production
     "sdr-services.rb"
   else
     "development.rb"
