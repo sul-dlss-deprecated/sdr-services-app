@@ -43,9 +43,20 @@ module Sdr
       def signature_param()
         if (params[:signature].nil? || params[:signature].strip.empty?)
           nil
-        elsif params[:signature].split(',').size == 3
-          size,md5,sha1 = params[:signature].split(',')
-          FileSignature.new(:size=>size,:md5=>md5,:sha1=>sha1)
+        elsif params[:signature].split(',').size > 1
+          values = params[:signature].split(',')
+          signature = FileSignature.new(:size=>values[0])
+          values[1..-1].each do |checksum|
+            case checksum.size
+              when 32
+                signature.md5 = checksum
+              when 40
+                signature.sha1 = checksum
+              when 64
+                signature.sha256 = checksum
+            end
+          end
+          signature
         else
           nil
         end
@@ -73,7 +84,7 @@ module Sdr
           if category =~ /manifest/
             href = url("/objects/#{druid}/#{category}/#{file_id}#{vopt}")
           else
-            href = url("/objects/#{druid}/#{category}/#{file_id}?signature=#{signature.fixity.join(',')}")
+            href = url("/objects/#{druid}/#{category}/#{file_id}?signature=#{signature.query_param}")
           end
           ul << "<li><a href='#{href}'>#{file_id}</a></li>"
         end
