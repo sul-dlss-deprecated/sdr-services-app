@@ -84,7 +84,7 @@ module Sdr
           if category =~ /manifest/
             href = url("/objects/#{druid}/#{category}/#{file_id}#{vopt}")
           else
-            signature_value = "#{signature.size.to_s},#{signature.checksums[0]}"
+            signature_value = "#{signature.size.to_s},#{signature.checksums.values[0]}"
             href = url("/objects/#{druid}/#{category}/#{file_id}?signature=#{signature_value}")
           end
           ul << "<li><a href='#{href}'>#{file_id}</a></li>"
