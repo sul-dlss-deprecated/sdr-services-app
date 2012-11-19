@@ -220,6 +220,19 @@ EOF
       get '/objects/druid:jq937jp0017/list/manifests'
       last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Manifests</title>}
     end
+
+    it "should return a list of content files" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      get '/objects/druid:jq937jp0017/list/content'
+      last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Content</title>}
+    end
+
+    it "should return a list of metadata files" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      get '/objects/druid:jq937jp0017/list/metadata'
+      last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Metadata</title>}
+    end
+
   end
 
   describe "file retrieval" do
