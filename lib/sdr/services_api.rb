@@ -193,6 +193,11 @@ module Sdr
       retrieve_file(params[:druid],'manifest',file_id_param, version_param, signature_param)
     end
 
+    get '/objects/:druid/cm-remediate' do
+      remediated_cm = Stanford::StorageServices.cm_remediate(params[:druid], version_param())
+      [200, {'content-type' => 'application/xml'}, remediated_cm.to_xml]
+    end
+
     post '/objects/:druid/cm-inv-diff' do
       request.body.rewind
       cmd_xml = request.body.read

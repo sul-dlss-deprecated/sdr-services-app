@@ -260,8 +260,6 @@ EOF
     #  last_response.body.should =~ /<fileSignature size="40873" md5="1a726cd7963bd6d3ceb10a8c353ec166" sha1="583220e0572640abcd3ddd97393d224e8053a6ad"\/>/
     #end
 
-    it "returns a content file"
-
     it "returns a metadata file" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/metadata/provenanceMetadata.xml'
@@ -289,6 +287,14 @@ EOF
     #  last_response.should be_ok
     #  last_response.body.should =~ /<fileSignature size="4210" md5="a4b5e6f14bcf0fd5f8e295c0001b6f19" sha1="e9804e90bf742b2f0c05858e7d37653552433183"\/>/
     #end
+
+    it "returns a remediated contentMetadata file" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      get '/objects/druid:jq937jp0017/cm-remediate?version=1'
+      last_response.should be_ok
+      last_response.body.should =~ /<contentMetadata/
+
+    end
 
   end
 

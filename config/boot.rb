@@ -1,3 +1,5 @@
+# RACK_ENV is set in /etc/httpd/conf.d/zzz-sdr-services.conf
+# which in turn derives its value from z-RailsEnv.conf
 ENV["RACK_ENV"] ||= "development"
 
 require 'rubygems'
