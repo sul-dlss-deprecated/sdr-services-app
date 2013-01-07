@@ -2,7 +2,7 @@ source :rubygems
 source 'http://sul-gems.stanford.edu'
 
 gem 'sinatra'
-gem 'moab-versioning' , ">= 1.2.2" # :path => '/Users/rnanders/Code/Ruby/moab-versioning' # ,
+gem 'moab-versioning' , ">= 1.2.3" # :path => '/Users/rnanders/Code/Ruby/moab-versioning' # ,
 
 group :development do
     gem 'ruby-debug'

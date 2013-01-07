@@ -195,7 +195,7 @@ module Sdr
 
     get '/objects/:druid/cm-remediate' do
       remediated_cm = Stanford::StorageServices.cm_remediate(params[:druid], version_param())
-      [200, {'content-type' => 'application/xml'}, remediated_cm.to_xml]
+      [200, {'content-type' => 'application/xml'}, remediated_cm]
     end
 
     post '/objects/:druid/cm-inv-diff' do
