@@ -1,4 +1,5 @@
 require 'moab_stanford'
+require 'sys/filesystem'
 
 module Sdr
   class ServicesApi < Sinatra::Base
@@ -219,7 +220,7 @@ module Sdr
       source = Stanford::StorageServices.object_path(params[:druid])
       destination_host = SdrServices::Config.rsync_destination_host
       destination_path = source.sub(Moab::Config.repository_home,SdrServices::Config.rsync_destination_home)
-      rsync_cmd = "rsync -a -e ssh '#{source}' '#{destination_host}:#{destination_path}'"
+      rsync_cmd = "rsync -a -e ssh '#{source}' '#{destination_host}#{destination_path}'"
       `echo "#{rsync_cmd}" | at now`
       [200, rsync_cmd ]
     end
