@@ -293,8 +293,35 @@ EOF
       get '/objects/druid:jq937jp0017/cm-remediate?version=1'
       last_response.should be_ok
       last_response.body.should =~ /<contentMetadata/
-
     end
+
+    it "returns 404 File not found, if posted content metadata is invalid" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      get '/objects/druid:jq937jp0017/metadata/provenanceMetadata.xxx'
+      last_response.should_not be_ok
+      # last_response.status.should == 404 #(but error handlers not translating errors in dev)
+      last_response.errors.should =~ /Moab::FileNotFoundException/
+      last_response.errors.should =~ /metadata file provenanceMetadata.xxx not found/
+    end
+
+  end
+
+  describe "special requests" do
+
+    #it "should rsync a file to specified destination" do
+    #  authorize SdrServices::Config.username, SdrServices::Config.password
+    #  get '/objects/druid:jq937jp0017/rsync', "/tmp"
+    #  last_response.should be_ok
+    #  last_response.body.should =~ /^rsync/
+    #end
+
+    it "should return GB used by storage" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      get '/gb_used'
+      last_response.should be_ok
+      last_response.body.should =~ /\d*/
+    end
+
 
   end
 

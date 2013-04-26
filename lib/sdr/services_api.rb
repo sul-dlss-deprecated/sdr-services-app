@@ -13,8 +13,6 @@ module Sdr
       [username, password] == [SdrServices::Config.username, SdrServices::Config.password]
     end
 
-
-
     helpers do
       def latest_version
         unless @latest_version
@@ -134,6 +132,10 @@ module Sdr
       [404, request.env['sinatra.error'].message]
     end
 
+    error Moab::FileNotFoundException do
+      [404, request.env['sinatra.error'].message]
+    end
+
     error Moab::InvalidMetadataException do
       [400, "Bad Request: Invalid contentMetadata - " + request.env['sinatra.error'].message]
     end
@@ -147,19 +149,19 @@ module Sdr
     # TODO add exception logging
     get '/objects' do
       logger.info 'logging is working'
-      'ok'
+      "ok\n"
     end
 
     get '/objects/:druid' do
       [200, {'content-type' => 'text/html'}, menu(params[:druid], version_param)]
-      end
+    end
 
     get '/objects/:druid/current_version' do
       current_version = Stanford::StorageServices.current_version(params[:druid])
       [200, {'content-type' => 'application/xml'}, "<currentVersion>#{current_version.to_s}</currentVersion>"]
     end
 
-      get '/objects/:druid/version_metadata' do
+    get '/objects/:druid/version_metadata' do
       version_metadata = Stanford::StorageServices.version_metadata(params[:druid])
       [200, {'content-type' => 'application/xml'}, version_metadata.read]
     end
@@ -210,6 +212,24 @@ module Sdr
       cmd_xml = request.body.read
       additions = Stanford::StorageServices.cm_version_additions(cmd_xml, params[:druid], version_param())
       [200, {'content-type' => 'application/xml'}, additions.to_xml]
+    end
+
+    get '/objects/:druid/rsync' do
+      request.body.rewind
+      source = Stanford::StorageServices.object_path(params[:druid])
+      destination_host = SdrServices::Config.rsync_destination_host
+      destination_path = source.sub(Moab::Config.repository_home,SdrServices::Config.rsync_destination_home)
+      rsync_cmd = "rsync -a -e ssh '#{source}' '#{destination_host}:#{destination_path}'"
+      `echo "#{rsync_cmd}" | at now`
+      [200, rsync_cmd ]
+    end
+
+    get '/gb_used' do
+      gigabye_size = 1024*1024*1024
+      storage_mounts = Sys::Filesystem.mounts.select{|mount| SdrServices::Config.storage_filesystems.include?(mount.mount_point) }
+      storage_stats = storage_mounts.map{|mount| Sys::Filesystem.stat(mount.mount_point)}
+      used = storage_stats.inject(0){|sum,stat| sum + (stat.blocks.to_f*stat.block_size.to_f)/gigabye_size}
+      [200, used.round.to_s ]
     end
 
     get '/test/file_id_param/*' do

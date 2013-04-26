@@ -24,6 +24,9 @@ module SdrServices
   Config = Confstruct::Configuration.new do
       username  nil
       password nil
+      storage_filesystems nil
+      rsync_destination_host nil
+      rsync_destination_home nil
   end
 end
 
