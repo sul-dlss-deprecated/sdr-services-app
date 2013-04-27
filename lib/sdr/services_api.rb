@@ -219,7 +219,7 @@ module Sdr
       request.body.rewind
       source = Stanford::StorageServices.object_path(params[:druid])
       destination_host = SdrServices::Config.rsync_destination_host
-      destination_path = source.sub(Moab::Config.repository_home,SdrServices::Config.rsync_destination_home)
+      destination_path = SdrServices::Config.rsync_destination_home
       rsync_cmd = "rsync -a -e ssh '#{source}' '#{destination_host}#{destination_path}'"
       `echo "#{rsync_cmd}" | at now`
       [200, rsync_cmd ]
@@ -229,7 +229,7 @@ module Sdr
       gigabye_size = 1024*1024*1024
       storage_mounts = Sys::Filesystem.mounts.select{|mount| SdrServices::Config.storage_filesystems.include?(mount.mount_point) }
       storage_stats = storage_mounts.map{|mount| Sys::Filesystem.stat(mount.mount_point)}
-      used = storage_stats.inject(0){|sum,stat| sum + (stat.blocks.to_f*stat.block_size.to_f)/gigabye_size}
+      used = storage_stats.inject(0){|sum,stat| sum + ((stat.blocks.to_f-stat.blocks_available.to_f) *stat.block_size.to_f)/gigabye_size }
       [200, used.round.to_s ]
     end
 
