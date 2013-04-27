@@ -217,10 +217,22 @@ module Sdr
 
     get '/objects/:druid/rsync' do
       request.body.rewind
-      source = Stanford::StorageServices.object_path(params[:druid])
+      source_home = Moab::Config.repository_home
+      source_path = Stanford::StorageServices.object_path(params[:druid])
       destination_host = SdrServices::Config.rsync_destination_host
-      destination_path = SdrServices::Config.rsync_destination_home
-      rsync_cmd = "rsync -a -e ssh '#{source}' '#{destination_host}#{destination_path}'"
+      destination_home = SdrServices::Config.rsync_destination_home
+      destination_path = source_path.sub(source_home,destination_home)
+      if destination_host.nil? or destination_host.empty?
+        # local copy (for testing purposes)
+        # create all directories in the destination path
+        `mkdir -p #{destination_path}`
+        # note the trailing spaces to avoid creating already existing subdir at the destination
+        rsync_cmd = "rsync -a '#{source_path}/' '#{destination_path}/'"
+        # use at command to allow immediate response to caller
+      else
+        `ssh #{destination_host} 'mkdir -p #{destination_path}'`
+        rsync_cmd = "rsync -a -e ssh '#{source_path}/' '#{destination_host}:#{destination_path}/'"
+      end
       `echo "#{rsync_cmd}" | at now`
       [200, rsync_cmd ]
     end

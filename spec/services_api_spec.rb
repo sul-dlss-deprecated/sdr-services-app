@@ -295,7 +295,7 @@ EOF
       last_response.body.should =~ /<contentMetadata/
     end
 
-    it "returns 404 File not found, if posted content metadata is invalid" do
+    it "returns 404 File not found, if requested file not found in repository" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/metadata/provenanceMetadata.xxx'
       last_response.should_not be_ok
@@ -310,9 +310,9 @@ EOF
 
     #it "should rsync a file to specified destination" do
     #  authorize SdrServices::Config.username, SdrServices::Config.password
-    #  get '/objects/druid:jq937jp0017/rsync', "/tmp"
-    #  last_response.should be_ok
+    #  get '/objects/druid:jq937jp0017/rsync'
     #  last_response.body.should =~ /^rsync/
+    #  puts last_response.body
     #end
 
     it "should return GB used by storage" do
@@ -321,7 +321,6 @@ EOF
       last_response.should be_ok
       last_response.body.should =~ /\d*/
     end
-
 
   end
 
