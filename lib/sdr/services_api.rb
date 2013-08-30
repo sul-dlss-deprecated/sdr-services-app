@@ -201,6 +201,10 @@ module Sdr
       [200, {'content-type' => 'application/xml'}, remediated_cm]
     end
 
+    # Both technical-metadata and shelve robots currently make a call to Dor::Itemizable#get_content_diff which:
+    # 1. pulls new contentMetadata from Fedora
+    # 2. posts that contentMetadata to sdr-service's  cm-inv-diff
+    # 3. receives a fileInventoryDifferences report in response
     post '/objects/:druid/cm-inv-diff' do
       request.body.rewind
       cmd_xml = request.body.read

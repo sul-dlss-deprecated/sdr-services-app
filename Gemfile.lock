@@ -41,13 +41,13 @@ GEM
       posix-spawn (~> 0.3.6)
     happymapper (0.4.0)
       libxml-ruby (~> 2.0)
-    hashery (2.1.0)
+    hashery (2.1.1)
     highline (1.6.15)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
-    json (1.7.7)
-    libxml-ruby (2.6.0)
+    json (1.8.0)
+    libxml-ruby (2.7.0)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
     lyberteam-capistrano-devel (1.1.1)
@@ -68,7 +68,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.19)
-    moab-versioning (1.2.6)
+    moab-versioning (1.2.9)
       confstruct
       happymapper
       hashery (>= 2.0.0)
@@ -134,7 +134,7 @@ PLATFORMS
 DEPENDENCIES
   equivalent-xml (>= 0.2.2)
   lyberteam-devel (>= 1.0.0)
-  moab-versioning (>= 1.2.6)
+  moab-versioning (>= 1.2.9)
   rack-test
   rspec
   ruby-debug
