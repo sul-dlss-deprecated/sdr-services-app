@@ -122,12 +122,14 @@ describe Sdr::ServicesApi do
       diff = Nokogiri::XML(last_response.body)
       inventory_diff = <<-EOF
         <fileInventoryDifference objectId="druid:ms205ty4764" differenceCount="0" basis="v0" other="new-contentMetadata-shelve" >
-          <fileGroupDifference groupId="content" differenceCount="0" identical="0" renamed="0" modified="0" deleted="0" added="0">
-            <subset change="identical" count="0"/>
-            <subset change="renamed" count="0"/>
-            <subset change="modified" count="0"/>
-            <subset change="deleted" count="0"/>
-            <subset change="added" count="0"/>
+          <fileGroupDifference groupId="content" differenceCount="0" identical="0" renamed="0" modified="0" deleted="0" added="0" copyadded="0" copydeleted="0" >
+           <subset change="identical" count="0"/>
+           <subset change="copyadded" count="0"/>
+           <subset change="copydeleted" count="0"/>
+           <subset change="renamed" count="0"/>
+           <subset change="modified" count="0"/>
+           <subset change="added" count="0"/>
+           <subset change="deleted" count="0"/>
           </fileGroupDifference>
         </fileInventoryDifference>
       EOF

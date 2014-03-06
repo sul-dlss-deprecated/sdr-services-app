@@ -2,7 +2,7 @@ source :rubygems
 source 'http://sul-gems.stanford.edu'
 
 gem 'sinatra'
-gem 'moab-versioning' ,"= 1.2.10" # , :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
+gem 'moab-versioning' ,"= 1.2.11" # , :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
 gem 'sys-filesystem'
 
 group :development do
