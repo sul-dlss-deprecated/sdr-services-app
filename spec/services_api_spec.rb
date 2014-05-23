@@ -94,8 +94,8 @@ describe Sdr::ServicesApi do
       post '/objects/druid:jq937jp0017/cm-inv-diff?version=1', bad_content_md
       last_response.should_not be_ok
       # last_response.status.should == 400 #(but error handlers not translating errors in dev)
-      last_response.body.should =~ /Moab::InvalidMetadataException/
-      last_response.body.should =~ /missing md5/
+      last_response.errors.should =~ /Moab::InvalidMetadataException/
+      last_response.errors.should =~ /missing md5/
     end
     
     it "returns a diff against the latest version if the version parameter is not passed in" do
@@ -185,7 +185,7 @@ EOF
       get '/objects/druid:zz999yy0000/current_version'
       last_response.should_not be_ok
       # last_response.status.should == 404 #(but error handlers not translating errors in dev)
-      last_response.body.should =~ /Moab::ObjectNotFoundException/
+      last_response.errors.should =~ /Moab::ObjectNotFoundException/
     end
 
     it "returns current version metadata" do

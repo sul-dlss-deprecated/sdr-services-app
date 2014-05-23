@@ -1,9 +1,14 @@
 *.log
-coverage
 .bundle/
 .idea/
+.rspec-local
+.rvmrc
 .yardoc/
+config/deploy/*
+!config/deploy/development.rb
+config/environments/*
+!config/environments/development.rb
+coverage
 coverage/
 coverage.data
 doc/
-.rvmrc
