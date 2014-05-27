@@ -5,8 +5,9 @@ source 'http://rubygems.org'
 source 'http://sul-gems.stanford.edu'
 
 gem 'json_pure'
-gem 'sinatra'
+gem 'sinatra', '~> 1.4'
 gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
+gem 'rack', '~> 1.5'
 gem 'sys-filesystem'
 
 group :development do
