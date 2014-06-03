@@ -328,10 +328,14 @@ EOF
     # * forks a system "at" command that initiates the transfer asynchronously
     # * returns the full text of the command that was forked
     #
-    # An envisioned enhancement would instead use a POST request to specify destination and a list of
-    # object ids whose files need to be transferred.
+    # An envisioned enhancement would instead use a POST request to specify:
+    # * destination
+    # * a list of object ids whose files need to be transferred
     #
     # --Richard
+    #
+    # What should the POST call return, if anything apart from a status?
+    #
 
 
     it "should return GB used by storage" do

@@ -240,6 +240,21 @@ module Sdr
       [200, "#{rsync_cmd}\n" ]
     end
 
+    post '/objects/sync' do
+      #TODO: extract params for
+      # :druids
+      # :destination_host && :destination_home  ## assume these are constant across all :druids?
+
+      #TODO: iterate over :druids
+        # ? refactor common functionality for get '/objects/:druid/rsync'
+        # construct :source_path
+        # construct :destination_path
+        # ? test :destination_path || create it
+        # sync :source_path to :destination_path
+        # ? compile array of transfer status values [& messages]
+    end
+
+
     get '/gb_used' do
       gigabye_size = 1024*1024*1024
       storage_mounts = Sys::Filesystem.mounts.select{|mount| SdrServices::Config.storage_filesystems.include?(mount.mount_point) }
