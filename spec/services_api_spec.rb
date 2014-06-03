@@ -317,6 +317,23 @@ EOF
     #  puts last_response.body
     #end
 
+
+    # I think Rosy had a good idea for a programming task to hand off to Darren, which is to add an enhancement
+    # to the sdr web service (sdr-services-app) to support more flexible rsync transfers of whole objects from
+    # the -prod to -test/-dev machine.
+    #
+    # Currently the rsync mechanism
+    # * reads the target host and directory location from a configuration file.
+    # * requires a separate GET request for every object id needing transfer
+    # * forks a system "at" command that initiates the transfer asynchronously
+    # * returns the full text of the command that was forked
+    #
+    # An envisioned enhancement would instead use a POST request to specify destination and a list of
+    # object ids whose files need to be transferred.
+    #
+    # --Richard
+
+
     it "should return GB used by storage" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/gb_used'
