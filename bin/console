@@ -3,5 +3,5 @@ unless ARGV.first.nil?
   ENV['RACK_ENV'] = ARGV.pop
 end
 require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
-require 'irb'
-IRB.start
+require 'pry'
+binding.pry
