@@ -243,46 +243,73 @@ module Sdr
     end
 
     # Adopting POST to avoid URI length restrictions on GET, in cases where a DRUID array could be very long.
-    post '/objects/sync' do
+    post '/objects/rsync' do
+
+      #TODO: use or create a config parameter for the notification emails.
       notification_email = "***REMOVED***"
+
       # assume the destination_host and destination_home are constant across all druids
       destination_host = params[:destination_host]  # || default?
       destination_home = params[:destination_home]  # || default?  should be an absolute path
-      destination_type = params[:destination_type] || 'flat'  # 'tree' or 'flat' (default)
-      # TODO set default for destination_type to config setting for path_method?
-      # parse the druids parameter
+      reply 400 if destination_host.nil? || destination_home.nil?
+
+      # destination paths can take three different forms (prefixed with 'destination_home'):
+      # * druid-id (e.g.  jq937jp0017/)
+      # * druid-tree-short ( e.g. jq/937/jp/0017/)
+      # * druid-tree-long ( e.g. jq/937/jp/0017/jq937jp0017/)
+      destination_types = ['druid-id', 'druid-tree-short', 'druid-tree-long']
+      destination_type = destination_types.first # set default
+      if destination_types.include? params[:destination_type]
+        destination_type = params[:destination_type]
+      end
+      #destination_type = params[:destination_type].to_sym || Moab::Config.path_method
+
+      # Collect an array of transfer commands, to executed in batch mode after parsing all the druids
+      transfer_commands = []
+      # process the druids to construct transfer commands
       druids = params[:druids].split(',').uniq
       druids.each do |druid_id|
         # validate druid
         unless DruidTools::Druid.valid?(druid_id)
-          mail_error = "mail -s 'transfer error: #{druid}: invalid druid syntax (eom)' #{notification_email}"
+          mail_error = "echo '' | mail -s 'sdr-transfer error: #{druid_id}: invalid druid syntax (eom)' #{notification_email}"
           system(mail_error)
           next
         end
         # retrieve the data to identify the repository path
         druid_moab = Stanford::StorageServices.find_storage_object(druid_id)
-        unless druid_moab.nil?
-          mail_error = "mail -s 'transfer error: #{druid}: cannot locate storage object (eom)' #{notification_email}"
+        if druid_moab.nil?
+          mail_error = "echo '' | mail -s 'sdr-transfer error: #{druid_id}: cannot locate storage object (eom)' #{notification_email}"
           system(mail_error)
           next
         end
         source_path = druid_moab.object_pathname.to_s
         # construct destination path
         d = DruidTools::Druid.new(druid_id, destination_home)
-        if destination_type == 'tree'
-          destination_path = d.content_dir(false).sub('/content','')
-        else # 'flat'
-          destination_path = File.join(destination_home, d.id)
+        case destination_type
+          when 'druid-tree-long'
+            destination_path = d.path
+          when 'druid-tree-short'
+            destination_path = d.path.sub("/#{d.id}",'')
+          when 'druid-id'
+            destination_path = File.join(destination_home, d.id)
         end
         mkdir_cmd = "ssh #{destination_host} 'mkdir -p #{destination_path}'"
+        mkdir_failure = "echo '' | mail -s 'sdr-transfer failure: cannot create remote path #{rsync_destination} (eom)' #{notification_email}"
         rsync_source = "#{source_path}"
         rsync_destination = "#{destination_host}:#{destination_path}"
         rsync_cmd = "rsync -a -e ssh '#{rsync_source}/' '#{rsync_destination}/'"
-        mail_success = "mail -s 'transfer success: #{druid} to #{rsync_destination} (eom)' #{notification_email}"
-        mail_failure = "mail -s 'transfer failure: #{druid} to #{rsync_destination} (eom)' #{notification_email}"
-        cmd += "#{mkdir_cmd} && #{rsync_cmd} && #{mail_success} || #{mail_failure}"
-        `echo "#{cmd}" | batch`
+        rsync_success = "echo '' | mail -s 'sdr-transfer success: #{druid_id} to #{rsync_destination} (eom)' #{notification_email}"
+        rsync_failure = "echo '' | mail -s 'sdr-transfer failure: #{druid_id} to #{rsync_destination} (eom)' #{notification_email}"
+        transfer_commands.push("#{mkdir_cmd} || #{mkdir_failure}")
+        transfer_commands.push("#{rsync_cmd} && #{rsync_success} || #{rsync_failure}")
       end
+      `echo "#{transfer_commands.join('; ')}" | at now`
+      # alternative execution strategy:
+      # f=Tempfile.new('moab_rsync')
+      # transfer_commands.each {|cmd| f.puts(cmd + ";\n\n") }
+      # f.close
+      # system("at -f #{f.path} now")
+      [200, transfer_commands.join(";\n")]
     end
 
 

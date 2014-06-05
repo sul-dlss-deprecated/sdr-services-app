@@ -321,31 +321,26 @@ EOF
     # Add an enhancement to the sdr-services-app to support more flexible rsync transfers of whole objects from
     # the -prod to -test/-dev machines.
     #
-    # Currently the rsync mechanism:
-    # * reads the target host and directory location from a configuration file.
-    # * requires a separate GET request for every object id (druid) needing transfer
-    # * forks a system "at" command that initiates the transfer asynchronously
-    # * returns the full text of the command that was forked
-    #
-    # An envisioned enhancement would instead use a POST request to specify:
+    # This enhancement uses a POST request to specify:
     # * :druids => an array of object ids whose files should be transferred
     # * :destination_host  => a fully qualified host name
     # * :destination_home  => an absolute file system path
-    # * :destination_type  => 'tree': a path hierarchy (/my/home/ab/123/cd/4567/ab123cd4567)
-    #                   or => 'flat': a simple path (/my/home/ab123cd4567, default)
+    # * :destination_type  => 'druid-tree-full' : a path hierarchy (/my/home/ab/123/cd/4567/ab123cd4567)
+    # *                    => 'druid-tree-short': a path hierarchy (/my/home/ab/123/cd/4567)
+    #                   or => 'druid-id'        : a simple path (/my/home/ab123cd4567, this is the default)
     #
-    # ? The POST call returns a status (array, one entry for each druid)
+    # The POST call returns a status and the body contains all the commands the service initiates
     #
-
     it "should sync bags to specified destination" do
       authorize SdrServices::Config.username, SdrServices::Config.password
-      objects = ['jq937jp0017','jq937jp0017'].join(',')
-      destination_host = '-dev.stanford.edu' # URI encode?
+      objects = ['druid:jq937jp0017','druid:jq937jp0017'].join(',')
+      #destination_host = '-dev.stanford.edu' # URI encode?
+      destination_host = 'localhost' # URI encode?
       destination_home = '/tmp/' # URI encode?
-      destination_type = 'tree'
-      post "/objects/sync?objects=#{objects}&destination_host=#{destination_host}&destination_home=#{destination_home}&destination_type=#{destination_type}"
-      #TODO: define the response validation?
-      #last_response.body.should =~ /^rsync/
+      destination_type = 'druid-id'
+      post "/objects/rsync?druids=#{objects}&destination_host=#{destination_host}&destination_home=#{destination_home}&destination_type=#{destination_type}"
+      last_response.body.should =~ /rsync/
+      #Check there are no errors on last response?
       #puts last_response.body
     end
 
