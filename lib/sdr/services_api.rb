@@ -1,4 +1,5 @@
 require 'moab_stanford'
+require 'druid-tools'
 require 'sys/filesystem'
 
 module Sdr
@@ -193,6 +194,7 @@ module Sdr
     end
 
     get '/objects/:druid/manifests/*' do
+      #DLW: exactly the same retrieve_file call for the manifest endpoint, why?
       retrieve_file(params[:druid],'manifest',file_id_param, version_param, signature_param)
     end
 
@@ -240,18 +242,47 @@ module Sdr
       [200, "#{rsync_cmd}\n" ]
     end
 
+    # Adopting POST to avoid URI length restrictions on GET, in cases where a DRUID array could be very long.
     post '/objects/sync' do
-      #TODO: extract params for
-      # :druids
-      # :destination_host && :destination_home  ## assume these are constant across all :druids?
-
-      #TODO: iterate over :druids
-        # ? refactor common functionality for get '/objects/:druid/rsync'
-        # construct :source_path
-        # construct :destination_path
-        # ? test :destination_path || create it
-        # sync :source_path to :destination_path
-        # ? compile array of transfer status values [& messages]
+      notification_email = "***REMOVED***"
+      # assume the destination_host and destination_home are constant across all druids
+      destination_host = params[:destination_host]  # || default?
+      destination_home = params[:destination_home]  # || default?  should be an absolute path
+      destination_type = params[:destination_type] || 'flat'  # 'tree' or 'flat' (default)
+      # TODO set default for destination_type to config setting for path_method?
+      # parse the druids parameter
+      druids = params[:druids].split(',').uniq
+      druids.each do |druid_id|
+        # validate druid
+        unless DruidTools::Druid.valid?(druid_id)
+          mail_error = "mail -s 'transfer error: #{druid}: invalid druid syntax (eom)' #{notification_email}"
+          system(mail_error)
+          next
+        end
+        # retrieve the data to identify the repository path
+        druid_moab = Stanford::StorageServices.find_storage_object(druid_id)
+        unless druid_moab.nil?
+          mail_error = "mail -s 'transfer error: #{druid}: cannot locate storage object (eom)' #{notification_email}"
+          system(mail_error)
+          next
+        end
+        source_path = druid_moab.object_pathname.to_s
+        # construct destination path
+        d = DruidTools::Druid.new(druid_id, destination_home)
+        if destination_type == 'tree'
+          destination_path = d.content_dir(false).sub('/content','')
+        else # 'flat'
+          destination_path = File.join(destination_home, d.id)
+        end
+        mkdir_cmd = "ssh #{destination_host} 'mkdir -p #{destination_path}'"
+        rsync_source = "#{source_path}"
+        rsync_destination = "#{destination_host}:#{destination_path}"
+        rsync_cmd = "rsync -a -e ssh '#{rsync_source}/' '#{rsync_destination}/'"
+        mail_success = "mail -s 'transfer success: #{druid} to #{rsync_destination} (eom)' #{notification_email}"
+        mail_failure = "mail -s 'transfer failure: #{druid} to #{rsync_destination} (eom)' #{notification_email}"
+        cmd += "#{mkdir_cmd} && #{rsync_cmd} && #{mail_success} || #{mail_failure}"
+        `echo "#{cmd}" | batch`
+      end
     end
 
 

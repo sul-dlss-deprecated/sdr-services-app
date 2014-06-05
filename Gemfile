@@ -7,6 +7,7 @@ source 'http://sul-gems.stanford.edu'
 gem 'json_pure'
 gem 'sinatra', '~> 1.4'
 gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
+gem 'druid-tools'
 gem 'rack', '~> 1.5'
 gem 'sys-filesystem'
 gem 'pry'

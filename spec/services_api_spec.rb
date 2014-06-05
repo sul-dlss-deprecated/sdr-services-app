@@ -318,25 +318,36 @@ EOF
     #end
 
 
-    # I think Rosy had a good idea for a programming task to hand off to Darren, which is to add an enhancement
-    # to the sdr web service (sdr-services-app) to support more flexible rsync transfers of whole objects from
-    # the -prod to -test/-dev machine.
+    # Add an enhancement to the sdr-services-app to support more flexible rsync transfers of whole objects from
+    # the -prod to -test/-dev machines.
     #
-    # Currently the rsync mechanism
+    # Currently the rsync mechanism:
     # * reads the target host and directory location from a configuration file.
-    # * requires a separate GET request for every object id needing transfer
+    # * requires a separate GET request for every object id (druid) needing transfer
     # * forks a system "at" command that initiates the transfer asynchronously
     # * returns the full text of the command that was forked
     #
     # An envisioned enhancement would instead use a POST request to specify:
-    # * destination
-    # * a list of object ids whose files need to be transferred
+    # * :druids => an array of object ids whose files should be transferred
+    # * :destination_host  => a fully qualified host name
+    # * :destination_home  => an absolute file system path
+    # * :destination_type  => 'tree': a path hierarchy (/my/home/ab/123/cd/4567/ab123cd4567)
+    #                   or => 'flat': a simple path (/my/home/ab123cd4567, default)
     #
-    # --Richard
-    #
-    # What should the POST call return, if anything apart from a status?
+    # ? The POST call returns a status (array, one entry for each druid)
     #
 
+    it "should sync bags to specified destination" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      objects = ['jq937jp0017','jq937jp0017'].join(',')
+      destination_host = '-dev.stanford.edu' # URI encode?
+      destination_home = '/tmp/' # URI encode?
+      destination_type = 'tree'
+      post "/objects/sync?objects=#{objects}&destination_host=#{destination_host}&destination_home=#{destination_home}&destination_type=#{destination_type}"
+      #TODO: define the response validation?
+      #last_response.body.should =~ /^rsync/
+      #puts last_response.body
+    end
 
     it "should return GB used by storage" do
       authorize SdrServices::Config.username, SdrServices::Config.password

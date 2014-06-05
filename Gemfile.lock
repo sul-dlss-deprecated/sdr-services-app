@@ -17,8 +17,10 @@ GEM
       capistrano (~> 3.0)
     capistrano-releaseboard (0.0.1)
       faraday
+    coderay (1.1.0)
     confstruct (0.2.7)
     diff-lcs (1.2.5)
+    druid-tools (0.3.0)
     equivalent-xml (0.2.9)
       nokogiri (>= 1.4.3)
     faraday (0.9.0)
@@ -39,6 +41,7 @@ GEM
       capistrano-holepicker
       capistrano-one_time_key
       capistrano-releaseboard
+    method_source (0.8.2)
     moab-versioning (1.3.3)
       confstruct
       happymapper
@@ -52,6 +55,10 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
     nokogiri (1.5.5)
+    pry (0.9.12.6)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
@@ -75,6 +82,7 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
+    slop (3.5.0)
     sshkit (1.4.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -94,10 +102,12 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   capistrano-bundler (~> 1.1)
+  druid-tools
   equivalent-xml
   json_pure
   lyberteam-capistrano-devel (= 3.0.0.pre1)
   moab-versioning (~> 1.3)
+  pry
   rack (~> 1.5)
   rack-test
   rspec (~> 2.14)
