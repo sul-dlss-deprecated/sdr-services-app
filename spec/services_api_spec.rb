@@ -182,10 +182,26 @@ EOF
 
     it "returns 404 if object not in SDR" do
       authorize SdrServices::Config.username, SdrServices::Config.password
-      get '/objects/druid:zz999yy0000/current_version'
+      get '/error_test/object_not_found'
       last_response.should_not be_ok
-      # last_response.status.should == 404 #(but error handlers not translating errors in dev)
+      last_response.status.should == 404
       last_response.errors.should =~ /Moab::ObjectNotFoundException/
+    end
+
+    it "returns 404 if file not found" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      get '/error_test/file_not_found'
+      last_response.should_not be_ok
+      last_response.status.should == 404
+      last_response.errors.should =~ /Moab::FileNotFoundException/
+    end
+
+    it "returns 400 if file not found" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      get '/error_test/invalid_metadata'
+      last_response.should_not be_ok
+      last_response.status.should == 400
+      last_response.errors.should =~ /Moab::InvalidMetadataException/
     end
 
     it "returns current version metadata" do
