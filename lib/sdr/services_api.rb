@@ -322,7 +322,7 @@ module Sdr
       # transfer_commands.each {|cmd| f.puts(cmd + ";\n\n") }
       # f.close
       # system("at -f #{f.path} now")
-      [200, transfer_commands.join(";\n")]
+      [200, "Scheduled rsync commands:\n" + transfer_commands.join(";\n") + "\n"]
     end
 
 
