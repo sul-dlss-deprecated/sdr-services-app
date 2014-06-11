@@ -258,8 +258,7 @@ module Sdr
     # Adopting POST to avoid URI length restrictions on GET, in cases where a DRUID array could be very long.
     post '/objects/rsync' do
 
-      #TODO: use or create a config parameter for the notification emails.
-      notification_email = "***REMOVED***"
+      notification_email = SdrServices::Config.admin_email
 
       # assume the destination_host and destination_home are constant across all druids
       destination_host = params[:destination_host]  # || default?

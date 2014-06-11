@@ -8,6 +8,7 @@ end
 SdrServices::Config.configure do
   username 'devUser'
   password 'devPass'
+  admin_email ENV['USER']
   storage_filesystems ['/']
   rsync_destination_host ''
   rsync_destination_home '/tmp'
