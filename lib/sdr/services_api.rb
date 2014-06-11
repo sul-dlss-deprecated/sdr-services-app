@@ -306,10 +306,10 @@ module Sdr
           when 'druid-id'
             destination_path = File.join(destination_home, d.id)
         end
-        mkdir_cmd = "ssh #{destination_host} 'mkdir -p #{destination_path}'"
-        mkdir_failure = "echo '' | mail -s 'sdr-transfer failure: cannot create remote path #{rsync_destination} (eom)' #{notification_email}"
         rsync_source = "#{source_path}"
         rsync_destination = "#{destination_host}:#{destination_path}"
+        mkdir_cmd = "ssh #{destination_host} 'mkdir -p #{destination_path}'"
+        mkdir_failure = "echo '' | mail -s 'sdr-transfer failure: cannot create remote path #{rsync_destination} (eom)' #{notification_email}"
         rsync_cmd = "rsync -a -e ssh '#{rsync_source}/' '#{rsync_destination}/'"
         rsync_success = "echo '' | mail -s 'sdr-transfer success: #{druid_id} to #{rsync_destination} (eom)' #{notification_email}"
         rsync_failure = "echo '' | mail -s 'sdr-transfer failure: #{druid_id} to #{rsync_destination} (eom)' #{notification_email}"
