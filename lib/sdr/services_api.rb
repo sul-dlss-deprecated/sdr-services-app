@@ -264,7 +264,7 @@ module Sdr
       # assume the destination_host and destination_home are constant across all druids
       destination_host = params[:destination_host]  # || default?
       destination_home = params[:destination_home]  # || default?  should be an absolute path
-      reply 400 if destination_host.nil? || destination_home.nil?
+      return [400, JSON.dump(params)] if destination_host.nil? || destination_home.nil?
 
       # destination paths can take three different forms (prefixed with 'destination_home'):
       # * druid-id (e.g.  jq937jp0017/)
