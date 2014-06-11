@@ -5,11 +5,12 @@ require 'sys/filesystem'
 module Sdr
   class ServicesApi < Sinatra::Base
 
+    # See Sinatra-error-handling for explanation of exception behavior
     configure do
       enable :logging
+      disable :raise_errors
+      disable :show_exceptions
     end
-
-    disable :raise_errors
 
     use Rack::Auth::Basic, "Restricted Area" do |username, password|
       [username, password] == [SdrServices::Config.username, SdrServices::Config.password]
@@ -146,6 +147,18 @@ module Sdr
       errmsg = 'Unexpected Error: ' + request.env['sinatra.error'].message
       logger.error errmsg
       [500, errmsg]
+    end
+
+    get '/error_test/object_not_found' do
+      raise Moab::ObjectNotFoundException
+    end
+
+    get '/error_test/file_not_found' do
+      raise Moab::FileNotFoundException
+    end
+
+    get '/error_test/invalid_metadata' do
+      raise Moab::InvalidMetadataException
     end
 
     # TODO add exception logging
