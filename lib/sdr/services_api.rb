@@ -149,6 +149,10 @@ module Sdr
       [500, errmsg]
     end
 
+    get '/documentation' do
+      haml :'documentation/documentation'
+    end
+
     get '/error_test/object_not_found' do
       raise Moab::ObjectNotFoundException
     end

@@ -12,6 +12,9 @@ gem 'rack', '~> 1.5'
 gem 'sys-filesystem'
 gem 'pry'
 
+# Templating for /views/documentation
+gem 'haml'
+
 group :development do
 	gem 'awesome_print'
   gem 'capistrano-bundler', '~> 1.1'
