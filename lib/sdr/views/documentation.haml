@@ -70,6 +70,19 @@
             -#For additional help, please email
             -#%a{href: "mailto:support@bioontology.org", target: "_blank"} support@bioontology.org
 
+          :markdown
+            #### HTTP Verbs
+            The API uses different verbs to support processing of resources. This includes things like creating or deleting
+            individual resources. Typically, the verbs will be used in conjunction with the URL that represents the id for
+            a given resource. Here is how we interpret the verbs:
+
+            - <span class="label label-info">GET</span> Used to retrieve a resource or collection of resources.
+            - <span class="label label-info">POST</span> Used to create a resource when the server determines the resource's id.
+            - <span class="label label-info">PUT</span> Used to create a resource when a client determines the resource's id.
+            - <span class="label label-info">PATCH</span> Used to modify an existing resource. The attributes in a PATCH request will replace existing attributes.
+            - <span class="label label-info">DELETE</span> Used to delete an existing resource.
+
+
           %h2#nav_batch Batch Services
 
           %p
@@ -110,24 +123,6 @@
                     params="druids=${druids}&destination_host=${destination_host}&destination_home=${destination_home}&destination_type=${destination_type}"
                     curl -X POST "https://${sdr_user}:${sdr_pass}@${sdr_host}/sdr/objects/rsync?${params}"
                     </pre>
-
-          %h2#nav_http General REST API Notes
-
-          %h3 Documentation
-          :markdown
-            The documentation below describes the general HTTP verbs used to work with a RESTful API.
-
-            #### HTTP Verbs
-            The API uses different verbs to support processing of resources. This includes things like creating or deleting
-            individual resources. Typically, the verbs will be used in conjunction with the URL that represents the id for
-            a given resource. Here is how we interpret the verbs:
-
-            - <span class="label label-info">GET</span> Used to retrieve a resource or collection of resources.
-            - <span class="label label-info">POST</span> Used to create a resource when the server determines the resource's id.
-            - <span class="label label-info">PUT</span> Used to create a resource when a client determines the resource's id.
-            - <span class="label label-info">PATCH</span> Used to modify an existing resource. The attributes in a PATCH request will replace existing attributes.
-            - <span class="label label-info">DELETE</span> Used to delete an existing resource.
-
 
 
     :javascript
