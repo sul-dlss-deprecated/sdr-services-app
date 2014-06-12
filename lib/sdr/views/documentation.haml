@@ -57,6 +57,62 @@
             %li
               %a{href: "#nav_batch"} Batch Endpoints
 
+    %div.span9
+
+      %h1#nav_home API Documentation
+      %h2#nav_usage General Usage
+      %p
+        This API provides a RESTful interface to the Stanford Digital Repository for
+        authorized access.  The API specifies RESTful resources to access entire or partial
+        digital object content, referenced by unique identifiers (DRUIDs).
+        -#For more information, please read this documentation and view the
+        -#%a{href: "https://github.com/ncbo/ncbo_rest_sample_code"} sample code.
+        -#For additional help, please email
+        -#%a{href: "mailto:support@bioontology.org", target: "_blank"} support@bioontology.org
+
+      %h2#nav_batch Batch Services
+
+      %p
+        These services provide rsync transfers for DRUIDs.
+
+      %p
+        :markdown
+          <span class="label label-info">POST</span> <code>/objects/rsync</code>
+
+          This service transfers an array of DRUIDs to a remote host/path, using one of several path types.
+
+          <pre class="prettyprint linenums lang-sh" style="display: table; padding-right: 20px;">
+          user='AuthorizedUser'
+          pass='AuthorizedPass'
+          sdr_host='SDRhost'
+          druids='druids=druid:dh370hm3931,druid:hv987cf5327,druid:nh358jx9024,druid:sd695sp3501,druid:fq515xp0937'
+          destination_host='RemoteUser@RemoteHost'
+          destination_home='/tmp/sdr_rsync'
+          destination_type='druid_id' # default || 'druid-tree-short' || 'druid-tree-long'
+          params="${druids}&destination_host=${destination_host}&destination_home=${destination_home}&destination_type=${destination_type}"
+          curl -X POST "https://${user}:${pass}@${sdr_host}/sdr/objects/rsync?${params}"
+          </pre>
+
+
+
+      %h2#nav_http General REST API Notes
+
+      %h3 Documentation
+      :markdown
+        The documentation below describes the general HTTP verbs used to work with a RESTful API.
+
+        #### HTTP Verbs
+        The API uses different verbs to support processing of resources. This includes things like creating or deleting
+        individual resources. Typically, the verbs will be used in conjunction with the URL that represents the id for
+        a given resource. Here is how we interpret the verbs:
+
+        - <span class="label label-info">GET</span> Used to retrieve a resource or collection of resources.
+        - <span class="label label-info">POST</span> Used to create a resource when the server determines the resource's id.
+        - <span class="label label-info">PUT</span> Used to create a resource when a client determines the resource's id.
+        - <span class="label label-info">PATCH</span> Used to modify an existing resource. The attributes in a PATCH request will replace existing attributes.
+        - <span class="label label-info">DELETE</span> Used to delete an existing resource.
+
+
 
     :javascript
       // @prettify
