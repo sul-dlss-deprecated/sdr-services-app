@@ -68,6 +68,7 @@ GEM
       rack (>= 1.0)
     rainbow (2.0.0)
     rake (10.3.2)
+    redcarpet (3.1.2)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -113,6 +114,7 @@ DEPENDENCIES
   pry
   rack (~> 1.5)
   rack-test
+  redcarpet
   rspec (~> 2.14)
   simplecov (~> 0.7.1)
   sinatra (~> 1.4)

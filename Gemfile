@@ -14,6 +14,7 @@ gem 'pry'
 
 # Templating for /views/documentation
 gem 'haml'
+gem 'redcarpet'
 
 group :development do
 	gem 'awesome_print'
