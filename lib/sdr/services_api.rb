@@ -150,7 +150,7 @@ module Sdr
     end
 
     get '/documentation' do
-      haml :'../../views/documentation/documentation'
+      haml :'documentation'
     end
 
     get '/error_test/object_not_found' do
