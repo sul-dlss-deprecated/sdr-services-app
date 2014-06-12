@@ -55,7 +55,7 @@
             %li
               %a{href: "#nav_usage"} General Usage
             %li
-              %a{href: "#nav_batch"} Batch Endpoints
+              %a{href: "#nav_batch"} Batch Services
 
         %div.span9
 
@@ -90,6 +90,13 @@
                 %li
                   <span class="label label-info">POST</span> <code>/objects/rsync</code>
                 %li
+                  Parameters
+                  %ul
+                    %li druids={druid_id1,druid_id2..,druid_idN}
+                    %li destination_host={remote_user_id@remote_host_id}
+                    %li destination_home={remote_absolute_path}
+                    %li destination_type='druid_id' || 'druid-tree-short' || 'druid-tree-long'
+                %li
                   example:
                   :markdown
                     <pre class="prettyprint linenums lang-sh" style="display: table; padding-right: 20px;">
@@ -103,14 +110,6 @@
                     params="druids=${druids}&destination_host=${destination_host}&destination_home=${destination_home}&destination_type=${destination_type}"
                     curl -X POST "https://${sdr_user}:${sdr_pass}@${sdr_host}/sdr/objects/rsync?${params}"
                     </pre>
-                %li
-                  Parameters
-                  %ul
-                    %li druids={druid_id1,druid_id2..,druid_idN}
-                    %li destination_host={remote_user_id@remote_host_id}
-                    %li destination_home={remote_absolute_path}
-                    %li destination_type='druid_id' || 'druid-tree-short' || 'druid-tree-long'
-
 
           %h2#nav_http General REST API Notes
 
