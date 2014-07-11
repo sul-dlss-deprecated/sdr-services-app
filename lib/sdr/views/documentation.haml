@@ -82,46 +82,54 @@
             - <span class="label label-info">PATCH</span> Used to modify an existing resource. The attributes in a PATCH request will replace existing attributes.
             - <span class="label label-info">DELETE</span> Used to delete an existing resource.
 
+          -# TODO: work out how to use introspection to document routes, e.g.
+          -# TODO: The code I have for doing the introspection is here in case you want to look:
+          -# https://github.com/ncbo/ontologies_api/blob/master/controllers/home_controller.rb#L121-L152
+          -# I’m able to rely on the fact that we have conventional names, IE UsersController is for the User model. You would need a map otherwise. Good luck!
+          -# Paul
+
 
           %h2#nav_batch Batch Services
 
           %p
-            These services provide rsync transfers for DRUIDs.
+            These services provide rsync transfers for DRUIDs.  The REST service deployment system must be configured
+            for ssh access and write permissions on the destination host and file system.
 
             %ul
               %li Transfer a single DRUID to a pre-configured destination
               %ul
                 %li
-                  <span class="label label-info">GET</span> <code>/objects/:druid/rsync</code>
+                  <span class="label label-info">GET</span> <code>/objects/:druid/transfer</code>
                 %li
-                  example: /objects/druid:dh370hm3931/rsync
+                  example: /objects/druid:dh370hm3931/transfer
                   -# %a{href: "/objects/druid:dh370hm3931/rsync"} /objects/druid:dh370hm3931/rsync
 
 
-              %li Transfer many DRUIDs to a specified destination, using one of several path types.
+              %li Transfer many DRUIDs to a destination host:path, using one of several path types.  The transfer
+              activity is asynchronous, completion is signaled via email notification to a configured recipient.
               %ul
                 %li
-                  <span class="label label-info">POST</span> <code>/objects/rsync?{params}</code>
+                  <span class="label label-info">POST</span> <code>/objects/transfer?{params}</code>
                 %li
                   Parameters
                   %ul
                     %li druids={druid_id1,druid_id2..,druid_idN}
-                    %li destination_host={remote_user_id@remote_host_id}
+                    %li destination_host={remote_user@remote_host}
                     %li destination_home={remote_absolute_path}
                     %li destination_type='druid_id' || 'druid-tree-short' || 'druid-tree-long'
                 %li
-                  example:
+                  example shell script, using curl:
                   :markdown
                     <pre class="prettyprint linenums lang-sh" style="display: table; padding-right: 20px;">
-                    sdr_user='sdrAuthorizedUser'
-                    sdr_pass='sdrAuthorizedPass'
-                    sdr_host='sdrAppHost'
-                    druids='druid:dh370hm3931,druid:hv987cf5327,druid:nh358jx9024,druid:sd695sp3501,druid:fq515xp0937'
-                    destination_host='RemoteUser@RemoteHost'  # must be accessible from $sdr_host
-                    destination_home='/tmp/sdr_rsync'         # may be created if it doesn't exist already
-                    destination_type='druid_id' # default || 'druid-tree-short' || 'druid-tree-long'
-                    params="druids=${druids}&destination_host=${destination_host}&destination_home=${destination_home}&destination_type=${destination_type}"
-                    curl -X POST "https://${sdr_user}:${sdr_pass}@${sdr_host}/sdr/objects/rsync?${params}"
+                      sdr_user='sdrAuthorizedUser'
+                      sdr_pass='sdrAuthorizedPass'
+                      sdr_host='sdrAppHost'
+                      druids='druid:dh370hm3931,druid:hv987cf5327,druid:nh358jx9024,druid:sd695sp3501,druid:fq515xp0937'
+                      destination_host='RemoteUser@RemoteHost'  # must be accessible from $sdr_host
+                      destination_home='/tmp/sdr_rsync'         # may be created if it doesn't exist already
+                      destination_type='druid_id' # default || 'druid-tree-short' || 'druid-tree-long'
+                      params="druids=${druids}&destination_host=${destination_host}&destination_home=${destination_home}&destination_type=${destination_type}"
+                      curl -X POST "https://${sdr_user}:${sdr_pass}@${sdr_host}/sdr/objects/transfer?${params}"
                     </pre>
 
 
