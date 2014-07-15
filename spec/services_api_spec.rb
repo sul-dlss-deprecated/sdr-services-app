@@ -119,7 +119,8 @@ describe Sdr::ServicesApi do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:ms205ty4764/cm-inv-diff?subset=shelve', empty_subset_md
       last_response.should be_ok
-      diff = Nokogiri::XML(last_response.body)
+      diff1 = Nokogiri::XML(last_response.body)
+      diff1.xpath('//@reportDatetime').remove
       inventory_diff = <<-EOF
         <fileInventoryDifference objectId="druid:ms205ty4764" differenceCount="0" basis="v0" other="new-contentMetadata-shelve" >
           <fileGroupDifference groupId="content" differenceCount="0" identical="0" renamed="0" modified="0" deleted="0" added="0" copyadded="0" copydeleted="0" >
@@ -133,9 +134,10 @@ describe Sdr::ServicesApi do
           </fileGroupDifference>
         </fileInventoryDifference>
       EOF
-      diff.to_xml.gsub(/reportDatetime=".*?"/,'').should be_equivalent_to(inventory_diff)
+      diff2 = Nokogiri::XML(inventory_diff)
+      diff = EquivalentXml.equivalent?(diff1, diff2, opts = { :element_order => false, :normalize_whitespace => true })
+      diff.should be true
     end
-
 
     it "returns versionAdditions xml between content metadata and a specific version" do
       authorize SdrServices::Config.username, SdrServices::Config.password
