@@ -113,5 +113,6 @@ DEPENDENCIES
   rspec (~> 2.14)
   simplecov (~> 0.7.1)
   sinatra (~> 1.4)
+  slop
   sys-filesystem
   yard

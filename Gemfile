@@ -11,6 +11,7 @@ gem 'druid-tools'
 gem 'rack', '~> 1.5'
 gem 'sys-filesystem'
 gem 'pry'
+gem 'slop'  # CLI parser
 
 group :development do
 	gem 'awesome_print'
