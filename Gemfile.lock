@@ -21,7 +21,7 @@ GEM
     confstruct (0.2.7)
     diff-lcs (1.2.5)
     druid-tools (0.3.0)
-    equivalent-xml (0.4.3)
+    equivalent-xml (0.5.0)
       nokogiri (>= 1.4.3)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
