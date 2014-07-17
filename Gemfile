@@ -8,6 +8,7 @@ gem 'sinatra', '~> 1.4'
 gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
 gem 'druid-tools'
 gem 'rack', '~> 1.5'
+gem 'thin'
 gem 'sys-filesystem'
 gem 'pry'
 gem 'slop'  # CLI parser

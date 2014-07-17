@@ -234,96 +234,46 @@ module Sdr
       [200, {'content-type' => 'application/xml'}, additions.to_xml]
     end
 
-    get '/objects/:druid/rsync' do
+    get '/objects/:druid/transfer' do
       request.body.rewind
       source_path = Stanford::StorageServices.object_path(params[:druid])
       destination_host = SdrServices::Config.rsync_destination_host
-      destination_home = SdrServices::Config.rsync_destination_home
-      destination_path = File.join(destination_home,params[:druid].split(/:/).last)
+      destination_path = SdrServices::Config.rsync_destination_path
+      destination_path = File.join(destination_path,params[:druid].split(/:/).last)
       if destination_host.nil? or destination_host.empty?
         # local copy (for testing purposes)
         # create all directories in the destination path
         `mkdir -p #{destination_path}`
         # note the trailing spaces to avoid creating already existing subdir at the destination
         rsync_cmd = "rsync -a '#{source_path}/' '#{destination_path}/'"
-        # use at command to allow immediate response to caller
       else
         `ssh #{destination_host} 'mkdir -p #{destination_path}'`
         rsync_cmd = "rsync -a -e ssh '#{source_path}/' '#{destination_host}:#{destination_path}/'"
       end
+      # use at command to allow immediate response to caller
       `echo "#{rsync_cmd}" | at now`
       [200, "#{rsync_cmd}\n" ]
     end
 
     # Adopting POST to avoid URI length restrictions on GET, in cases where a DRUID array could be very long.
-    post '/objects/rsync' do
-
-      notification_email = SdrServices::Config.admin_email
-
-      # assume the destination_host and destination_home are constant across all druids
-      destination_host = params[:destination_host]  # || default?
-      destination_home = params[:destination_home]  # || default?  should be an absolute path
-      return [400, "Invalid parameters: " + JSON.dump(params)] if destination_host.nil? || destination_home.nil?
-
-      # destination paths can take three different forms (prefixed with 'destination_home'):
-      # * druid-id (e.g.  jq937jp0017/)
-      # * druid-tree-short ( e.g. jq/937/jp/0017/)
-      # * druid-tree-long ( e.g. jq/937/jp/0017/jq937jp0017/)
-      destination_types = ['druid-id', 'druid-tree-short', 'druid-tree-long']
-      destination_type = destination_types.first # set default
-      if destination_types.include? params[:destination_type]
-        destination_type = params[:destination_type]
-      end
-      #destination_type = params[:destination_type].to_sym || Moab::Config.path_method
-
-      # Collect an array of transfer commands, to executed in batch mode after parsing all the druids
-      transfer_commands = []
-      # process the druids to construct transfer commands
+    post '/objects/transfer' do
+      # Parse the params to construct CLI args for the ./bin/druid_transfer.rb script
+      destination_host = params[:destination_host]
+      destination_path = params[:destination_path]
+      return [400, "Invalid parameters: " + JSON.dump(params)] if destination_host.nil? || destination_path.nil?
+      destination_type = params[:destination_type] || Moab::Config.path_method
       druids = params[:druids].split(',').uniq
-      druids.each do |druid_id|
-        # validate druid
-        unless DruidTools::Druid.valid?(druid_id)
-          mail_error = "echo '' | mail -s 'sdr-transfer error: #{druid_id}: invalid druid syntax (eom)' #{notification_email}"
-          system(mail_error)
-          next
-        end
-        # retrieve the data to identify the repository path
-        druid_moab = Stanford::StorageServices.find_storage_object(druid_id)
-        if druid_moab.nil?
-          mail_error = "echo '' | mail -s 'sdr-transfer error: #{druid_id}: cannot locate storage object (eom)' #{notification_email}"
-          system(mail_error)
-          next
-        end
-        source_path = druid_moab.object_pathname.to_s
-        # construct destination path
-        d = DruidTools::Druid.new(druid_id, destination_home)
-        case destination_type
-          when 'druid-tree-long'
-            destination_path = d.path
-          when 'druid-tree-short'
-            destination_path = d.path.sub("/#{d.id}",'')
-          when 'druid-id'
-            destination_path = File.join(destination_home, d.id)
-        end
-        rsync_source = "#{source_path}"
-        rsync_destination = "#{destination_host}:#{destination_path}"
-        mkdir_cmd = "ssh #{destination_host} 'mkdir -p #{destination_path}'"
-        mkdir_failure = "echo '' | mail -s 'sdr-transfer failure: cannot create remote path #{rsync_destination} (eom)' #{notification_email}"
-        rsync_cmd = "rsync -a -e ssh '#{rsync_source}/' '#{rsync_destination}/'"
-        rsync_success = "echo '' | mail -s 'sdr-transfer success: #{druid_id} to #{rsync_destination} (eom)' #{notification_email}"
-        rsync_failure = "echo '' | mail -s 'sdr-transfer failure: #{druid_id} to #{rsync_destination} (eom)' #{notification_email}"
-        transfer_commands.push("#{mkdir_cmd} || #{mkdir_failure}")
-        transfer_commands.push("#{rsync_cmd} && #{rsync_success} || #{rsync_failure}")
-      end
-      `echo "#{transfer_commands.join('; ')}" | at now`
-      # alternative execution strategy:
-      # f=Tempfile.new('moab_rsync')
-      # transfer_commands.each {|cmd| f.puts(cmd + ";\n\n") }
-      # f.close
-      # system("at -f #{f.path} now")
-      [200, "Scheduled rsync commands:\n" + transfer_commands.join(";\n") + "\n"]
+      script_file = File.expand_path(File.dirname(__FILE__) + '../../../bin/druid_transfer.rb')
+      # Check this is the correct script file.
+      return [500, 'Failed to locate druid_transfer script correctly.'] unless File.exists? script_file
+      script_args = "-h '#{destination_host}' -p '#{destination_path}' -t '#{destination_type}' -d #{druids.join(',')}"
+      success = system("#{script_file} #{script_args}")
+      return [500, "Failed to initiate druid_transfer script.\n"] unless success
+      return [200, "Scheduled DRUID transfers; details are emailed to SDR managers.\n"]
+      # Note on how to test this with curl:
+      # Start the server with 'rackup' (maybe comment out the STDIN/STDOUT redirection in config.ru), then issue:
+      # curl -X POST --user "devUser:devPass" --data "destination_host=localhost&destination_path='/tmp'&druids=druid:jq937jp0017" http://localhost:9292/objects/transfer
     end
-
 
     get '/gb_used' do
       gigabye_size = 1024*1024*1024

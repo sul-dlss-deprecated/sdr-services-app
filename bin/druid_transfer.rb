@@ -12,12 +12,10 @@ require 'logger'
 require 'slop'  # CLI parser
 require 'pry'
 
-# Bootstrap this environment
+# Bootstrap this environment (loads ../config/environment/?)
 require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
 
-
-
-# TODO: require the right environment configuration (dev/integration/production)
+logfile = File.expand_path(File.dirname(__FILE__) + '/../log/druid_transfers.log')
 
 ###
 # CLI option parsing
@@ -31,15 +29,17 @@ destination_type_help = "" +
 destination_host_help = 'DESTINATION_HOST - {user}@{hostname|hostIP} where rsync over ssh is authorized for {user}'
 destination_home_help = 'DESTINATION_PATH - /absolute/path/to/remote/repository where {user} has write permissions'
 
+# Work around conflict in common use of '-h' for help in ARGV,
+# because '-h' is used for '--destination_host' in this script.
+ARGV[0] = '--help' if ARGV.include?('-h') && ARGV.length == 1
+
 opts = Slop.parse! do
   banner "Usage: #{__FILE__} [OPTIONS] [FILES]"
   on 'd', :druids=, 'DRUID[,DRUID,...] - a list of DRUIDs (or use STDIN or FILES).', as: Array, default: []
-
-  on 'h', :destination_host=, destination_host_help, default: 'localhost'
-  on 'p', :destination_path=, destination_home_help, default: '/tmp'
-  on :destination_type=, destination_type_help, default: 'druid-id'
-
-  on 'l', :logfile=, "FILE  - log to FILE (default='druid_transfers.log')", default: 'druid_transfers.log'
+  on 'h', :destination_host=, destination_host_help, default: SdrServices::Config.rsync_destination_host
+  on 'p', :destination_path=, destination_home_help, default: SdrServices::Config.rsync_destination_path
+  on 't', :destination_type=, destination_type_help, default: 'druid-id'
+  on 'l', :logfile=, "FILE  - log to FILE (default='log/druid_transfers.log')", default: logfile
   on 'help'
 end
 if opts[:help]
@@ -59,18 +59,20 @@ if opts[:druids].empty?
   exit(1)
 end
 
+
+
 ###
 # Main
 
-logger = Logger.new(opts[:logfile])
+@logger = Logger.new(opts[:logfile])
 puts "Transfer details are logged to #{opts[:logfile]}"
 
 def mail_cmd(msg)
   "echo '' | mail -s '#{msg} (eom)' #{SdrServices::Config.admin_email}"
 end
 
-def error(error_msg)
-  logger.error(error_msg)
+def transfer_error(error_msg)
+  @logger.error(error_msg)
   system(mail_cmd error_msg)
 end
 
@@ -81,9 +83,9 @@ begin
   destination_path = opts[:destination_path]
 
   # destination paths can take three different forms (prefixed with 'destination_path'):
-  # * druid-id (e.g.  jq937jp0017/)
-  # * druid-tree-short ( e.g. jq/937/jp/0017/)
-  # * druid-tree-long ( e.g. jq/937/jp/0017/jq937jp0017/)
+  # * druid-id          - e.g. jq937jp0017
+  # * druid-tree-short  - e.g. jq/937/jp/0017
+  # * druid-tree-long   - e.g. jq/937/jp/0017/jq937jp0017
   destination_types = %w(druid-id druid-tree-short druid-tree-long)
   if destination_types.include? opts[:destination_type]
     destination_type = opts[:destination_type]
@@ -92,7 +94,6 @@ begin
     #destination_type = Moab::Config.path_method
   end
 
-
   # Collect an array of transfer commands, to executed in batch mode after parsing all the druids
   transfer_commands = []
   # process the druids to construct transfer commands
@@ -100,13 +101,13 @@ begin
   druids.each do |druid_id|
     # validate druid
     unless DruidTools::Druid.valid?(druid_id)
-      error "sdr-transfer error: #{druid_id}: invalid druid syntax"
+      transfer_error "sdr-transfer error: #{druid_id}: invalid druid syntax"
       next
     end
     # retrieve the data to identify the repository path
     druid_moab = Stanford::StorageServices.find_storage_object(druid_id)
     if druid_moab.nil?
-      error  "sdr-transfer error: #{druid_id}: cannot locate storage object"
+      transfer_error  "sdr-transfer error: #{druid_id}: cannot locate storage object"
       next
     end
     source_path = druid_moab.object_pathname.to_s
@@ -131,7 +132,7 @@ begin
     rsync_success = mail_cmd "sdr-transfer success: #{druid_id} to #{rsync_destination}"
     rsync_failure = mail_cmd "sdr-transfer failure: #{druid_id} to #{rsync_destination}"
     transfer_commands.push("#{rsync_cmd} && #{rsync_success} || #{rsync_failure}")
-    logger.info(rsync_cmd)
+    @logger.info(rsync_cmd)
   end
 
   `echo "#{transfer_commands.join('; ')}" | at now`
@@ -140,14 +141,13 @@ begin
   # f=Tempfile.new('moab_rsync')
   # transfer_commands.each {|cmd| f.puts(cmd + ";\n\n") }
   # f.close
-  # system("at -f #{f.path} now")
-  puts "Scheduled transfers are running."
+  # system("at -f #{f.path} now")  # system 'swallows' exceptions.
 
 rescue Exception => e
-  msg = "Failed, exception: #{e.to_json}."
-  logger.error(msg)
-  puts msg
+  transfer_error "sdr-transfer failed with exception: #{e.to_json}."
   exit(1)
+else
+  puts "Scheduled transfers are running."
 end
 
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
-unless ARGV.first.nil?
-  ENV['RACK_ENV'] = ARGV.pop
-end
+
+# config/boot.rb will load config/environment based on ENV['RACK_ENV']
+ENV['RACK_ENV'] = ARGV.pop unless ARGV.first.nil?
 require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
 require 'pry'
 binding.pry
+

@@ -10,6 +10,7 @@ SdrServices::Config.configure do
   password 'devPass'
   admin_email ENV['USER']
   storage_filesystems ['/']
-  rsync_destination_host ''
-  rsync_destination_home '/tmp'
+  rsync_destination_host 'localhost'
+  rsync_destination_path '/tmp/sdr-rsync'
 end
+
