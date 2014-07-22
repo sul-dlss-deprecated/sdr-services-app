@@ -27,7 +27,7 @@ destination_type_help = "" +
     "or 'druid-tree-long'  (jq/937/jp/0017/jq937jp0017)"
 
 destination_host_help = 'DESTINATION_HOST - {user}@{hostname|hostIP} where rsync over ssh is authorized for {user}'
-destination_home_help = 'DESTINATION_PATH - /absolute/path/to/remote/repository where {user} has write permissions'
+destination_path_help = 'DESTINATION_PATH - /absolute/path/to/remote/repository where {user} has write permissions'
 
 # Work around conflict in common use of '-h' for help in ARGV,
 # because '-h' is used for '--destination_host' in this script.
@@ -37,8 +37,8 @@ opts = Slop.parse! do
   banner "Usage: #{__FILE__} [OPTIONS] [FILES]"
   on 'd', :druids=, 'DRUID[,DRUID,...] - a list of DRUIDs (or use STDIN or FILES).', as: Array, default: []
   on 'h', :destination_host=, destination_host_help, default: SdrServices::Config.rsync_destination_host
-  on 'p', :destination_path=, destination_home_help, default: SdrServices::Config.rsync_destination_path
-  on 't', :destination_type=, destination_type_help, default: 'druid-id'
+  on 'p', :destination_path=, destination_path_help, default: SdrServices::Config.rsync_destination_path
+  on 't', :destination_type=, destination_type_help, default: 'druid-id'  # TODO use: Moab::Config.path_method ?
   on 'l', :logfile=, "FILE  - log to FILE (default='log/druid_transfers.log')", default: logfile
   on 'help'
 end
