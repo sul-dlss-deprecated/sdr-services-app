@@ -19,16 +19,18 @@ module SdrServices
   end
 end
 
-env_file = case ENV["RACK_ENV"].to_sym
-  when  :development, :integration
-    "integration"
+case ENV["RACK_ENV"].to_sym
+  # when  :development, :integration
+  when  :integration
+    env_file = "integration"
   when :test, :staging
-    "staging"
+    env_file = "staging"
   when :prod, :production
-    "production"
+    env_file = "production"
   else
-    "development"
-  end
+    env_file = "development"
+end
 env_path = File.expand_path(File.dirname(__FILE__) + "/environments/#{env_file}")
 require env_path
 
+puts "Loaded #{env_path}"

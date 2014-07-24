@@ -1,3 +1,5 @@
+
+puts "RACK_ENV: " + ENV['RACK_ENV']
 require File.dirname(__FILE__) + '/config/boot.rb'
 
 run Rack::URLMap.new({
@@ -14,6 +16,10 @@ log = File.new("log/sdr.log", "a+")
 #   then Phusion Passenger loses its means to communicate with the application.
 #   After a while, Phusion Passenger concludes that the application fails to start up, and reports an error.
 #$stdout.reopen(log)
-$stderr.reopen(log)
-$stderr.sync = true
-$stdout.sync = true
+
+unless ENV['RACK_ENV'] == 'development'
+  $stderr.reopen(log)
+  $stderr.sync = true
+  $stdout.sync = true
+end
+

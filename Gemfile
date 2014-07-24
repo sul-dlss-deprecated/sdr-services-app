@@ -2,15 +2,16 @@
 ruby '2.1.0'
 
 source 'http://rubygems.org'
-source 'http://sul-gems.stanford.edu'
 
 gem 'json_pure'
 gem 'sinatra', '~> 1.4'
 gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
 gem 'druid-tools'
 gem 'rack', '~> 1.5'
+gem 'thin'
 gem 'sys-filesystem'
 gem 'pry'
+gem 'slop'  # CLI parser
 
 # Templating for /views/documentation
 gem 'haml'
@@ -20,7 +21,7 @@ group :development do
 	gem 'awesome_print'
   gem 'capistrano-bundler', '~> 1.1'
 	gem 'equivalent-xml'
-  gem 'lyberteam-capistrano-devel', '3.0.0.pre1'
+  gem 'lyberteam-capistrano-devel', '~> 3.0.0'
   gem 'rack-test', :require => "rack/test"
 	gem 'rspec', '~> 2.14'
 	gem 'simplecov', '~> 0.7.1'
