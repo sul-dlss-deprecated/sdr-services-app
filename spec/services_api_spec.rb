@@ -328,38 +328,39 @@ EOF
 
   describe "special requests" do
 
-    #it "should rsync a file to specified destination" do
-    #  authorize SdrServices::Config.username, SdrServices::Config.password
-    #  get '/objects/druid:jq937jp0017/rsync'
-    #  last_response.body.should =~ /^rsync/
-    #  puts last_response.body
-    #end
+    # it "should transfer a file to specified destination" do
+    #   authorize SdrServices::Config.username, SdrServices::Config.password
+    #   get '/objects/druid:jq937jp0017/transfer'
+    #   last_response.status.should == 200
+    #   last_response.body.should =~ /^rsync/
+    # end
 
-
-    # Add an enhancement to the sdr-services-app to support more flexible rsync transfers of whole objects from
+    # Add an enhancement to the sdr-services-app to support more flexible transfers of whole objects from
     # the -prod to -test/-dev machines.
     #
     # This enhancement uses a POST request to specify:
     # * :druids => an array of object ids whose files should be transferred
     # * :destination_host  => a fully qualified host name
-    # * :destination_home  => an absolute file system path
+    # * :destination_path  => an absolute file system path
     # * :destination_type  => 'druid-tree-full' : a path hierarchy (/my/home/ab/123/cd/4567/ab123cd4567)
     # *                    => 'druid-tree-short': a path hierarchy (/my/home/ab/123/cd/4567)
     #                   or => 'druid-id'        : a simple path (/my/home/ab123cd4567, this is the default)
     #
     # The POST call returns a status and the body contains all the commands the service initiates
     #
-    it "should sync bags to specified destination" do
+    it "should transfer MOAB archives to specified destination" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       objects = ['druid:jq937jp0017','druid:jq937jp0017'].join(',')
       #destination_host = '-dev.stanford.edu' # URI encode?
       destination_host = 'localhost' # URI encode?
-      destination_home = '/tmp/' # URI encode?
+      destination_path = '/tmp/sdr_transfers' # URI encode?
       destination_type = 'druid-id'
-      post "/objects/rsync?druids=#{objects}&destination_host=#{destination_host}&destination_home=#{destination_home}&destination_type=#{destination_type}"
-      last_response.body.should =~ /rsync/
-      #Check there are no errors on last response?
-      #puts last_response.body
+      post "/objects/transfer?druids=#{objects}&destination_host=#{destination_host}&destination_path=#{destination_path}&destination_type=#{destination_type}"
+      last_response.status.should == 200
+      last_response.body.should =~ /Scheduled DRUID transfers/
+      # Cannot check with File.exists? because the transfer is async from the http response.
+      # For cleanup of the destination_path, the 'at' scheduler should run this AFTER the transfer completes.
+      system("echo 'rm -rf #{destination_path}' | at now + 1 minute")
     end
 
     it "should return GB used by storage" do
