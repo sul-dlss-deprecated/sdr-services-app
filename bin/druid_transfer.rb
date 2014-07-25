@@ -24,10 +24,12 @@ tabs="\n\t\t\t\t"
 destination_type_help = "" +
     "'druid-id'            (jq937jp0017) [default]#{tabs}" +
     "or 'druid-tree-short' (jq/937/jp/0017)#{tabs}" +
-    "or 'druid-tree-long'  (jq/937/jp/0017/jq937jp0017)"
+    "or 'druid-tree-long'  (jq/937/jp/0017/jq937jp0017)#{tabs}"
 
-destination_host_help = 'DESTINATION_HOST - {user}@{hostname|hostIP} where rsync over ssh is authorized for {user}'
-destination_path_help = 'DESTINATION_PATH - /absolute/path/to/remote/repository where {user} has write permissions'
+destination_host_help = "DESTINATION_HOST - {user}@{host}#{tabs}" +
+    "where ssh automated authorization is enabled for {user}@{host}#{tabs}"
+destination_path_help = "DESTINATION_PATH - /absolute/path/to/remote/repository#{tabs}" +
+    "where {user}@{host} has write permissions to create this path and write files#{tabs}"
 
 # Work around conflict in common use of '-h' for help in ARGV,
 # because '-h' is used for '--destination_host' in this script.
@@ -39,7 +41,7 @@ opts = Slop.parse! do
   on 'h', :destination_host=, destination_host_help, default: SdrServices::Config.rsync_destination_host
   on 'p', :destination_path=, destination_path_help, default: SdrServices::Config.rsync_destination_path
   on 't', :destination_type=, destination_type_help, default: 'druid-id'  # TODO use: Moab::Config.path_method ?
-  on 'l', :logfile=, "FILE  - log to FILE (default='log/druid_transfers.log')", default: logfile
+  on 'l', :logfile=, "FILE  - log to FILE (default='log/druid_transfers.log')#{tabs}", default: logfile
   on 'help'
 end
 if opts[:help]

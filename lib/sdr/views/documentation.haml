@@ -92,8 +92,8 @@
           %h2#nav_batch Batch Services
 
           %p
-            These services provide rsync transfers for DRUIDs.  The REST service deployment system must be configured
-            for ssh access and write permissions on the destination host and file system.
+            These services provide transfers for MOAB archives of DRUIDs.  The REST service deployment system
+            must be configured for ssh access and write permissions on the destination host and file system.
 
             %ul
               %li Transfer a single DRUID to a pre-configured destination
@@ -102,7 +102,6 @@
                   <span class="label label-info">GET</span> <code>/objects/:druid/transfer</code>
                 %li
                   example: /objects/druid:dh370hm3931/transfer
-                  -# %a{href: "/objects/druid:dh370hm3931/rsync"} /objects/druid:dh370hm3931/rsync
 
 
               %li Transfer many DRUIDs to a destination host:path, using one of several path types.  The transfer
@@ -115,7 +114,7 @@
                   %ul
                     %li druids={druid_id1,druid_id2..,druid_idN}
                     %li destination_host={remote_user@remote_host}
-                    %li destination_home={remote_absolute_path}
+                    %li destination_path={remote_absolute_path}
                     %li destination_type='druid_id' || 'druid-tree-short' || 'druid-tree-long'
                 %li
                   example shell script, using curl:
@@ -126,11 +125,37 @@
                       sdr_host='sdrAppHost'
                       druids='druid:dh370hm3931,druid:hv987cf5327,druid:nh358jx9024,druid:sd695sp3501,druid:fq515xp0937'
                       destination_host='RemoteUser@RemoteHost'  # must be accessible from $sdr_host
-                      destination_home='/tmp/sdr_rsync'         # may be created if it doesn't exist already
+                      destination_path='/tmp/sdr_transfers'     # created if it doesn't exist
                       destination_type='druid_id' # default || 'druid-tree-short' || 'druid-tree-long'
-                      params="druids=${druids}&destination_host=${destination_host}&destination_home=${destination_home}&destination_type=${destination_type}"
+                      params="druids=${druids}&destination_host=${destination_host}&destination_path=${destination_path}&destination_type=${destination_type}"
                       curl -X POST "https://${sdr_user}:${sdr_pass}@${sdr_host}/sdr/objects/transfer?${params}"
                     </pre>
+
+              %li Script utility for transfer of many DRUIDs to a destination host:path, using one of several path types.
+                The transfer activity is asynchronous, completion is signaled via email notification to a configured recipient.
+                :markdown
+                  <pre class="prettyprint linenums lang-sh" style="display: table; padding-right: 20px;">
+                    $ ./bin/druid_transfer.rb --help
+                    Loaded /Users/dlweber/src/dlss/sdr-services-app/config/environments/development
+                    Usage: ./bin/druid_transfer.rb [OPTIONS] [FILES]
+                        -d, --druids                DRUID[,DRUID,...] - a list of DRUIDs (or use STDIN or FILES). (default: [])
+                        -h, --destination_host      DESTINATION_HOST - {user}@{host}
+                                    where ssh automated authorization is enabled for {user}@{host}
+                                     (default: localhost)
+                        -p, --destination_path      DESTINATION_PATH - /absolute/path/to/remote/repository
+                                    where {user}@{host} has write permissions to create this path and write files
+                                     (default: /tmp/sdr_transfer)
+                        -t, --destination_type      'druid-id'            (jq937jp0017) [default]
+                                    or 'druid-tree-short' (jq/937/jp/0017)
+                                    or 'druid-tree-long'  (jq/937/jp/0017/jq937jp0017)
+                                     (default: druid-id)
+                        -l, --logfile               FILE  - log to FILE (default='log/druid_transfers.log')
+                                     (default: /Users/dlweber/src/dlss/sdr-services-app/log/druid_transfers.log)
+                              --help
+                  </pre>
+
+
+
 
 
     :javascript

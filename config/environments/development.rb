@@ -11,6 +11,6 @@ SdrServices::Config.configure do
   admin_email ENV['USER']
   storage_filesystems ['/']
   rsync_destination_host 'localhost'
-  rsync_destination_path '/tmp/sdr-rsync'
+  rsync_destination_path '/tmp/sdr_transfer'
 end
 
