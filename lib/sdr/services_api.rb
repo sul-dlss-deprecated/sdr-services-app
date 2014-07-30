@@ -149,6 +149,9 @@ module Sdr
       [500, errmsg]
     end
 
+    get '/' do
+      redirect to('/documentation')
+    end
     get '/documentation' do
       haml :'documentation'
     end
