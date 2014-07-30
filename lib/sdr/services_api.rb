@@ -1,6 +1,7 @@
 require 'moab_stanford'
 require 'druid-tools'
 require 'sys/filesystem'
+require "sinatra/reloader"
 
 module Sdr
   class ServicesApi < Sinatra::Base
@@ -10,6 +11,10 @@ module Sdr
       enable :logging
       disable :raise_errors
       disable :show_exceptions
+    end
+
+    configure :development do
+      register Sinatra::Reloader
     end
 
     use Rack::Auth::Basic, "Restricted Area" do |username, password|
