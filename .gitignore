@@ -4,6 +4,7 @@
 .idea/
 .rspec-local
 .rvmrc
+.ruby-version
 .yardoc/
 config/deploy/*
 !config/deploy/development.rb
