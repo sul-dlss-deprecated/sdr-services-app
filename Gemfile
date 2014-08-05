@@ -1,5 +1,5 @@
 # If the Ruby version being use does not match, Bundler will raise an exception
-ruby '2.1.0'
+ruby '2.1.2'
 
 source 'http://rubygems.org'
 
@@ -24,7 +24,7 @@ group :development do
 	gem 'equivalent-xml'
   gem 'lyberteam-capistrano-devel', '~> 3.0.0'
   gem 'rack-test', :require => "rack/test"
-	gem 'rspec', '~> 2.14'
+	gem 'rspec', '< 3.0'
 	gem 'simplecov', '~> 0.7.1'
-	gem 'yard'
+  gem 'yard'
 end
