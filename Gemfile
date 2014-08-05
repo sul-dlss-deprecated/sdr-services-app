@@ -6,6 +6,8 @@ source 'http://rubygems.org'
 gem 'json_pure'
 gem 'sinatra', '~> 1.4'
 gem 'sinatra-contrib'
+gem 'sinatra-advanced-routes'
+
 gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
 gem 'druid-tools'
 gem 'rack', '~> 1.5'

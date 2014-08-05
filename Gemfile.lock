@@ -90,6 +90,8 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
+    sinatra-advanced-routes (0.5.3)
+      sinatra (~> 1.0)
     sinatra-contrib (1.4.2)
       backports (>= 2.0)
       multi_json
@@ -131,6 +133,7 @@ DEPENDENCIES
   rspec (< 3.0)
   simplecov (~> 0.7.1)
   sinatra (~> 1.4)
+  sinatra-advanced-routes
   sinatra-contrib
   slop
   sys-filesystem
