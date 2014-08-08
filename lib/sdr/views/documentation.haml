@@ -1,6 +1,4 @@
--#require 'yard/sinatra'
--#YARD::Registry.load Dir.glob("#{settings.root}/**/*.rb")
-
+-#require 'pry'
 
 %html
   %head
@@ -108,11 +106,7 @@
               -#route.app.name   # "Sdr::ServicesApi"
               %li
                 -yard_method_name = route_yard_name(route)
-                -#if route.path == '/'
-                  -yard_method_name = 'get_root'
-                -#else
-                  -yard_method_name = route.verb.downcase + route.path.gsub('/','_').gsub(':','').gsub('_*','')
-                -yard_doc_link = '/doc#' + yard_method_name + '-instance_method'
+                -yard_doc_link = request.base_url + '/doc#' + yard_method_name + '-instance_method'
                 ="<span class='label label-info'>#{route.verb}</span>" # get / head / post / put / delete
                 ="<a href='#{yard_doc_link}'>#{route.path}</a>"        # that's the path given as argument to get
                 -#route.file       # "some_sinatra_app.rb" or something
@@ -126,7 +120,7 @@
             -routesPOST.each do |route|
               %li
                 -yard_method_name = route_yard_name(route)
-                -yard_doc_link = '/doc#' + yard_method_name + '-instance_method'
+                -yard_doc_link = request.base_url + '/doc#' + yard_method_name + '-instance_method'
                 ="<span class='label label-info'>#{route.verb}</span>"
                 ="<a href='#{yard_doc_link}'>#{route.path}</a>"
 
