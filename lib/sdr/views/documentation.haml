@@ -1,4 +1,4 @@
--#require 'pry'
+-require 'pry'
 
 %html
   %head
@@ -100,13 +100,14 @@
           %h2#nav_routes Routes
           -routesGET = Sdr::ServicesApi.routes['GET'].sort {|a,b| a.path <=> b.path }
           -routesPOST = Sdr::ServicesApi.routes['POST'].sort {|a,b| a.path <=> b.path }
+          -routeToYardDoc = request.path.sub('documentation','doc#')
 
           %ul
             -routesGET.each do |route|
               -#route.app.name   # "Sdr::ServicesApi"
               %li
                 -yard_method_name = route_yard_name(route)
-                -yard_doc_link = request.base_url + '/doc#' + yard_method_name + '-instance_method'
+                -yard_doc_link = routeToYardDoc + yard_method_name + '-instance_method'
                 ="<span class='label label-info'>#{route.verb}</span>" # get / head / post / put / delete
                 ="<a href='#{yard_doc_link}'>#{route.path}</a>"        # that's the path given as argument to get
                 -#route.file       # "some_sinatra_app.rb" or something
@@ -120,7 +121,7 @@
             -routesPOST.each do |route|
               %li
                 -yard_method_name = route_yard_name(route)
-                -yard_doc_link = request.base_url + '/doc#' + yard_method_name + '-instance_method'
+                -yard_doc_link = routeToYardDoc + yard_method_name + '-instance_method'
                 ="<span class='label label-info'>#{route.verb}</span>"
                 ="<a href='#{yard_doc_link}'>#{route.path}</a>"
 
