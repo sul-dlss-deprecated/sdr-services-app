@@ -20,6 +20,8 @@ module Sdr
       disable :show_exceptions
     end
 
+    set :public_folder, 'lib/sdr/public'
+
     use Rack::Auth::Basic, "Restricted Area" do |username, password|
       [username, password] == [SdrServices::Config.username, SdrServices::Config.password]
     end
@@ -182,7 +184,9 @@ module Sdr
     # @method get_doc
     # REST API details
     get '/doc' do
-      send_file File.join(settings.public_folder, '/Sdr/ServicesApi.html')
+      # After set :public_folder above, redirect to static yard docs
+      #send_file File.join(settings.public_folder, '/Sdr/ServicesApi.html')
+      redirect to '/Sdr/ServicesApi.html'
     end
 
     # @method get_documentation
