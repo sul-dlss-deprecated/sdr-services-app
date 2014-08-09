@@ -1,0 +1,7 @@
+--title "SDR Services REST API Documentation"
+--charset utf-8
+#--plugin yard-restful
+#--plugin yard-sinatra
+#--readme API_README
+--output-dir ./lib/sdr/public
+lib/sdr/**/*.rb

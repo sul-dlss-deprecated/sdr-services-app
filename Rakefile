@@ -18,7 +18,7 @@ end
 desc 'Generate API docs'
 task :doc do
   puts 'Generating API documentation, using YARD.'
-  system('bundle exec yardoc --output-dir lib/sdr/public/')
+  system('bundle exec yardoc -q') # see .yardopts
 end
 
 desc 'Show help menu'

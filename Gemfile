@@ -29,4 +29,6 @@ group :development do
 	gem 'rspec', '< 3.0'
 	gem 'simplecov', '~> 0.7.1'
   gem 'yard'
+  #gem 'yard-restful'
+  #gem 'yard-sinatra'
 end
