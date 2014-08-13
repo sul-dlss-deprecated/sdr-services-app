@@ -24,6 +24,7 @@ module Sdr
     # See Sinatra-error-handling for explanation of exception behavior
     configure do
       enable :logging
+      disable :dump_errors
       disable :raise_errors
       disable :show_exceptions
     end
@@ -37,11 +38,7 @@ module Sdr
     helpers do
       def latest_version
         unless @latest_version
-          begin
-            @latest_version = Stanford::StorageServices.current_version(params[:druid])
-          rescue
-            not_found
-          end
+          @latest_version = Stanford::StorageServices.current_version(params[:druid])
         end
         @latest_version
       end
