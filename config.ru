@@ -16,13 +16,11 @@ log = File.new("log/sdr.log", "a+")
 #   then Phusion Passenger loses its means to communicate with the application.
 #   After a while, Phusion Passenger concludes that the application fails to start up, and reports an error.
 #$stdout.reopen(log)
-$stderr.reopen(log)
-$stderr.sync = true
-$stdout.sync = true
 
-# unless ENV['RACK_ENV'] == 'development'
-#   $stderr.reopen(log)
-#   $stderr.sync = true
-#   $stdout.sync = true
-# end
+# Hack for dev so log messages appear in terminal instead of log file
+unless ENV["TERM_PROGRAM"] == "Apple_Terminal"
+  $stderr.reopen(log)
+  $stderr.sync = true
+  $stdout.sync = true
+end
 
