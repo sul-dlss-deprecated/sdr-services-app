@@ -17,9 +17,9 @@ log = File.new("log/sdr.log", "a+")
 #   After a while, Phusion Passenger concludes that the application fails to start up, and reports an error.
 #$stdout.reopen(log)
 
-unless ENV['RACK_ENV'] == 'development'
-  $stderr.reopen(log)
-  $stderr.sync = true
-  $stdout.sync = true
-end
+# unless ENV['RACK_ENV'] == 'development'
+#   $stderr.reopen(log)
+#   $stderr.sync = true
+#   $stdout.sync = true
+# end
 
