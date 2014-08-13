@@ -163,23 +163,34 @@ module Sdr
     end
 
 
+    $showExceptions = Sinatra::ShowExceptions.new(self)
+
     error Moab::ObjectNotFoundException do
-      [404, request.env['sinatra.error'].message]
+      @error = env['sinatra.error']
+      body $showExceptions.pretty(env, @error)
+      status 404
     end
 
     error Moab::FileNotFoundException do
-      [404, request.env['sinatra.error'].message]
+      @error = env['sinatra.error']
+      body $showExceptions.pretty(env, @error)
+      status 404
     end
 
     error Moab::InvalidMetadataException do
-      [400, "Bad Request: Invalid contentMetadata - " + request.env['sinatra.error'].message]
+      @error = env['sinatra.error']
+      body $showExceptions.pretty(env, @error)
+      status 400
+      #[400, "Bad Request: Invalid contentMetadata - " + env['sinatra.error'].message]
     end
 
     error do
-      errmsg = 'Unexpected Error: ' + request.env['sinatra.error'].message
-      logger.error errmsg
-      [500, errmsg]
+      logger.error 'Unexpected Error: ' + env['sinatra.error'].message
+      @error = env['sinatra.error']
+      body $showExceptions.pretty(env, @error)
+      status 500
     end
+
 
     # @!group GET services
 
