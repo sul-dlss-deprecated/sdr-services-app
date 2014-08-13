@@ -23,3 +23,6 @@ log = File.new("log/sdr.log", "a+")
 #   $stdout.sync = true
 # end
 
+$stderr.reopen(log)
+$stderr.sync = true
+$stdout.sync = true
