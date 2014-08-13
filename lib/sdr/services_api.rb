@@ -37,7 +37,11 @@ module Sdr
     helpers do
       def latest_version
         unless @latest_version
-          @latest_version = Stanford::StorageServices.current_version(params[:druid])
+          begin
+            @latest_version = Stanford::StorageServices.current_version(params[:druid])
+          rescue
+            not_found
+          end
         end
         @latest_version
       end
