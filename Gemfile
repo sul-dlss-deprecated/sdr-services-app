@@ -9,6 +9,8 @@ gem 'sinatra-contrib'
 gem 'sinatra-advanced-routes'
 
 gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
+#gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git', :branch => 'ruby_ver2_update'
+
 gem 'druid-tools'
 gem 'rack', '~> 1.5'
 gem 'thin'
