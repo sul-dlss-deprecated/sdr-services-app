@@ -160,20 +160,20 @@ module Sdr
         end
       end
 
+      def format_error_message(msg_prefix=nil)
+        _datetime = DateTime.now.strftime('ERROR [%d/%b/%Y %H:%M:%S]')
+        _error = env['sinatra.error']
+        msg = msg_prefix ? "#{_datetime} - info    - #{msg_prefix}\n" : ''
+        msg += "#{_datetime} - message - #{_error.class} - #{_error.message}\n"
+        msg += "#{_datetime} - request - #{request.url}\n"
+        msg += "#{_datetime} - params  - #{request.params.to_s}\n"
+        return msg
+      end
+
     end
 
 
     $showExceptions = Sinatra::ShowExceptions.new(self)
-
-    def format_error_message(msg_prefix=nil)
-      _datetime = DateTime.now.strftime('ERROR [%d/%b/%Y %H:%M:%S]')
-      _error = env['sinatra.error']
-      msg = msg_prefix ? "#{_datetime} - info    - #{msg_prefix}\n" : ''
-      msg += "#{_datetime} - message - #{_error.class} - #{_error.message}\n"
-      msg += "#{_datetime} - request - #{request.url}\n"
-      msg += "#{_datetime} - params  - #{request.params.to_s}\n"
-      return msg
-    end
 
     error Moab::ObjectNotFoundException do
       @error = env['sinatra.error']
