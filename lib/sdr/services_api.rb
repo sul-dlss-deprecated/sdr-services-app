@@ -165,40 +165,41 @@ module Sdr
 
     $showExceptions = Sinatra::ShowExceptions.new(self)
 
-    def format_error_message
+    def format_error_message(msg_prefix=nil)
+      _datetime = DateTime.now.strftime('ERROR [%d/%b/%Y %H:%M:%S]')
       _error = env['sinatra.error']
-      msg = "Bad Request: Invalid contentMetadata\n"
-      msg += "#{_error.class} - #{_error.message} at #{request.url}\n"
-      msg += "params: #{request.params.to_s}\n"
+      msg = msg_prefix ? "#{_datetime} - info    - #{msg_prefix}\n" : ''
+      msg += "#{_datetime} - message - #{_error.class} - #{_error.message}\n"
+      msg += "#{_datetime} - request - #{request.url}\n"
+      msg += "#{_datetime} - params  - #{request.params.to_s}\n"
       return msg
     end
 
     error Moab::ObjectNotFoundException do
       @error = env['sinatra.error']
-      env['rack.errors'].write(format_error_message)
+      env['rack.errors'].write(format_error_message)  # log error
       body $showExceptions.pretty(env, @error)
       status 404
     end
 
     error Moab::FileNotFoundException do
       @error = env['sinatra.error']
-      env['rack.errors'].write(format_error_message)
+      env['rack.errors'].write(format_error_message)  # log error
       body $showExceptions.pretty(env, @error)
       status 404
     end
 
     error Moab::InvalidMetadataException do
       @error = env['sinatra.error']
-      env['rack.errors'].write(format_error_message)
+      env['rack.errors'].write(format_error_message 'Bad Request: Invalid contentMetadata')  # log error
       body $showExceptions.pretty(env, @error)
       status 400
-      #[400, "Bad Request: Invalid contentMetadata - " + env['sinatra.error'].message]
     end
 
     error do
       msg = format_error_message
-      logger.error 'Unexpected Error: ' + msg
-      env['rack.errors'].write(msg)
+      #logger.error "Unexpected Error:\n#{msg}"
+      env['rack.errors'].write(msg)  # log error
       @error = env['sinatra.error']
       body $showExceptions.pretty(env, @error)
       status 500
