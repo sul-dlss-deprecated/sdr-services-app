@@ -92,8 +92,7 @@ describe Sdr::ServicesApi do
     it "returns 400 Bad Request if posted content metadata is invalid" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff?version=1', bad_content_md
-      last_response.should_not be_ok
-      # last_response.status.should == 400 #(but error handlers not translating errors in dev)
+      last_response.status.should eq(400)
       last_response.errors.should =~ /Moab::InvalidMetadataException/
       last_response.errors.should =~ /missing md5/
     end
@@ -102,7 +101,6 @@ describe Sdr::ServicesApi do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff', content_md
       last_response.should be_ok
-            
       diff = Nokogiri::XML(last_response.body)
       diff.at_xpath('/fileInventoryDifference/@basis').value.should == 'v3-contentMetadata-all'
     end
