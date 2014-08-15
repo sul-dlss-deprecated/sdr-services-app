@@ -1,4 +1,3 @@
-# If the Ruby version being use does not match, Bundler will raise an exception
 
 source 'http://rubygems.org'
 
