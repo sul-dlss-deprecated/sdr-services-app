@@ -1,5 +1,5 @@
 # If the Ruby version being use does not match, Bundler will raise an exception
-ruby '2.1.0'
+ruby '2.1.2'
 
 source 'http://rubygems.org'
 
@@ -8,8 +8,8 @@ gem 'sinatra', '~> 1.4'
 gem 'sinatra-contrib'
 gem 'sinatra-advanced-routes'
 
-gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
-#gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git', :branch => 'ruby_ver2_update'
+#gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
+gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git', :branch => 'ruby_ver2_update'
 
 gem 'druid-tools'
 gem 'rack', '~> 1.5'
