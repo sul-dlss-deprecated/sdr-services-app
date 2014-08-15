@@ -12,9 +12,9 @@ gem 'sys-filesystem'
 gem 'pry'
 gem 'slop'  # CLI parser
 
-#gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
-gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
 gem 'druid-tools'
+gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
+#gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
 
 # Templating for /views/documentation
 gem 'haml'
