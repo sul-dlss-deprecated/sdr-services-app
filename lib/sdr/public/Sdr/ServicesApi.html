@@ -106,17 +106,30 @@
     
 <p>This API provides a RESTful interface to the Stanford Digital Repository
 for authorized access.  The API specifies RESTful resources to access
-entire or partial digital object content, referenced by unique identifiers
-(DRUIDs).</p>
+entire or partial digital content, referenced by digital repository unique
+identifiers (DRUIDs).</p>
 
-<p><a
-href="https://github.com/sul-dlss/sdr-services-app">github.com/sul-dlss/sdr-services-app</a></p>
+<p>A DRUID is a unique identifier, such as &#39;jq937jp0017&#39; or
+&#39;druid:jq937jp0017&#39;.  The identifier is designed to provide an
+efficient file system hierarchy, e.g. &#39;jq937jp0017&#39; will contain
+content somewhere in a file system at &#39;…/jq/937/jp/0017/.&#39; The
+DRUID regex pattern, using posix bracket notation, is: [[:lower:]]<a
+href=“[:digit:”>2</a>]<a href=“[:lower:”>3</a>]<a href=“[:digit:”>2</a>]4</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://github.com/sul-dlss/sdr-services-app" target="_parent" title="https://github.com/sul-dlss/sdr-services-app">https://github.com/sul-dlss/sdr-services-app</a></li>
+    
+      <li><a href="https://github.com/sul-dlss/druid-tools" target="_parent" title="https://github.com/sul-dlss/druid-tools">https://github.com/sul-dlss/druid-tools</a></li>
+    
+  </ul>
 
 </div>
 
@@ -316,7 +329,7 @@ in.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>DRUID file content.</p>
+<p>DRUID content file.</p>
 </div></span>
   
 </li>
@@ -364,7 +377,7 @@ in.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A list of DRUID files (by category and version; HTML).</p>
+<p>A list of DRUID content (by category and version; HTML).</p>
 </div></span>
   
 </li>
@@ -667,151 +680,9 @@ version.</p>
       
     </ul>
   
-    <h2>
-      ERRORS
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
-    </h2>
-
-    <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#get_error_test_file_not_found-instance_method" title="#GET (instance method)">- (Object) <strong>GET</strong>(&quot;/error_test/file_not_found&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#get_error_test_invalid_metadata-instance_method" title="#GET (instance method)">- (Object) <strong>GET</strong>(&quot;/error_test/invalid_metadata&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#get_error_test_object_not_found-instance_method" title="#GET (instance method)">- (Object) <strong>GET</strong>(&quot;/error_test/object_not_found&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-    </ul>
-  
-    <h2>
-      Class Method Summary
-      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
-    </h2>
-
-    <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#new-class_method" title="new (class method)">+ (Object) <strong>new</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-    </ul>
-  
 
 
   
-
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-
-    
-      <div class="method_details first">
-  <h3 class="signature first" id="new-class_method">
-  
-    + (<tt>Object</tt>) <strong>new</strong> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-439
-440
-441</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 439</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='rparen'>)</span>
-  <span class='kw'>super</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -843,12 +714,12 @@ version.</p>
       <pre class="lines">
 
 
-189
-190
-191</pre>
+222
+223
+224</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 222</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/documentation</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -977,15 +848,15 @@ version</p>
       <pre class="lines">
 
 
-365
-366
-367
-368
-369
-370</pre>
+400
+401
+402
+403
+404
+405</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 365</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 400</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/cm-adds</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_rewind'>rewind</span>
@@ -1117,19 +988,19 @@ version</p>
       <pre class="lines">
 
 
-378
-379
-380
-381
-382
-383
-384
-385
-386
-387</pre>
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 378</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 413</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/cm-inv-diff</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='comment'># Both technical-metadata and shelve robots currently make a call to Dor::Itemizable#get_content_diff which:
@@ -1228,13 +1099,13 @@ version</p>
       <pre class="lines">
 
 
-309
-310
-311
-312</pre>
+344
+345
+346
+347</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 309</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 344</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/cm-remediate</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_remediated_cm'>remediated_cm</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_cm_remediate'>cm_remediate</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='rparen'>)</span>
@@ -1291,14 +1162,14 @@ version</p>
       <pre class="lines">
 
 
-195
-196
-197
-198
-199</pre>
+228
+229
+230
+231
+232</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 228</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/doc</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='comment'># After set :public_folder above, redirect to static yard docs
@@ -1356,192 +1227,15 @@ version</p>
       <pre class="lines">
 
 
-203
-204
-205</pre>
+236
+237
+238</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 203</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 236</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/documentation</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:documentation</span><span class='tstring_end'>&#39;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_error_test_file_not_found-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/error_test/file_not_found&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Moab::FileNotFoundException</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>if a DRUID file doesn&#39;t exist</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-420
-421
-422</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 420</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/error_test/file_not_found</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Moab</span><span class='op'>::</span><span class='const'>FileNotFoundException</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_error_test_invalid_metadata-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/error_test/invalid_metadata&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Moab::InvalidMetadataException</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>if the metadata can&#39;t be validated</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-426
-427
-428</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 426</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/error_test/invalid_metadata</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Moab</span><span class='op'>::</span><span class='const'>InvalidMetadataException</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_error_test_object_not_found-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/error_test/object_not_found&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-
-<p class="tag_title">Raises:</p>
-<ul class="raise">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Moab::ObjectNotFoundException</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>if the DRUID doesn&#39;t exist</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-432
-433
-434</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 432</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/error_test/object_not_found</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>Moab</span><span class='op'>::</span><span class='const'>ObjectNotFoundException</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1594,16 +1288,16 @@ version</p>
       <pre class="lines">
 
 
-340
-341
-342
-343
-344
-345
-346</pre>
+375
+376
+377
+378
+379
+380
+381</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 340</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 375</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/gb_used</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_gigabye_size'>gigabye_size</span> <span class='op'>=</span> <span class='int'>1024</span><span class='op'>*</span><span class='int'>1024</span><span class='op'>*</span><span class='int'>1024</span>
@@ -1645,14 +1339,14 @@ version</p>
       <pre class="lines">
 
 
-209
-210
-211
-212
-213</pre>
+242
+243
+244
+245
+246</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 209</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 242</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='comment'># TODO add exception logging
@@ -1734,12 +1428,12 @@ version</p>
       <pre class="lines">
 
 
-219
-220
-221</pre>
+252
+253
+254</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 219</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 252</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_menu'>menu</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='rparen'>)</span><span class='rbracket'>]</span>
@@ -1761,13 +1455,25 @@ version</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns DRUID file content</p>
+<p>Returns DRUID content file</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Retrieve the &#39;title.jpg&#39; file for druid:jq937jp0017</p>
+</div></p>
+      
+      <pre class="example code"><code>/objects/jq937jp0017/content/title.jpg</code></pre>
+    
+  </div>
+
   
 <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -1790,7 +1496,7 @@ version</p>
   
     <li>
       
-        <span class='name'>file</span>
+        <span class='name'>filename</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1799,7 +1505,7 @@ version</p>
       
         &mdash;
         <div class='inline'>
-<p>DRUID file ID</p>
+<p>DRUID content filename (required)</p>
 </div>
       
     </li>
@@ -1815,7 +1521,7 @@ version</p>
       
         &mdash;
         <div class='inline'>
-<p>DRUID version number</p>
+<p>DRUID version number (optional)</p>
 </div>
       
     </li>
@@ -1831,7 +1537,7 @@ version</p>
       
         &mdash;
         <div class='inline'>
-<p>DRUID file signature (e.g. md5 hash)</p>
+<p>DRUID content file signature (e.g. md5 hash)</p>
 </div>
       
     </li>
@@ -1850,7 +1556,7 @@ version</p>
       
         
         <div class='inline'>
-<p>DRUID file content</p>
+<p>DRUID content file</p>
 </div>
       
     </li>
@@ -1863,12 +1569,12 @@ version</p>
       <pre class="lines">
 
 
-271
-272
-273</pre>
+306
+307
+308</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 271</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 306</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/content/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
@@ -1944,13 +1650,13 @@ version</p>
       <pre class="lines">
 
 
-226
-227
-228
-229</pre>
+259
+260
+261
+262</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 259</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/current_version</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_current_version'>current_version</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_current_version'>current_version</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1973,7 +1679,7 @@ version</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a list of DRUID files (by category and version; HTML)</p>
+<p>Returns a list of DRUID content (by category and version; HTML)</p>
 
 
   </div>
@@ -2046,7 +1752,7 @@ version</p>
       
         &mdash;
         <div class='inline'>
-<p>a list of DRUID files (by category and version; HTML)</p>
+<p>a list of DRUID content (by category and version; HTML)</p>
 </div>
       
     </li>
@@ -2059,12 +1765,12 @@ version</p>
       <pre class="lines">
 
 
-261
-262
-263</pre>
+294
+295
+296</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 261</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 294</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/list/:category</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_file_list'>file_list</span><span class='lparen'>(</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:category</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='rparen'>)</span><span class='rbracket'>]</span>
@@ -2156,7 +1862,7 @@ version</p>
       
         &mdash;
         <div class='inline'>
-<p>DRUID file signature (e.g. md5 hash)</p>
+<p>DRUID content file signature (e.g. md5 hash)</p>
 </div>
       
     </li>
@@ -2188,12 +1894,12 @@ version</p>
       <pre class="lines">
 
 
-291
-292
-293</pre>
+326
+327
+328</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 291</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 326</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/manifest/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>manifest</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
@@ -2285,7 +1991,7 @@ version</p>
       
         &mdash;
         <div class='inline'>
-<p>DRUID file signature (e.g. md5 hash)</p>
+<p>DRUID content file signature (e.g. md5 hash)</p>
 </div>
       
     </li>
@@ -2317,12 +2023,12 @@ version</p>
       <pre class="lines">
 
 
-301
-302
-303</pre>
+336
+337
+338</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 301</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 336</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/manifests/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>manifest</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
@@ -2414,7 +2120,7 @@ version</p>
       
         &mdash;
         <div class='inline'>
-<p>DRUID file signature (e.g. md5 hash)</p>
+<p>DRUID content file signature (e.g. md5 hash)</p>
 </div>
       
     </li>
@@ -2446,12 +2152,12 @@ version</p>
       <pre class="lines">
 
 
-281
-282
-283</pre>
+316
+317
+318</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 281</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 316</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/metadata/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>metadata</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
@@ -2528,29 +2234,29 @@ destination.</p>
       <pre class="lines">
 
 
-317
-318
-319
-320
-321
-322
-323
-324
-325
-326
-327
-328
-329
-330
-331
-332
-333
-334
-335
-336</pre>
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 317</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 352</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/transfer</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_rewind'>rewind</span>
@@ -2675,13 +2381,13 @@ destination.</p>
       <pre class="lines">
 
 
-251
-252
-253
-254</pre>
+284
+285
+286
+287</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 251</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 284</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/version_differences</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_version_differences'>version_differences</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_version_differences'>version_differences</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:base</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:compare</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
@@ -2758,12 +2464,12 @@ destination.</p>
       <pre class="lines">
 
 
-242
-243
-244</pre>
+275
+276
+277</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 242</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 275</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/version_list</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_version_list'>version_list</span><span class='rbracket'>]</span>
@@ -2839,13 +2545,13 @@ destination.</p>
       <pre class="lines">
 
 
-234
-235
-236
-237</pre>
+267
+268
+269
+270</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 234</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 267</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/version_metadata</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_version_metadata'>version_metadata</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_version_metadata'>version_metadata</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -2882,12 +2588,12 @@ destination.</p>
       <pre class="lines">
 
 
-189
-190
-191</pre>
+222
+223
+224</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 222</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/documentation</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -2923,12 +2629,12 @@ destination.</p>
       <pre class="lines">
 
 
-349
-350
-351</pre>
+384
+385
+386</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 349</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 384</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/test/file_id_param/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='id identifier rubyid_file_id_param'>file_id_param</span>
@@ -3054,27 +2760,27 @@ into &lt;hostname&gt;</p>
       <pre class="lines">
 
 
-395
-396
-397
-398
-399
-400
-401
-402
-403
-404
-405
-406
-407
-408
-409
-410
-411
-412</pre>
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 395</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 430</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/transfer</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='comment'># Parse the params to construct CLI args for the ./bin/druid_transfer.rb script
@@ -3104,7 +2810,7 @@ into &lt;hostname&gt;</p>
 </div>
 
     <div id="footer">
-  Generated on Fri Aug  8 17:20:58 2014 by
+  Generated on Thu Aug 14 17:39:33 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.4 (ruby-2.1.0).
 </div>
