@@ -23,8 +23,8 @@ case ENV["RACK_ENV"].to_sym
   # when  :development, :integration
   when  :integration
     env_file = "integration"
-  when :test, :staging
-    env_file = "staging"
+  when :test
+    env_file = "test"
   when :prod, :production
     env_file = "production"
   else
