@@ -3,9 +3,6 @@ lock '3.2.1'
 
 set :application, 'sdr-services-app'
 
-# Default deploy_to directory is /var/www/my_app
-set :deploy_to, "/var/sdr2service/#{fetch(:application)}"
-
 # Default value for :scm is :git
 # set :scm, :git
 
@@ -30,7 +27,7 @@ set :log_level, :info
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-set :linked_dirs, %w(log config/environments)
+set :linked_dirs, %w(log config/environments config/certs)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -39,14 +36,16 @@ set :linked_dirs, %w(log config/environments)
 # set :keep_releases, 5
 
 namespace :deploy do
-
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end
-
+  # Capistrano 3 no longer runs deploy:restart by default.
   after :publishing, :restart
-
 end
+
+# capistrano next reads config/deploy/#{target}.rb, e.g.:
+# config/deploy/development.rb
+
