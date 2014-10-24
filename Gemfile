@@ -13,8 +13,15 @@ gem 'pry'
 gem 'slop'  # CLI parser
 
 gem 'druid-tools'
-gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
-#gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
+
+# TODO: publish moab-versioning 1.4.0 to rubygems
+#gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
+gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
+
+# Databases
+gem 'sequel'
+gem 'sqlite3'
+
 
 # Templating for /views/documentation
 gem 'haml'

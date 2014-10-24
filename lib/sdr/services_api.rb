@@ -4,6 +4,7 @@ require 'sys/filesystem'
 require "sinatra/base"
 require "sinatra/reloader"
 require 'sinatra/advanced_routes'
+require_relative 'archive_catalog'
 
 module Sdr
 
@@ -21,6 +22,8 @@ module Sdr
   # @see https://github.com/sul-dlss/druid-tools
   #
   class ServicesApi < Sinatra::Base
+
+    use ArchiveCatalogSQL
 
     # Register extensions
     register Sinatra::AdvancedRoutes
