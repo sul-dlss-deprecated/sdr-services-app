@@ -10,6 +10,7 @@ config/deploy/*
 !config/deploy/development.rb
 config/environments/*
 !config/environments/development.rb
+config/database.yml
 coverage
 coverage/
 coverage.data
