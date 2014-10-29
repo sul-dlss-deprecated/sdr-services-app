@@ -19,9 +19,9 @@ gem 'druid-tools'
 gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
 
 # Databases
-gem 'sequel'
+gem 'ruby-oci8' # oracle
 gem 'sqlite3'
-
+gem 'sequel'
 
 # Templating for /views/documentation
 gem 'haml'

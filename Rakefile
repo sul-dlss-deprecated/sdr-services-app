@@ -4,6 +4,7 @@ task :default => :spec
 
 desc 'Run specs'
 task :spec do
+  #ENV['RACK_ENV'] = 'test'
   RSpec::Core::RakeTask.new(:spec) do |t|
     t.pattern = './spec/**/*_spec.rb'
   end
