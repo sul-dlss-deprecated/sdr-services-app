@@ -1,0 +1,50 @@
+// https://gist.github.com/darrenleeweber/8bbfb2ff8e7552cebe65
+{
+  "druid": "{druid_id}",
+  "label": "{optional_label}",
+  "governing_object": "{druid_apo}",
+  "moab": {
+    "host": "{hostname}",
+    "storage": "{file_system_absolute_path}",
+    "versions": [1,2,3]  // latest_version is last element
+  },
+  "versions": {
+    "1": {
+      "ingest_date": "{utc_date}",
+      "replicas": {
+        "id": "{druid_id}_{v%04d}",
+        // current discussion includes replica policy in druid metadata
+        // "replica_policy": "{druid_id}",  // with version spec?
+        "creation_date": "{utc_date}",
+        "payload": {
+          "fixity": { "type": "sha256", "value": "{sha256_hash}" },
+          "tarfile_bytes": "N"  // The size (in bytes) of the replica's tar file
+        },
+        "tape": {
+          "archive": "{TSM_id}", // e.g. 20131120091834
+          "server": "SULBARDR1", "node": "SDR_v2_01",
+          "submitted": "{utc_date}", "accepted":  "{utc_date}", "verified":  "{utc_date}"
+          //"tape": "tape volume ID?",  // TSM details TBD
+          //"bucket": "tape bucket ID?",  // TSM details TBD
+        },
+        "cloud": {
+          "dpn": { "id": "{DPN_UUID}" }, // fixity info? brightening info?
+          "google": { "id": "{google_books_id}" } // additional info?
+          // "others?": {}
+        }
+      },
+      "moab_stats": {
+        "delta": { // diff on prior version
+          // replace the object with an array of stat output on all files?
+          "content":  { "files": "N", "bytes": "N", "blocks": "N" },
+          "metadata": { "files": "N", "bytes": "N", "blocks": "N" }
+        },
+        "complete": {
+          // replace the object with an array of stat output on all files?
+          "content":  { "files": "N", "bytes": "N", "blocks": "N" },
+          "metadata": { "files": "N", "bytes": "N", "blocks": "N" }
+        }
+      }
+    }
+  }
+}
