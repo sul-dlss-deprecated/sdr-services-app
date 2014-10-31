@@ -1,5 +1,5 @@
 
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'json_pure'
 gem 'sinatra', '~> 1.4'
