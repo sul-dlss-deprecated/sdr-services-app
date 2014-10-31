@@ -15,8 +15,8 @@ gem 'slop'  # CLI parser
 gem 'druid-tools'
 
 # TODO: publish moab-versioning 1.4.0 to rubygems
-#gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
-gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
+gem 'moab-versioning', '~> 1.4' #, :path => '/data/src/dlss/moab-versioning' #
+#gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
 
 # Databases
 gem 'ruby-oci8' # oracle
