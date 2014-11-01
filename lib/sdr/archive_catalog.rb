@@ -23,34 +23,31 @@ module Sdr
 
     db_config = YAML.load_file('config/database.yml')
 
-    # configure :development do
-    #   register Sinatra::Reloader
-    #
-    #   # connect to an in-memory database
-    #   DB = Sequel.sqlite
-    #
-    #   # # create an items table
-    #   # DB.create_table :items do
-    #   #   primary_key :id
-    #   #   String :name
-    #   #   Float :price
-    #   # end
-    #   # # create a dataset from the items table
-    #   # items = DB[:items]
-    #   # # populate the table
-    #   # items.insert(:name => 'abc', :price => rand * 100)
-    #   # items.insert(:name => 'def', :price => rand * 100)
-    #   # items.insert(:name => 'ghi', :price => rand * 100)
-    #   # # print out the number of records
-    #   # puts "Item count: #{items.count}"
-    #   # # print out the average price
-    #   # puts "The average price is: #{items.avg(:price)}"
-    # end
+    # run rspec on RACK_ENV=local, set in config/boot.rb
+    configure :local do
+      register Sinatra::Reloader
+      # connect to an in-memory database
+      DB = Sequel.sqlite
+      # TODO: define archive catalog tables for sqlite
+      # # create an items table
+      # DB.create_table :items do
+      #   primary_key :id
+      #   String :name
+      #   Float :price
+      # end
+      # # create a dataset from the items table
+      # items = DB[:items]
+      # # populate the table
+      # items.insert(:name => 'abc', :price => rand * 100)
+      # items.insert(:name => 'def', :price => rand * 100)
+      # items.insert(:name => 'ghi', :price => rand * 100)
+      # # print out the number of records
+      # puts "Item count: #{items.count}"
+      # # print out the average price
+      # puts "The average price is: #{items.avg(:price)}"
+    end
 
     configure :test do
-
-      # TODO: resolve conflict in rspec vs. -test platform.
-
       db_config = db_config['testing']
       DB = Sequel.oracle(:host=>db_config['host'],
                          :port=>db_config['port'],
