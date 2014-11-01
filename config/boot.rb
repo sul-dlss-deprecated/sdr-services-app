@@ -1,6 +1,7 @@
 # RACK_ENV is set in /etc/httpd/conf.d/{hostname}.conf
 # which in turn derives its value from z-RailsEnv.conf
 ENV["RACK_ENV"] ||= "local"
+puts "RACK_ENV: " + ENV['RACK_ENV']
 
 require 'rubygems'
 require 'bundler/setup'
