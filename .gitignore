@@ -1,6 +1,8 @@
 *.log
 .DS_Store
+.binstubs/
 .bundle/
+.env
 .idea/
 .rspec-local
 .rvmrc
@@ -16,3 +18,5 @@ coverage/
 coverage.data
 db/
 doc/
+vendor/
+
