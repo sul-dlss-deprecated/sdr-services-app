@@ -36,8 +36,10 @@ module Sdr
 
     # local mysql setup with db/mysql_*.sql scripts
     # deployed oracle setup with db/oracle_*.sql scripts
-    db_config = YAML.load_file('config/database.yml')
-    db_config = db_config[APP_ENV]
+    db_configs = YAML.load_file('config/database.yml')
+    db_config = db_configs[APP_ENV]
+    raise "Missing db_config for APP_ENV=#{APP_ENV}" if db_config.nil?
+
     if ['test','local','development'].include?(APP_ENV)
       require 'mysql'
       DB = Sequel.mysql(:host=>db_config['host'],
