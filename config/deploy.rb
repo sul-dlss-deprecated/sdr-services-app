@@ -25,7 +25,7 @@ set :log_level, :info
 # Default value for linked_dirs is []
 # The config/environments must contain an ENV['APP_ENV'] config file.
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-set :linked_dirs, %w(log config/environments)
+set :linked_dirs, %w(.binstubs log config/environments)
 
 # Default value for :linked_files is []
 # The .env and config/database.yml are private files that must be
