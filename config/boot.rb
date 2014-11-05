@@ -1,13 +1,17 @@
 
 # This app is best started by the two scripts in
-# bin/test.sh
-# bin/boot.sh
+# bin/test.sh sets APP_ENV & RACK_ENV to 'test'
+# bin/boot.sh allows foreman to use .env
+
+# Uses local .env file, it doesn't override existing settings
+require 'dotenv'
+Dotenv.load
 
 # APP_ENV is set by foreman (using .env) or defaults to 'test' here.
 # This APP_ENV determines:
 # 1. loading of config/environment/{APP_ENV}.rb
 # 2. loading an APP_ENV section from config/database.yml
-ENV['APP_ENV'] ||= 'test'
+ENV['APP_ENV'] ||= 'development'
 puts 'APP_ENV: ' + ENV['APP_ENV']
 
 # RACK_ENV is set by foreman (using .env) or in /etc/httpd/conf.d/{hostname}.conf
@@ -19,7 +23,7 @@ puts 'RACK_ENV: ' + ENV['RACK_ENV']
 
 require 'rubygems'
 require 'bundler/setup'
-Bundler.require(:default, ENV['APP_ENV'], ENV['RACK_ENV'])
+Bundler.require(:default, ENV['APP_ENV'])
 
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'sdr/services_api'
@@ -37,7 +41,7 @@ end
 case ENV['APP_ENV'].to_sym
   when :test
     # rspec config
-    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'development'" unless ENV['RACK_ENV'] == 'development'
+    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'test'" unless ENV['RACK_ENV'] == 'test'
     env_file = 'test'
   when :local
     # developer workstation config
@@ -47,14 +51,14 @@ case ENV['APP_ENV'].to_sym
     raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'development'" unless ENV['RACK_ENV'] == 'development'
     env_file = 'integration'
   when :stage, :staging
-    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'deployment'" unless ENV['RACK_ENV'] == 'deployment'
+    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'production'" unless ENV['RACK_ENV'] == 'production'
     env_file = 'staging'
   when :prod, :production
-    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'deployment'" unless ENV['RACK_ENV'] == 'deployment'
+    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'production'" unless ENV['RACK_ENV'] == 'production'
     env_file = 'production'
   else
     # defaults
-    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'development' or 'none'" unless ['development', 'none'].include?(ENV['RACK_ENV'])
+    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'development'" unless ENV['RACK_ENV'] == 'development'
     env_file = 'development'
 end
 env_path = File.expand_path(File.dirname(__FILE__) + "/environments/#{env_file}")
