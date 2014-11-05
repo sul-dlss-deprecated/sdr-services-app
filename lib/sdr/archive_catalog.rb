@@ -38,11 +38,26 @@ module Sdr
     # deployed oracle setup with db/oracle_*.sql scripts
     db_config = YAML.load_file('config/database.yml')
     db_config = db_config[APP_ENV]
-    DB = Sequel.mysql(:host=>db_config['host'],
-                      :port=>db_config['port'],
-                      :user=>db_config['user'],
-                      :password=>db_config['password'],
-                      :database=>db_config['database'])
+    if ['test','local','development'].include?(APP_ENV)
+      DB = Sequel.mysql(:host=>db_config['host'],
+                        :port=>db_config['port'],
+                        :user=>db_config['user'],
+                        :password=>db_config['password'],
+                        :database=>db_config['database'],
+                        :max_connections => 10,
+                        :logger => Logger.new('log/db.log'))
+    else
+      DB = Sequel.oracle(:host=>db_config['host'],
+                        :port=>db_config['port'],
+                        :user=>db_config['user'],
+                        :password=>db_config['password'],
+                        :database=>db_config['database'],
+                        :max_connections => 10,
+                        :logger => Logger.new('log/db.log'))
+      # TODO: opts[:privilege] for oracle???
+      # http://sequel.jeremyevans.net/rdoc-adapters/classes/Sequel/Oracle/Database.html
+      # http://sequel.jeremyevans.net/rdoc/files/doc/opening_databases_rdoc.html#label-oracle+
+    end
     # Ensure the connection is good on startup, raises exceptions on failure
     puts db_config
     puts "#{DB} connected: #{DB.test_connection}"
