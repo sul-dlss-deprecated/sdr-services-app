@@ -22,12 +22,17 @@ set :log_level, :info
 # Default value for :pty is false
 # set :pty, true
 
-# Default value for :linked_files is []
-# set :linked_files, %w{config/database.yml}
-
 # Default value for linked_dirs is []
+# The config/environments must contain an ENV['APP_ENV'] config file.
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 set :linked_dirs, %w(log config/environments)
+
+# Default value for :linked_files is []
+# The .env and config/database.yml are private files that must be
+# manually placed on the deployment system into the shared path.
+# The shared/.env file contains deployment-specific ENV values,
+# and the config/deploy/{APP_ENV}.rb file contains a :default_env.
+set :linked_files, %w(.env config/database.yml)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

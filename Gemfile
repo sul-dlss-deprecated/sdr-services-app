@@ -1,6 +1,10 @@
 # vim: autoindent tabstop=2 shiftwidth=2 expandtab softtabstop=2 filetype=ruby
 source 'https://rubygems.org'
 
+# Bundle 'group' names correspond to ENV['APP_ENV'] names, see
+# config/boot.rb for more information, esp. the use of
+# Bundler.require(:default, ENV['APP_ENV'])
+
 gem 'json_pure'
 
 gem 'rack', '~> 1.5'
@@ -22,16 +26,16 @@ gem 'druid-tools'
 gem 'moab-versioning', '~> 1.4' #, :path => '/data/src/dlss/moab-versioning' #
 #gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
 
-# Databases
-gem 'ruby-oci8' # oracle
-gem 'mysql'
+# Database
+gem 'ruby-oci8', :group => [:integration, :staging, :production]
+gem 'mysql', :group => [:test, :local, :development]
 gem 'sequel'
 
 # Templating for /views/documentation
 gem 'haml'
 gem 'redcarpet'
 
-group :test, :development do
+group :test, :local, :development do
   gem 'awesome_print'
   gem 'capybara'
   gem 'cucumber'

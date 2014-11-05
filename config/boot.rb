@@ -19,7 +19,7 @@ puts 'RACK_ENV: ' + ENV['RACK_ENV']
 
 require 'rubygems'
 require 'bundler/setup'
-require 'sinatra'
+Bundler.require(:default, ENV['APP_ENV'])
 
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'sdr/services_api'
