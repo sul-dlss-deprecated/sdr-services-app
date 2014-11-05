@@ -22,6 +22,20 @@ set :log_level, :info
 # Default value for :pty is false
 # set :pty, true
 
+# https://github.com/capistrano/bundler#usage
+# Options, with defaults:
+#set :bundle_roles, :all                                         # this is default
+#set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) } # this is default
+#set :bundle_binstubs, -> { shared_path.join('bin') }            # this is default
+#set :bundle_gemfile, -> { release_path.join('MyGemfile') }      # default: nil
+#set :bundle_path, -> { shared_path.join('bundle') }             # this is default
+#set :bundle_without, %w{development test}.join(' ')             # this is default
+#set :bundle_flags, '--deployment --quiet'                       # this is default
+#set :bundle_env_variables, {}                                   # this is default
+set :bundle_binstubs, -> { shared_path.join('.binstubs') }
+set :bundle_without, %w{development local test}.join(' ')
+set :bundle_flags, '--deployment'
+
 # Default value for linked_dirs is []
 # The config/environments must contain an ENV['APP_ENV'] config file.
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
