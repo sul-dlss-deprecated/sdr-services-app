@@ -28,14 +28,14 @@ gem 'moab-versioning', '~> 1.4' #, :path => '/data/src/dlss/moab-versioning' #
 
 # Database
 gem 'ruby-oci8', :group => [:integration, :staging, :production]
-gem 'mysql', :group => [:test, :local, :development]
+gem 'mysql', :group => [:test, :development]
 gem 'sequel'
 
 # Templating for /views/documentation
 gem 'haml'
 gem 'redcarpet'
 
-group :test, :local, :development do
+group :test, :development do
   gem 'awesome_print'
   gem 'capybara'
   gem 'cucumber'
