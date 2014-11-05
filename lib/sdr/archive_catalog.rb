@@ -1,6 +1,6 @@
 require 'yaml'
-require 'oci8'
 require 'sequel'
+require 'logger'
 
 # http://sequel.jeremyevans.net/documentation.html
 # http://sequel.jeremyevans.net/rdoc/files/README_rdoc.html
@@ -39,6 +39,7 @@ module Sdr
     db_config = YAML.load_file('config/database.yml')
     db_config = db_config[APP_ENV]
     if ['test','local','development'].include?(APP_ENV)
+      require 'mysql'
       DB = Sequel.mysql(:host=>db_config['host'],
                         :port=>db_config['port'],
                         :user=>db_config['user'],
@@ -47,6 +48,7 @@ module Sdr
                         :max_connections => 10,
                         :logger => Logger.new('log/db.log'))
     else
+      require 'oci8'
       DB = Sequel.oracle(:host=>db_config['host'],
                         :port=>db_config['port'],
                         :user=>db_config['user'],
