@@ -1,7 +1,11 @@
 
-# This app is best started by the two scripts in
-# bin/test.sh
-# bin/boot.sh
+# This app can be started by the two scripts in:
+# ./bin/test.sh
+# ./bin/boot.sh
+# Or by calling foreman or rackup directly:
+# .binstubs/foreman start
+# .binstubs/foreman run ./bin/console
+# .binstubs/rackup
 
 require File.dirname(__FILE__) + '/config/boot.rb'
 

@@ -63,6 +63,5 @@ case ENV['APP_ENV'].to_sym
 end
 env_path = File.expand_path(File.dirname(__FILE__) + "/environments/#{env_file}")
 require env_path
-
 puts "Loaded #{env_path}"
 
