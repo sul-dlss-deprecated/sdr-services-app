@@ -20,7 +20,11 @@
   </head>
   <body>
     <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) {
+      var hasFrames = false;
+      try {
+        hasFrames = window.top.frames.main ? true : false;
+      } catch (e) { }
+      if (hasFrames) {
         document.getElementById('base_target').target = 'main';
         document.body.className = 'frames';
       }
@@ -46,7 +50,7 @@
 
       <ul id="full_list" class="class">
         <li><span class='object_link'><a href="top-level-namespace.html" title="Top Level Namespace (root)">Top Level Namespace</a></span></li>
-<li><a class='toggle'></a> <span class='object_link'><a href="Sdr.html" title="Sdr (module)">Sdr</a></span><small class='search_info'>Top Level Namespace</small></li><ul><li><span class='object_link'><a href="Sdr/ServicesApi.html" title="Sdr::ServicesApi (class)">ServicesApi</a></span> &lt; Base<small class='search_info'>Sdr</small></li></ul>
+<li><a class='toggle'></a> <span class='object_link'><a href="Sdr.html" title="Sdr (module)">Sdr</a></span><small class='search_info'>Top Level Namespace</small></li><ul><li><a class='toggle'></a> <span class='object_link'><a href="Sdr/ArchiveCatalogSQL.html" title="Sdr::ArchiveCatalogSQL (class)">ArchiveCatalogSQL</a></span> &lt; Base<small class='search_info'>Sdr</small></li><ul><li><span class='object_link'><a href="Sdr/ArchiveCatalogSQL/DigitalObject.html" title="Sdr::ArchiveCatalogSQL::DigitalObject (class)">DigitalObject</a></span> &lt; Model<small class='search_info'>Sdr::ArchiveCatalogSQL</small></li><li><span class='object_link'><a href="Sdr/ArchiveCatalogSQL/DpnObject.html" title="Sdr::ArchiveCatalogSQL::DpnObject (class)">DpnObject</a></span> &lt; Model<small class='search_info'>Sdr::ArchiveCatalogSQL</small></li><li><span class='object_link'><a href="Sdr/ArchiveCatalogSQL/NewReplica.html" title="Sdr::ArchiveCatalogSQL::NewReplica (class)">NewReplica</a></span> &lt; Model<small class='search_info'>Sdr::ArchiveCatalogSQL</small></li><li><span class='object_link'><a href="Sdr/ArchiveCatalogSQL/Replica.html" title="Sdr::ArchiveCatalogSQL::Replica (class)">Replica</a></span> &lt; Model<small class='search_info'>Sdr::ArchiveCatalogSQL</small></li><li><span class='object_link'><a href="Sdr/ArchiveCatalogSQL/SdrObject.html" title="Sdr::ArchiveCatalogSQL::SdrObject (class)">SdrObject</a></span> &lt; Model<small class='search_info'>Sdr::ArchiveCatalogSQL</small></li><li><span class='object_link'><a href="Sdr/ArchiveCatalogSQL/SdrObjectVersion.html" title="Sdr::ArchiveCatalogSQL::SdrObjectVersion (class)">SdrObjectVersion</a></span> &lt; Model<small class='search_info'>Sdr::ArchiveCatalogSQL</small></li><li><span class='object_link'><a href="Sdr/ArchiveCatalogSQL/SdrVersionStat.html" title="Sdr::ArchiveCatalogSQL::SdrVersionStat (class)">SdrVersionStat</a></span> &lt; Model<small class='search_info'>Sdr::ArchiveCatalogSQL</small></li><li><span class='object_link'><a href="Sdr/ArchiveCatalogSQL/TapeArchive.html" title="Sdr::ArchiveCatalogSQL::TapeArchive (class)">TapeArchive</a></span> &lt; Model<small class='search_info'>Sdr::ArchiveCatalogSQL</small></li><li><span class='object_link'><a href="Sdr/ArchiveCatalogSQL/TapeReplica.html" title="Sdr::ArchiveCatalogSQL::TapeReplica (class)">TapeReplica</a></span> &lt; Model<small class='search_info'>Sdr::ArchiveCatalogSQL</small></li></ul><li><span class='object_link'><a href="Sdr/ServicesApi.html" title="Sdr::ServicesApi (class)">ServicesApi</a></span> &lt; Base<small class='search_info'>Sdr</small></li></ul>
 
       </ul>
     </div>

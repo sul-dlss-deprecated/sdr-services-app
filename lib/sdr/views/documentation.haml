@@ -85,16 +85,14 @@
             a given resource. Here is how we interpret the verbs:
 
             - <span class="label label-info">GET</span> Used to retrieve a resource or collection of resources.
-            - <span class="label label-info">POST</span> Used to create a resource when the server determines the resource's id.
-            - <span class="label label-info">PUT</span> Used to create a resource when a client determines the resource's id.
-            - <span class="label label-info">PATCH</span> Used to modify an existing resource. The attributes in a PATCH request will replace existing attributes.
-            - <span class="label label-info">DELETE</span> Used to delete an existing resource.
 
-          -# TODO: work out how to use introspection to document routes, e.g.
-          -# TODO: The code I have for doing the introspection is here in case you want to look:
-          -# https://github.com/ncbo/ontologies_api/blob/master/controllers/home_controller.rb#L121-L152
-          -# I’m able to rely on the fact that we have conventional names, IE UsersController is for the User model. You would need a map otherwise. Good luck!
-          -# Paul
+            - <span class="label label-info">POST</span> Used to create a resource when the server determines the resource's id.
+
+            - <span class="label label-info">PUT</span> Used to create a resource when a client determines the resource's id.
+
+            - <span class="label label-info">PATCH</span> Used to modify an existing resource. The attributes in a PATCH request will replace existing attributes.
+
+            - <span class="label label-info">DELETE</span> Used to delete an existing resource.
 
 
           %h2#nav_routes Routes
@@ -120,8 +118,8 @@
           %ul
             -routesPOST.each do |route|
               %li
-                -yard_method_name = route_yard_name(route)
-                -yard_doc_link = routeToYardDoc + yard_method_name + '-instance_method'
+                -yard_method_name = URI.encode(route.path + '-instance_method', /\W/)
+                -yard_doc_link = routeToYardDoc + yard_method_name
                 ="<span class='label label-info'>#{route.verb}</span>"
                 ="<a href='#{yard_doc_link}'>#{route.path}</a>"
 

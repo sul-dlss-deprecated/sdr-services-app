@@ -20,7 +20,11 @@
   </head>
   <body>
     <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) {
+      var hasFrames = false;
+      try {
+        hasFrames = window.top.frames.main ? true : false;
+      } catch (e) { }
+      if (hasFrames) {
         document.getElementById('base_target').target = 'main';
         document.body.className = 'frames';
       }
@@ -72,110 +76,110 @@
   
 
   <li class="r1 ">
+    <span class='object_link'><a href="Sdr/ServicesApi.html#%2Fobjects%2Ftransfer-instance_method" title="Sdr::ServicesApi#/objects/transfer (method)">#/objects/transfer</a></span>
+    <small>Sdr::ServicesApi</small>
+  </li>
+  
+
+  <li class="r2 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_doc-instance_method" title="Sdr::ServicesApi#get_doc (method)">#get_doc</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_documentation-instance_method" title="Sdr::ServicesApi#get_documentation (method)">#get_documentation</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_gb_used-instance_method" title="Sdr::ServicesApi#get_gb_used (method)">#get_gb_used</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects-instance_method" title="Sdr::ServicesApi#get_objects (method)">#get_objects</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid-instance_method" title="Sdr::ServicesApi#get_objects_druid (method)">#get_objects_druid</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid_content-instance_method" title="Sdr::ServicesApi#get_objects_druid_content (method)">#get_objects_druid_content</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid_current_version-instance_method" title="Sdr::ServicesApi#get_objects_druid_current_version (method)">#get_objects_druid_current_version</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid_list_category-instance_method" title="Sdr::ServicesApi#get_objects_druid_list_category (method)">#get_objects_druid_list_category</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid_manifest-instance_method" title="Sdr::ServicesApi#get_objects_druid_manifest (method)">#get_objects_druid_manifest</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid_manifests-instance_method" title="Sdr::ServicesApi#get_objects_druid_manifests (method)">#get_objects_druid_manifests</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid_metadata-instance_method" title="Sdr::ServicesApi#get_objects_druid_metadata (method)">#get_objects_druid_metadata</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid_transfer-instance_method" title="Sdr::ServicesApi#get_objects_druid_transfer (method)">#get_objects_druid_transfer</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid_version_differences-instance_method" title="Sdr::ServicesApi#get_objects_druid_version_differences (method)">#get_objects_druid_version_differences</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid_version_list-instance_method" title="Sdr::ServicesApi#get_objects_druid_version_list (method)">#get_objects_druid_version_list</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r1 ">
+  <li class="r2 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_objects_druid_version_metadata-instance_method" title="Sdr::ServicesApi#get_objects_druid_version_metadata (method)">#get_objects_druid_version_metadata</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r2 ">
+  <li class="r1 ">
     <span class='object_link'><a href="Sdr/ServicesApi.html#get_root-instance_method" title="Sdr::ServicesApi#get_root (method)">#get_root</a></span>
     <small>Sdr::ServicesApi</small>
   </li>
   
 
-  <li class="r1 ">
-    <span class='object_link'><a href="Sdr/ServicesApi.html#get_test_file_id_param-instance_method" title="Sdr::ServicesApi#get_test_file_id_param (method)">#get_test_file_id_param</a></span>
-    <small>Sdr::ServicesApi</small>
-  </li>
-  
-
   <li class="r2 ">
-    <span class='object_link'><a href="Sdr/ServicesApi.html#post_objects_transfer-instance_method" title="Sdr::ServicesApi#post_objects_transfer (method)">#post_objects_transfer</a></span>
-    <small>Sdr::ServicesApi</small>
+    <span class='object_link'><a href="Sdr/ArchiveCatalogSQL.html#log_model_info-class_method" title="Sdr::ArchiveCatalogSQL.log_model_info (method)">log_model_info</a></span>
+    <small>Sdr::ArchiveCatalogSQL</small>
   </li>
   
 

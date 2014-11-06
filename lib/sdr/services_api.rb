@@ -226,6 +226,7 @@ module Sdr
     #   @overload GET "$1"
     #
     # @method get_root
+    # @note Redirects to /documentation
     get '/' do
       redirect to '/documentation'
     end
@@ -243,8 +244,8 @@ module Sdr
       haml :'documentation'
     end
 
-    # @private
-    # Placeholder to test logging (does not return a list of objects)
+    # @method get_objects
+    # @note Placeholder to test logging (does not return a list of objects)
     get '/objects' do
       # TODO add exception logging
       logger.info 'logging is working'
@@ -442,7 +443,7 @@ module Sdr
       [200, {'content-type' => 'application/xml'}, diff.to_xml]
     end
 
-    # @method post_objects_transfer
+    # @method '/objects/transfer'
     # @param druids [String] a comma separated list of DRUID-ID
     # @param [String] destination_host a <user>@<hostname> where <user> is authorized to ssh into <hostname>
     # @param [String] destination_path an absolute path that <user> can create/write into on <hostname>
