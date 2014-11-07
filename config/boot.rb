@@ -48,6 +48,10 @@ module SdrServices
   end
 end
 
+if ['test','local','development'].include?(ENV['APP_ENV'])
+  require 'pry'
+end
+
 case ENV['APP_ENV'].to_sym
   when :test
     # rspec config

@@ -20,6 +20,7 @@ gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 gem 'thin'
 gem 'foreman' # includes .dotenv
 
+gem 'pry'
 gem 'sys-filesystem'
 gem 'slop'  # CLI parser
 
@@ -41,7 +42,6 @@ group :test, :local, :development do
   gem 'capybara'
   gem 'cucumber'
   gem 'equivalent-xml'
-  gem 'pry'
   gem 'pry-doc'
   gem 'rack-test', :require => "rack/test"
   gem 'rspec', '< 3.0'

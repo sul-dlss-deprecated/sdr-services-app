@@ -10,7 +10,6 @@ require 'druid-tools'
 require 'sys/filesystem'
 require 'logger'
 require 'slop'  # CLI parser
-require 'pry'
 
 # Bootstrap this environment (loads ../config/environment/?)
 require File.expand_path(File.dirname(__FILE__) + '/../config/boot')

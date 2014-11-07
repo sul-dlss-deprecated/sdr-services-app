@@ -10,16 +10,14 @@ module Sdr
   class ArchiveCatalogSQL < Sinatra::Base
 
     APP_ENV = ENV['APP_ENV']
-    if ['test','local','development'].include?(APP_ENV)
-      require 'pry'
+    if ['local','development'].include?(APP_ENV)
       register Sinatra::Reloader
     end
 
     LOG = Logger.new('log/db.log')
 
     def self.log_model_info(m)
-      #if ['test','local'].include?(APP_ENV)
-      if ['local'].include?(APP_ENV)
+      if ['local','development'].include?(APP_ENV)
         LOG.info "table: #{m.table_name}, columns: #{m.columns}, pk: #{m.primary_key}"
       end
     end
