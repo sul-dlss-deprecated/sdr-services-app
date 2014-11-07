@@ -4,7 +4,7 @@ require 'sys/filesystem'
 require "sinatra/base"
 require "sinatra/reloader"
 require 'sinatra/advanced_routes'
-require_relative 'archive_catalog'
+require_relative 'archive_catalog_api'
 
 module Sdr
 
@@ -23,7 +23,7 @@ module Sdr
   #
   class ServicesApi < Sinatra::Base
 
-    use ArchiveCatalogSQL
+    use Sdr::ArchiveCatalogAPI
 
     # Register extensions
     register Sinatra::AdvancedRoutes

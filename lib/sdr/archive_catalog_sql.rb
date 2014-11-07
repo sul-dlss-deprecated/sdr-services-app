@@ -1,24 +1,12 @@
-require 'yaml'
-require 'sequel'
 require 'logger'
+require 'sequel'
+require 'yaml'
 
 # http://sequel.jeremyevans.net/documentation.html
 # http://sequel.jeremyevans.net/rdoc/files/README_rdoc.html
 
 module Sdr
 
-  # This API provides a RESTful interface to the Archive Catalog for the
-  # Stanford Digital Repository.  This is SDR metadata, primarily data
-  # for tracking data replication.
-  #
-  # Content is referenced by digital repository unique identifiers (DRUIDs).
-  # A DRUID is a unique identifier, such as +'jq937jp0017'+ or +'druid:jq937jp0017'+.
-  # The DRUID regex pattern, using posix bracket notation, is:
-  #   [[:lower:]]{2}[[:digit:]]{3}[[:lower:]]{2}[[:digit:]]{4}
-  #
-  # @see https://github.com/sul-dlss/sdr-services-app
-  # @see https://github.com/sul-dlss/druid-tools
-  #
   class ArchiveCatalogSQL < Sinatra::Base
 
     APP_ENV = ENV['APP_ENV']
@@ -27,10 +15,12 @@ module Sdr
       register Sinatra::Reloader
     end
 
+    LOG = Logger.new('log/db.log')
+
     def self.log_model_info(m)
       #if ['test','local'].include?(APP_ENV)
       if ['local'].include?(APP_ENV)
-        puts "table: #{m.table_name}, columns: #{m.columns}, pk: #{m.primary_key}"
+        LOG.info "table: #{m.table_name}, columns: #{m.columns}, pk: #{m.primary_key}"
       end
     end
 
@@ -48,7 +38,7 @@ module Sdr
                         :password=>db_config['password'],
                         :database=>db_config['database'],
                         :max_connections => 10,
-                        :logger => Logger.new('log/db.log'))
+                        :logger => LOG)
     else
       require 'oci8'
       DB = Sequel.oracle(:host=>db_config['host'],
@@ -57,7 +47,7 @@ module Sdr
                         :password=>db_config['password'],
                         :database=>db_config['database'],
                         :max_connections => 10,
-                        :logger => Logger.new('log/db.log'))
+                        :logger => LOG)
       # TODO: opts[:privilege] for oracle???
       # http://sequel.jeremyevans.net/rdoc-adapters/classes/Sequel/Oracle/Database.html
       # http://sequel.jeremyevans.net/rdoc/files/doc/opening_databases_rdoc.html#label-oracle+
