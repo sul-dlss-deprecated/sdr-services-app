@@ -26,9 +26,6 @@ require 'bundler/setup'
 Bundler.require(:default, ENV['APP_ENV'])
 
 # Rack middleware
-#use Rack::Parser, :content_types => {
-#    'application/json'  => Proc.new { |body| ::MultiJson.decode body }
-#}
 use Rack::Parser, :parsers => {
     'application/json' => proc { |data| MultiJson.load data },
     'application/xml'  => proc { |data| XML.parse data },
@@ -46,10 +43,6 @@ module SdrServices
       rsync_destination_host nil
       rsync_destination_home nil
   end
-end
-
-if ['test','local','development'].include?(ENV['APP_ENV'])
-  require 'pry'
 end
 
 case ENV['APP_ENV'].to_sym
@@ -78,4 +71,13 @@ end
 env_path = File.expand_path(File.dirname(__FILE__) + "/environments/#{env_file}")
 require env_path
 puts "Loaded #{env_path}"
+
+
+# If you are using a forking webserver such as unicorn or passenger, with a feature that
+# loads your Sequel code before forking connections (code preloading), then you must
+# disconnect your database connections before forking. If you don't do this, you can
+# end up with child processes sharing database connections and all sorts of weird
+# behavior. Sequel will automatically reconnect on an as needed basis in the child
+# processes, so you only need to do the following in the parent process:
+Sdr::ArchiveCatalogSQL::DB.disconnect
 

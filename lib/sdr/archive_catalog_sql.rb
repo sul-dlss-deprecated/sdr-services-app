@@ -4,6 +4,7 @@ require 'yaml'
 
 # http://sequel.jeremyevans.net/documentation.html
 # http://sequel.jeremyevans.net/rdoc/files/README_rdoc.html
+# http://sequel.jeremyevans.net/rdoc/files/doc/code_order_rdoc.html
 
 module Sdr
 
