@@ -25,6 +25,16 @@ require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default, ENV['APP_ENV'])
 
+# Rack middleware
+#use Rack::Parser, :content_types => {
+#    'application/json'  => Proc.new { |body| ::MultiJson.decode body }
+#}
+use Rack::Parser, :parsers => {
+    'application/json' => proc { |data| MultiJson.load data },
+    'application/xml'  => proc { |data| XML.parse data },
+}
+
+# Application
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require 'sdr/services_api'
 

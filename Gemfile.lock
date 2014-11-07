@@ -61,7 +61,6 @@ GEM
     i18n (0.6.11)
     jsmin (1.0.1)
     json (1.8.1)
-    json_pure (1.8.1)
     lyberteam-capistrano-devel (3.1.0)
       capistrano (~> 3.0)
       capistrano-bundle_audit (>= 0.0.3)
@@ -83,7 +82,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
-    nokogiri (1.6.4)
+    nokogiri (1.6.4.1)
       mini_portile (~> 0.6.0)
     nokogiri-happymapper (0.5.9)
       nokogiri (~> 1.5)
@@ -91,7 +90,12 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-doc (0.6.0)
+      pry (~> 0.9)
+      yard (~> 0.8)
     rack (1.5.2)
+    rack-parser (0.6.1)
+      rack
     rack-protection (1.5.3)
       rack
     rack-test (0.6.2)
@@ -162,12 +166,14 @@ DEPENDENCIES
   equivalent-xml
   foreman
   haml
-  json_pure
   lyberteam-capistrano-devel (~> 3.0)
   moab-versioning (~> 1.4)
+  multi_json (~> 1.0)
   mysql
   pry
+  pry-doc
   rack (~> 1.5)
+  rack-parser
   rack-test
   redcarpet
   rspec (< 3.0)

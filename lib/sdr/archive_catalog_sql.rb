@@ -57,6 +57,16 @@ module Sdr
     puts "#{DB} connected: #{DB.test_connection}"
 
 
+    # Create Sequel Models
+    # see http://sequel.jeremyevans.net/rdoc/files/README_rdoc.html#label-Sequel+Models
+    # Sequel model classes assume that the table name is an underscored plural of the class name.
+    # When a model class is created, it parses the schema in the table from the database,
+    # and automatically sets up accessor methods for all of the columns in the table
+    # (Sequel::Model implements the active record pattern).
+    # A model class wraps a dataset, and an instance of that class wraps a single record in the dataset.
+
+
+
     # digital_objects 	All SDR and DPN objects preserved in SDR Core
     # digital_object_id 	Either the SDR druid or the DPN UUID
     # home_repository 	The source location of the object/version (sdr or dpn)
@@ -105,6 +115,37 @@ module Sdr
     class NewReplica < Sequel::Model
     end
     ArchiveCatalogSQL.log_model_info(NewReplica)
+
+    # debug testing code
+    #binding.pry
+    #exit!
+
+    #DigitalObject.insert( :digital_object_id => 'jq937jp0017', :home_repository => 'sdr' ) == 0
+    # can raise Sequel::UniqueConstraintViolation
+
+    #d = DigitalObject.where(:home_repository=>"sdr").first
+    #d = DigitalObject.first
+    #d.values
+    #d.digital_object_id            # get value
+    #d.digital_object_id = 'abc'    # set value, but not db record
+    #d.save                         # update db record
+
+    #sdr_dataset = DigitalObject.where(:home_repository=>"sdr")
+    #dpn_dataset = DigitalObject.where(:home_repository=>"dpn")
+    #sdr_dataset.each {|d| puts d.digital_object_id }
+
+    # post = Post.create(:title => 'hello world')
+    # post = Post.create{|p| p.title = 'hello world'}
+    # Post.where(Sequel.like(:title, /ruby/)).update(:category => 'ruby')
+
+    # set values for multiple columns in a single method call, using mass-assignment methods.
+    # 'set' updates the model's column values without saving:
+    #post.set(:title=>'hey there', :updated_by=>'foo')
+    # 'update' sets the model's column values and then saves the changes to the database:
+    #post.update(:title => 'hey there', :updated_by=>'foo')
+
+    # Danger, Will Robinson!  Danger!
+    #DigitalObject.all.each {|d| d.delete }
 
   end
 

@@ -5,9 +5,11 @@ source 'https://rubygems.org'
 # config/boot.rb for more information, esp. the use of
 # Bundler.require(:default, ENV['APP_ENV'])
 
-gem 'json_pure'
+gem 'multi_json', '~> 1.0'
 
 gem 'rack', '~> 1.5'
+gem 'rack-parser', :require => 'rack/parser'
+
 gem 'sinatra', '~> 1.4'
 gem 'sinatra-contrib'
 gem 'sinatra-advanced-routes'
@@ -19,7 +21,6 @@ gem 'thin'
 gem 'foreman' # includes .dotenv
 
 gem 'sys-filesystem'
-gem 'pry'
 gem 'slop'  # CLI parser
 
 gem 'druid-tools'
@@ -40,6 +41,8 @@ group :test, :local, :development do
   gem 'capybara'
   gem 'cucumber'
   gem 'equivalent-xml'
+  gem 'pry'
+  gem 'pry-doc'
   gem 'rack-test', :require => "rack/test"
   gem 'rspec', '< 3.0'
   gem 'simplecov', '~> 0.7.1'
