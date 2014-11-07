@@ -22,38 +22,41 @@ module Sdr
       end
     end
 
-    # local mysql setup with db/mysql_*.sql scripts
-    # deployed oracle setup with db/oracle_*.sql scripts
-    db_configs = YAML.load_file('config/database.yml')
-    db_config = db_configs[APP_ENV]
-    raise "Missing db_config for APP_ENV=#{APP_ENV}" if db_config.nil?
+    configure do
 
-    if ['test','local','development'].include?(APP_ENV)
-      require 'mysql'
-      DB = Sequel.mysql(:host=>db_config['host'],
-                        :port=>db_config['port'],
-                        :user=>db_config['user'],
-                        :password=>db_config['password'],
-                        :database=>db_config['database'],
-                        :max_connections => 10,
-                        :logger => LOG)
-    else
-      require 'oci8'
-      DB = Sequel.oracle(:host=>db_config['host'],
-                        :port=>db_config['port'],
-                        :user=>db_config['user'],
-                        :password=>db_config['password'],
-                        :database=>db_config['database'],
-                        :max_connections => 10,
-                        :logger => LOG)
-      # TODO: opts[:privilege] for oracle???
-      # http://sequel.jeremyevans.net/rdoc-adapters/classes/Sequel/Oracle/Database.html
-      # http://sequel.jeremyevans.net/rdoc/files/doc/opening_databases_rdoc.html#label-oracle+
+      # local mysql setup with db/mysql_*.sql scripts
+      # deployed oracle setup with db/oracle_*.sql scripts
+      db_configs = YAML.load_file('config/database.yml')
+      db_config = db_configs[APP_ENV]
+      raise "Missing db_config for APP_ENV=#{APP_ENV}" if db_config.nil?
+
+      if ['test','local','development'].include?(APP_ENV)
+        require 'mysql'
+        DB = Sequel.mysql(:host=>db_config['host'],
+                          :port=>db_config['port'],
+                          :user=>db_config['user'],
+                          :password=>db_config['password'],
+                          :database=>db_config['database'],
+                          :max_connections => 10,
+                          :logger => LOG)
+      else
+        require 'oci8'
+        DB = Sequel.oracle(:host=>db_config['host'],
+                          :port=>db_config['port'],
+                          :user=>db_config['user'],
+                          :password=>db_config['password'],
+                          :database=>db_config['database'],
+                          :max_connections => 10,
+                          :logger => LOG)
+        # TODO: opts[:privilege] for oracle???
+        # http://sequel.jeremyevans.net/rdoc-adapters/classes/Sequel/Oracle/Database.html
+        # http://sequel.jeremyevans.net/rdoc/files/doc/opening_databases_rdoc.html#label-oracle+
+      end
+      # Ensure the connection is good on startup, raises exceptions on failure
+      puts db_config
+      puts "#{DB} connected: #{DB.test_connection}"
+
     end
-    # Ensure the connection is good on startup, raises exceptions on failure
-    puts db_config
-    puts "#{DB} connected: #{DB.test_connection}"
-
 
     # Create Sequel Models
     # see http://sequel.jeremyevans.net/rdoc/files/README_rdoc.html#label-Sequel+Models
