@@ -31,12 +31,19 @@ module Sdr
       register Sinatra::Reloader
     end
 
+    # http://www.sinatrarb.com/configuration.html
     # See Sinatra-error-handling for explanation of exception behavior
     configure do
       enable :logging
+      # Don't add backtraces to STDERR for an exception raised by a route or filter.
       disable :dump_errors
+      # Exceptions are rescued and mapped to error handlers which typically
+      # set a 5xx status code and render a custom error page.
       disable :raise_errors
+      # Use custom error blocks, see below.
       disable :show_exceptions
+      #mime_type :plain, 'text/plain'
+      #mime_type :json, 'application/json'
     end
 
     set :public_folder, 'lib/sdr/public'

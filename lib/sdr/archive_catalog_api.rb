@@ -26,13 +26,26 @@ module Sdr
 
     # Register extensions
     register Sinatra::AdvancedRoutes
-    configure :local, :development do
-      register Sinatra::Reloader
-    end
+
+    # http://www.sinatrarb.com/configuration.html
+    # See Sinatra-error-handling for explanation of exception behavior
     configure do
+      enable :logging
+      # Don't add backtraces to STDERR for an exception raised by a route or filter.
+      disable :dump_errors
+      # Exceptions are rescued and mapped to error handlers which typically
+      # set a 5xx status code and render a custom error page.
+      disable :raise_errors
+      # Use custom error blocks, see below.
+      disable :show_exceptions
       mime_type :plain, 'text/plain'
       mime_type :json, 'application/json'
     end
+
+    configure :local, :development do
+      register Sinatra::Reloader
+    end
+
     before do
       # default response is json
       content_type :json
@@ -48,27 +61,68 @@ module Sdr
     # TODO: See also DOR workflow code at
     # TODO: https://github.com/sul-dlss/dor-workflow-service/blob/master/lib/dor/services/workflow_service.rb
 
-    # @method get_repository_archives
-    # @param repository [String] Repository-ID, such as 'sdr', 'dpn', etc. [required]
-    # @return a set of archive records
-    # @example
-    #    /archives/repositories/sdr
-    #    /archives/repositories/dpn
-    get '/archives/repositories/:repo' do
-      archives = Sdr::ArchiveCatalogSQL::DigitalObject.where(:home_repository => params[:repo])
-      response.body = archives.map{|a| a.values }.to_json
+
+    def format_error_message(msg_prefix=nil)
+      _datetime = DateTime.now.strftime('ERROR [%d/%b/%Y %H:%M:%S]')
+      _error = env['sinatra.error']
+      msg = msg_prefix ? "#{_datetime} - info    - #{msg_prefix}\n" : ''
+      msg += "#{_datetime} - message - #{_error.class} - #{_error.message}\n"
+      msg += "#{_datetime} - request - #{request.url}\n"
+      msg += "#{_datetime} - params  - #{request.params.to_s}\n"
+      return msg
     end
 
-    # @method get_object_archives
+    SHOW_EXCEPTIONS = Sinatra::ShowExceptions.new(self)
+
+    error Sequel::DatabaseError do
+      @error = env['sinatra.error']
+      env['rack.errors'].write(format_error_message)  # log error
+      body SHOW_EXCEPTIONS.pretty(env, @error)
+      status 500
+    end
+
+
+    # @method get_archive_repositories
+    # @return a set of repository identifiers
+    # @example
+    #    /archive/repositories
+    get '/archive/repositories' do
+      repos = Sdr::ArchiveCatalogSQL::DigitalObject.select(:home_repository)
+      response.body = repos.map{|a| a.values }.to_json
+    end
+
+    # @method get_archive_objects
+    # @return a complete set of archive object identifiers
+    # @example
+    #    /archive/objects
+    get '/archive/objects' do
+      objects = Sdr::ArchiveCatalogSQL::DigitalObject.all
+      response.body = objects.map{|a| a.values }.to_json
+    end
+
+    # @method get_archive_repository_object
+    # @param repo [String] use values in /archive/repositories
     # @param id [String] Digital-Object-ID, such as DRUID-ID, DPN-ID, etc. [required]
     # @return a set of archive records
     # @example
-    #    /archives/objects/druid:jq937jp0017
-    #    /archives/objects/jq937jp0017
-    get '/archives/objects/:id' do
-      id = SDR_DRUID_REGEX.match(params[:id]).to_s || params[:id]
-      archives = Sdr::ArchiveCatalogSQL::DigitalObject.where(:digital_object_id => id)
-      response.body = archives.map{|a| a.values }.to_json
+    #    /archive/sdr/objects/druid:bb002mz7474
+    get '/archive/:repo/object/:id' do
+      #id = SDR_DRUID_REGEX.match(params[:id]).to_s || params[:id]
+      repo = params[:repo]
+      id = params[:id]
+      case repo
+        when 'sdr'
+          objects = Sdr::ArchiveCatalogSQL::SdrObject.where(:sdr_object_id => id)
+        else
+          # fall back to generic table of all digital objects
+          objects = Sdr::ArchiveCatalogSQL::DigitalObject.where(:digital_object_id => id)
+      end
+      response.body = objects.map{|a| a.values }.to_json
+      # begin
+      #   response.body = objects.map{|a| a.values }.to_json
+      # rescue
+      #   halt 404, "Unable to find object: #{id}"
+      # end
     end
 
   end
