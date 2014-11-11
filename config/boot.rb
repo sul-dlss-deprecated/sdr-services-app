@@ -26,10 +26,10 @@ require 'bundler/setup'
 Bundler.require(:default, ENV['APP_ENV'])
 
 # Rack middleware
-use Rack::Parser, :parsers => {
-    'application/json' => proc { |data| MultiJson.load data },
-    'application/xml'  => proc { |data| XML.parse data },
-}
+# use Rack::Parser, :parsers => {
+#     'application/json' => proc { |data| MultiJson.load data },
+#     'application/xml'  => proc { |data| XML.parse data },
+# }
 
 # Application
 $:.unshift File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
@@ -79,5 +79,5 @@ puts "Loaded #{env_path}"
 # end up with child processes sharing database connections and all sorts of weird
 # behavior. Sequel will automatically reconnect on an as needed basis in the child
 # processes, so you only need to do the following in the parent process:
-Sdr::ArchiveCatalogSQL::DB.disconnect
+ArchiveCatalogSQL::DB.disconnect
 

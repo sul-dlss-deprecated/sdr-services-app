@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 # Bundler.require(:default, ENV['APP_ENV'])
 
 gem 'multi_json', '~> 1.0'
+gem 'json-schema'
 
 gem 'rack', '~> 1.5'
 gem 'rack-parser', :require => 'rack/parser'
