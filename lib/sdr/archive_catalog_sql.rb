@@ -47,6 +47,7 @@ class ArchiveCatalogSQL
     # http://sequel.jeremyevans.net/rdoc-adapters/classes/Sequel/Oracle/Database.html
     # http://sequel.jeremyevans.net/rdoc/files/doc/opening_databases_rdoc.html#label-oracle+
   end
+  DB.extension(:pagination)
   # Ensure the connection is good on startup, raises exceptions on failure
   puts db_config
   puts "#{DB} connected: #{DB.test_connection}"
