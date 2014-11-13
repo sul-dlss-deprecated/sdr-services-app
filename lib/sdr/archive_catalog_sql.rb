@@ -2,11 +2,30 @@ require 'logger'
 require 'sequel'
 require 'yaml'
 
+# Define a class method to paginate through ORM models
+class Sequel::Model
+  def self.page(page, per_page=10, *args)
+    # The page number comes as a string from the Sinatra controller.
+    # Turn it into an integer and make it 1 if it was nil.
+    page = (page || 1).to_i
+    dataset.paginate(page, per_page, *args)
+  end
+end
+
+# Define a class method to paginate through datasets
+class Sequel::Dataset
+  def page(page, per_page=10, *args)
+    # The page number comes as a string from the Sinatra controller.
+    # Turn it into an integer and make it 1 if it was nil.
+    page = (page || 1).to_i
+    paginate(page, per_page, *args)
+  end
+end
+
 # An interface to the archive catalog SQL database using Sequel
 # @see http://sequel.jeremyevans.net/documentation.html Sequel RDoc
 # @see http://sequel.jeremyevans.net/rdoc/files/README_rdoc.html Sequel README
 # @see http://sequel.jeremyevans.net/rdoc/files/doc/code_order_rdoc.html Sequel code order
-
 class ArchiveCatalogSQL
 
   APP_ENV = ENV['APP_ENV']
