@@ -5,17 +5,19 @@ source 'https://rubygems.org'
 # config/boot.rb for more information, esp. the use of
 # Bundler.require(:default, ENV['APP_ENV'])
 
+# Serializers
+gem 'activesupport' # for xml
 gem 'multi_json', '~> 1.0'
 gem 'json-schema'
 
 gem 'rack', '~> 1.5'
-gem 'rack-parser', :require => 'rack/parser'
+#gem 'rack-parser', :require => 'rack/parser'
 
 gem 'sinatra', '~> 1.4'
 gem 'sinatra-contrib'
 gem 'sinatra-advanced-routes'
 # https://github.com/rstacruz/sinatra-assetpack
-gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
+#gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 
 # http://code.macournoyer.com/thin/
 gem 'thin'
