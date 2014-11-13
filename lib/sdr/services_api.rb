@@ -2,8 +2,6 @@ require 'moab_stanford'
 require 'druid-tools'
 require 'sys/filesystem'
 require "sinatra/base"
-require "sinatra/reloader"
-require 'sinatra/advanced_routes'
 require_relative 'archive_catalog_api'
 
 module Sdr
@@ -26,9 +24,11 @@ module Sdr
     use Sdr::ArchiveCatalogAPI
 
     # Register extensions
-    register Sinatra::AdvancedRoutes
     configure :local, :development do
+      require "sinatra/reloader"
       register Sinatra::Reloader
+      require 'sinatra/advanced_routes'
+      register Sinatra::AdvancedRoutes
     end
 
     # http://www.sinatrarb.com/configuration.html
