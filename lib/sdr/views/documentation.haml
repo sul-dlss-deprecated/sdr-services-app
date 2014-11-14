@@ -103,10 +103,12 @@
 
           %h3#nav_sdr_routes SDR Services Routes
           = haml :routes, :locals => { :routes => Sdr::ServicesAPI.routes,
+            :root_uri => request.path.sub('documentation',''),
             :routeToYardDoc => request.path.sub('documentation','Sdr/ServicesAPI.html#') }
 
           %h3#nav_sdr_routes Archive Catalog Routes
           = haml :routes, :locals => {:routes => Sdr::ArchiveCatalogAPI.routes,
+            :root_uri => request.path.sub('documentation',''),
             :routeToYardDoc => request.path.sub('documentation','Sdr/ArchiveCatalogAPI.html#') }
 
 

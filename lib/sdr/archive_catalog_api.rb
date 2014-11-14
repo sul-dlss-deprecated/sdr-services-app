@@ -176,7 +176,7 @@ END_JSON_SCHEMA_STR
 
     # @!group DIGITAL_OBJECTS
 
-    # @!macro [attach] get
+    # @!macro [attach] sinatra.get
     #   @overload GET "$1"
     #
     # @method get_archive_digital_objects_repositories
@@ -286,7 +286,7 @@ END_JSON_SCHEMA_STR
       end
     end
 
-    # @!macro [attach] put
+    # @!macro [attach] sinatra.put
     #   @overload PUT "$1"
     #
     # @method put_archive_digital_objects_home_repository_digital_object_id
