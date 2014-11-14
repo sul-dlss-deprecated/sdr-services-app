@@ -8,7 +8,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     awesome_print (1.2.0)
-    backports (3.6.3)
+    backports (3.6.4)
     builder (3.2.2)
     bundler-audit (0.3.1)
       bundler (~> 1.2)
@@ -161,6 +161,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   awesome_print
+  builder
   capistrano (~> 3.1)
   capistrano-bundler (~> 1.1)
   capistrano-rvm (~> 0.1)

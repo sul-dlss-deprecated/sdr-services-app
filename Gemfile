@@ -6,6 +6,7 @@ source 'https://rubygems.org'
 # Bundler.require(:default, ENV['APP_ENV'])
 
 # Serializers
+gem 'builder' # for xml
 gem 'activesupport' # for xml
 gem 'multi_json', '~> 1.0'
 gem 'json-schema'
