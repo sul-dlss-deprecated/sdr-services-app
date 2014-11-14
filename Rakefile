@@ -24,7 +24,10 @@ end
 
 desc 'Generate API docs'
 task :doc do
+  puts
   puts 'Generating API documentation, using YARD.'
+  puts 'IGNORE warnings about YARD::Handlers::Ruby::DSLHandler: Undocumentable method'
+  puts
   system('.binstubs/yardoc') # see .yardopts
 end
 

@@ -1,0 +1,45 @@
+-# partial called from documentation.haml
+-# locals: routes, routeToYardDoc
+
+-def route_yard_name(route)
+  -if route.path == '/'
+    -return 'get_root'
+  -else
+    -return route.verb.downcase + route.path.gsub('/','_').gsub(':','').gsub('_*','').gsub('-','_')
+
+
+-routesGET = routes['GET']
+-routesPUT = routes['PUT']
+-routesPOST = routes['POST']
+
+-unless routesGET.nil?
+  %h5 GET routes
+  %ul
+    -routesGET.sort{|a,b| a.path <=> b.path }.each do |get_route|
+      -next if get_route.path =~ /error|test/i
+      %li{ :style => "margin-bottom: 0.2em;" }
+        -yard_method_name = route_yard_name(get_route)
+        -yard_doc_link = routeToYardDoc + yard_method_name + '-instance_method'
+        ="<span class='label label-info'>#{get_route.verb}</span>"
+        ="<a href='#{yard_doc_link}'>#{get_route.path}</a>"
+
+-unless routesPUT.nil?
+  %h5 PUT routes
+  %ul
+    -routesPUT.sort{|a,b| a.path <=> b.path }.each do |put_route|
+      %li{ :style => "margin-bottom: 0.2em;" }
+        -yard_method_name = route_yard_name(put_route)
+        -yard_doc_link = routeToYardDoc + yard_method_name + '-instance_method'
+        ="<span class='label label-info'>#{put_route.verb}</span>"
+        ="<a href='#{yard_doc_link}'>#{put_route.path}</a>"
+
+-unless routesPOST.nil?
+  %h5 POST routes
+  %ul
+    -routesPOST.sort{|a,b| a.path <=> b.path }.each do |post_route|
+      %li{ :style => "margin-bottom: 0.2em;" }
+        -yard_method_name = route_yard_name(post_route)
+        -yard_doc_link = routeToYardDoc + yard_method_name + '-instance_method'
+        ="<span class='label label-info'>#{post_route.verb}</span>"
+        ="<a href='#{yard_doc_link}'>#{post_route.path}</a>"
+

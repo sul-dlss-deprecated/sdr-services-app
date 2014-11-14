@@ -102,55 +102,12 @@
           %h2#nav_routes Application Routes
 
           %h3#nav_sdr_routes SDR Services Routes
-          -routesGET = Sdr::ServicesApi.routes['GET'].sort {|a,b| a.path <=> b.path }
-          -routesPOST = Sdr::ServicesApi.routes['POST'].sort {|a,b| a.path <=> b.path }
-          -routeToYardDoc = request.path.sub('documentation','Sdr/ServicesApi.html#')
-
-          %ul
-            -routesGET.each do |route|
-              -#route.app.name   # "Sdr::ServicesApi"
-              %li{ :style => "margin-bottom: 0.2em;" }
-                -yard_method_name = route_yard_name(route)
-                -yard_doc_link = routeToYardDoc + yard_method_name + '-instance_method'
-                ="<span class='label label-info'>#{route.verb}</span>" # get / head / post / put / delete
-                ="<a href='#{yard_doc_link}'>#{route.path}</a>"        # that's the path given as argument to get
-                -#route.file       # "some_sinatra_app.rb" or something
-                -#route.line       # the line number of the get/post/... statement
-                -#route.pattern    # that's the pattern internally used by sinatra
-                -#route.keys       # keys given when route was defined
-                -#route.conditions # conditions given when route was defined
-                -#route.block      # the route's closure
-
-          %ul
-            -routesPOST.each do |route|
-              %li{ :style => "margin-bottom: 0.2em;" }
-                -yard_method_name = URI.encode(route.path + '-instance_method', /\W/)
-                -yard_doc_link = routeToYardDoc + yard_method_name
-                ="<span class='label label-info'>#{route.verb}</span>"
-                ="<a href='#{yard_doc_link}'>#{route.path}</a>"
-
+          = haml :routes, :locals => { :routes => Sdr::ServicesAPI.routes,
+            :routeToYardDoc => request.path.sub('documentation','Sdr/ServicesAPI.html#') }
 
           %h3#nav_sdr_routes Archive Catalog Routes
-          -routesGET = Sdr::ArchiveCatalogAPI.routes['GET'] #.sort {|a,b| a.path <=> b.path }
-          -routesPUT = Sdr::ArchiveCatalogAPI.routes['PUT'] #.sort {|a,b| a.path <=> b.path }
-          -#routesPOST = Sdr::ArchiveCatalogAPI.routes['POST'].sort {|a,b| a.path <=> b.path }
-          -routeToYardDoc = request.path.sub('documentation','Sdr/ArchiveCatalogAPI.html#')
-
-          %ul
-            -routesGET.each do |route|
-              %li{ :style => "margin-bottom: 0.2em;" }
-                -yard_method_name = route_yard_name(route)
-                -yard_doc_link = routeToYardDoc + yard_method_name + '-instance_method'
-                ="<span class='label label-info'>#{route.verb}</span>"
-                ="<a href='#{yard_doc_link}'>#{route.path}</a>"
-
-          %ul
-            -routesPUT.each do |route|
-              %li{ :style => "margin-bottom: 0.2em;" }
-                -yard_method_name = URI.encode(route.path + '-instance_method', /\W/)
-                -yard_doc_link = routeToYardDoc + yard_method_name
-                ="<span class='label label-info'>#{route.verb}</span>"
-                ="<a href='#{yard_doc_link}'>#{route.path}</a>"
+          = haml :routes, :locals => {:routes => Sdr::ArchiveCatalogAPI.routes,
+            :routeToYardDoc => request.path.sub('documentation','Sdr/ArchiveCatalogAPI.html#') }
 
 
           %h2#nav_batch Batch Archive Transfers
