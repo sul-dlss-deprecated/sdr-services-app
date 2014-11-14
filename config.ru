@@ -10,7 +10,7 @@
 require File.dirname(__FILE__) + '/config/boot.rb'
 
 run Rack::URLMap.new({
-  "/"    => Sdr::ServicesApi,
+  "/"    => Sdr::ServicesAPI,
 })
 
 log = File.new("log/sdr.log", "a+")

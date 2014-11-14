@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Sdr::ServicesApi do
-  
+describe Sdr::ServicesAPI do
+
   def app
-    @app ||= Sdr::ServicesApi
+    @app ||= Sdr::ServicesAPI
   end
 
   describe "POST '/objects/{druid}/cm-inv-diff'" do
@@ -96,7 +96,7 @@ describe Sdr::ServicesApi do
       last_response.errors.should =~ /Moab::InvalidMetadataException/
       last_response.errors.should =~ /missing md5/
     end
-    
+
     it "returns a diff against the latest version if the version parameter is not passed in" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff', content_md
