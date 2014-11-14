@@ -1,3 +1,11 @@
+# TODO: define the archive catalog routes, see example client calls in:
+# TODO: See https://github.com/sul-dlss/sdr-replication/blob/master/lib/replication/archive_catalog.rb
+# TODO: Code a simple client for the endpoints defined in the services_api.
+# TODO: Note that code in replication/archive_catalog.rb is WAY TOO GENERIC.
+# TODO: See also DOR workflow code at
+# TODO: https://github.com/sul-dlss/dor-workflow-service/blob/master/lib/dor/services/workflow_service.rb
+
+
 require 'sinatra'
 require_relative 'pagination'
 require_relative 'archive_catalog_sql'
@@ -16,7 +24,7 @@ require 'active_support/core_ext'
 
 module Sdr
 
-  # This API provides a RESTful interface to the Archive Catalog for the
+  # This API provides a REST interface to the Archive Catalog for the
   # Stanford Digital Repository.  This is SDR metadata, primarily data
   # for tracking replication of objects in the preservation core.
   #
@@ -30,7 +38,7 @@ module Sdr
     # See Sinatra-error-handling for explanation of exception behavior
     configure do
       enable :logging
-      # Don't add backtraces to STDERR for an exception raised by a route or filter.
+      # Don't add back-traces to STDERR for an exception raised by a route or filter.
       disable :dump_errors
       # Exceptions are rescued and mapped to error handlers which typically
       # set a 5xx status code and render a custom error page.
@@ -43,10 +51,25 @@ module Sdr
     end
 
     configure :local, :development do
-      register Sinatra::Reloader
       require 'sinatra/advanced_routes'
       register Sinatra::AdvancedRoutes
+      register Sinatra::Reloader
     end
+
+    @@sdr_druid_regex = Regexp.new '[[:lower:]]{2}[[:digit:]]{3}[[:lower:]]{2}[[:digit:]]{4}'
+
+    @@digital_object_schema = <<-END_JSON_SCHEMA_STR
+{
+  "type":"object",
+  "title":"Digital Object Identifier",
+  "description":"An object in a digital repository.",
+  "additionalProperties":false,
+  "properties":{
+    "digital_object_id":{ "type":"string", "required": true },
+    "home_repository":{ "type":"string", "required": true }
+  }
+}
+END_JSON_SCHEMA_STR
 
     helpers do
 
@@ -63,7 +86,9 @@ module Sdr
         unless validate_json(data, @@digital_object_schema)
           error 422, "Malformed json request, must conform to json-schema:\n#{@@digital_object_schema}"
         end
-        return MultiJson.load(data, {:symbolize_keys => true})
+        json_data = MultiJson.load(data, {:symbolize_keys => true})
+        json_data[:digital_object_id] = parse_object_id(json_data[:digital_object_id])
+        return json_data
       end
 
       def parse_object_id(id)
@@ -125,32 +150,10 @@ module Sdr
 
     end
 
+    # generic processing prior to route processing
     before do
     end
 
-
-    @@sdr_druid_regex = Regexp.new '[[:lower:]]{2}[[:digit:]]{3}[[:lower:]]{2}[[:digit:]]{4}'
-
-    @@digital_object_schema = <<-END_JSON_SCHEMA_STR
-{
-  "type":"object",
-  "title":"Digital Object Identifier",
-  "description":"An object in a digital repository.",
-  "additionalProperties":false,
-  "properties":{
-    "digital_object_id":{ "type":"string", "required": true },
-    "home_repository":{ "type":"string", "required": true }
-  }
-}
-END_JSON_SCHEMA_STR
-
-
-    # TODO: define the archive catalog routes, see example client calls in:
-    # TODO: See https://github.com/sul-dlss/sdr-replication/blob/master/lib/replication/archive_catalog.rb
-    # TODO: Code a simple client for the endpoints defined in the services_api.
-    # TODO: Note that code in replication/archive_catalog.rb is WAY TOO GENERIC.
-    # TODO: See also DOR workflow code at
-    # TODO: https://github.com/sul-dlss/dor-workflow-service/blob/master/lib/dor/services/workflow_service.rb
 
 
     @show_exceptions = Sinatra::ShowExceptions.new(self)
@@ -162,66 +165,99 @@ END_JSON_SCHEMA_STR
       status 500
     end
 
+    error do
+      msg = format_error_message
+      #logger.error "Unexpected Error:\n#{msg}"
+      env['rack.errors'].write(msg)  # log error
+      @error = env['sinatra.error']
+      body $showExceptions.pretty(env, @error)
+      status 500
+    end
+
+    # @!group DIGITAL_OBJECTS
 
     # @!macro [attach] get
     #   @overload GET "$1"
     #
     # @method get_archive_digital_objects_repositories
-    # @return a set of repository identifiers
+    # @return a set of repository identifiers (can be empty)
     # @example
-    #   SDR_ROUTE='/archive/digital_objects/repositories'
-    #   curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
-    # response:
-    #   ["sdr","etc"]
+    #   request:
+    #     SDR_ROUTE='/archive/digital_objects/repositories'
+    #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+    #   response:
+    #     status 200: [
+    #                  "sdr",
+    #                  "..."
+    #                 ]
     get '/archive/digital_objects/repositories' do
-      results = ArchiveCatalogSQL::DigitalObject.select(:home_repository).distinct
-      response_negotiation(results.map{|i| i[:home_repository]}, {:root => 'repositories'})
+      begin
+        results = ArchiveCatalogSQL::DigitalObject.select(:home_repository).distinct
+        response_negotiation(results.map{|i| i[:home_repository]}, {:root => 'repositories'})
+      rescue
+        error 500, "Failed to process the digital objects dataset."
+      end
     end
 
     # @method get_archive_digital_objects_objects
-    # @return a set of digital objects
+    # @return a set of digital objects (can be empty, can be paginated)
     # @example
     #   request:
     #     SDR_ROUTE='/archive/digital_objects/objects'
     #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
     #   response:
-    #     [{"digital_object_id":"druid:bb002mz7474","home_repository":"sdr"},
-    #      {"digital_object_id":"druid:jq937jp0017","home_repository":"sdr"}]
-    # @note response status 206 indicates the response is paginated[https://developer.github.com/v3/#pagination]
+    #     status 200: [
+    #                     {
+    #                         "digital_object_id": "druid:bb002mz7474",
+    #                         "home_repository": "sdr"
+    #                     },
+    #                     {...}
+    #                 ]
+    #     status 206: result set is paginated
+    # @note response status 206 indicates pagination[https://developer.github.com/v3/#pagination]
     get '/archive/digital_objects/objects' do
-      # Return everything about the objects, including the :home_repository.
-      # digital_object_id is a primary key, so .distinct is not required here.
-      results = http_pagination(ArchiveCatalogSQL::DigitalObject.select)
-      response_negotiation(results.map{|i| i.values}, {:root => 'digital_objects'})
-      status 206 unless results.page_count == 1
+      begin
+        # Return everything about the objects, including the :home_repository.
+        # digital_object_id is a primary key, so .distinct is not required here.
+        dataset = ArchiveCatalogSQL::DigitalObject.select
+        results = http_pagination(dataset)
+        response_negotiation(results.map{|i| i.values}, {:root => 'digital_objects'})
+        status 206 unless results.page_count == 1
+      rescue
+        error 500, "Failed to process the digital objects dataset."
+      end
     end
 
     # @method get_archive_digital_objects_home_repository
-    # @param home_repository [String] use values in /archive/repositories [required]
-    # @return a set of digital objects in home_repository
+    # @param home_repository [String] a value in /archive/digital_objects/repositories [required]
+    # @return a set of digital objects in home_repository (can be empty, can be paginated)
     # @example
     #   request:
     #     SDR_ROUTE='/archive/digital_objects/sdr'
     #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
     #   response:
-    #     [{"digital_object_id":"druid:bb002mz7474","home_repository":"sdr"},
-    #      {"digital_object_id":"druid:jq937jp0017","home_repository":"sdr"}]
-    # @note response data can be paginated, @see https://developer.github.com/v3/#pagination
+    #     status 200: [
+    #                     {
+    #                         "digital_object_id": "druid:bb002mz7474",
+    #                         "home_repository": "sdr"
+    #                     },
+    #                     {...}
+    #                 ]
+    #     status 206: result set is paginated
+    # @note response status 206 indicates pagination[https://developer.github.com/v3/#pagination]
     get '/archive/digital_objects/:home_repository' do
       begin
         dataset = ArchiveCatalogSQL::DigitalObject.where(:home_repository => params[:home_repository])
         results = http_pagination(dataset)
-        if results.first.nil?
-          error 404, "Did not find any digital objects in the #{params[:home_repository]} repository."
-        end
         response_negotiation(results.map{|i| i.values}, {:root => 'digital_objects'})
+        status 206 unless results.page_count == 1
       rescue
         error 500, "Failed to process the #{params[:home_repository]} repository."
       end
     end
 
     # @method get_archive_digital_objects_home_repository_digital_object_id
-    # @param home_repository [String] use values in /archive/repositories [required]
+    # @param home_repository [String] a value in /archive/digital_objects/repositories [required]
     # @param digital_object_id [String] Digital-Object-ID, such as DRUID-ID, DPN-ID, etc. [required]
     # @return a digital object record
     # @example
@@ -229,7 +265,14 @@ END_JSON_SCHEMA_STR
     #     SDR_ROUTE='/archive/digital_objects/sdr/druid:bb002mz7474'
     #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
     #   response:
-    #     [{"digital_object_id":"druid:bb002mz7474","home_repository":"sdr"}]
+    #     status 200: [
+    #                     {
+    #                         "digital_object_id": "druid:bb002mz7474",
+    #                         "home_repository": "sdr"
+    #                     }
+    #                 ]
+    #     status 404: Not found (this could be the most useful response of this route)
+    # @note response data should be a single item, results are not paginated
     get '/archive/digital_objects/:home_repository/:digital_object_id' do
       begin
         digital_object = digital_object_from_params(params)
@@ -247,7 +290,7 @@ END_JSON_SCHEMA_STR
     #   @overload PUT "$1"
     #
     # @method put_archive_digital_objects_home_repository_digital_object_id
-    # @param home_repository [String] use values in /archive/repositories
+    # @param home_repository [String] a new value or existing value in /archive/digital_objects/repositories [required]
     # @param digital_object_id [String] Digital-Object-ID, such as DRUID-ID, DPN-ID, etc. [required]
     # @return an HTTP status for PUT success (201 created, 204 exists) or failure (400+)
     # @example
@@ -322,31 +365,86 @@ END_JSON_SCHEMA_STR
     end
 
 
-    # # @method get_archive_repository_objects
-    # # @param home_repository [String] use values in /archive/repositories
-    # # @return a set of archive repository records
-    # # @example
-    # #    /archive/sdr/objects
-    # get '/archive/:home_repository/objects' do
-    #   #id = @@sdr_druid_regex.match(params[:id]).to_s || params[:id]
-    #   home_repository = params[:home_repository]
-    #   case home_repository
-    #     when 'sdr'
-    #       objects = ArchiveCatalogSQL::SdrObject.all
-    #     else
-    #       # fall back to generic table of all digital objects
-    #       objects = ArchiveCatalogSQL::DigitalObject.all
-    #   end
-    #
-    #   # TODO: paginate huge result sets
-    #
-    #   response.body = objects.map{|a| a.values }.to_json
-    #   # begin
-    #   #   response.body = objects.map{|a| a.values }.to_json
-    #   # rescue
-    #   #   halt 404, "Unable to find object: #{id}"
-    #   # end
-    # end
+
+
+    # @!endgroup
+    # @!group SDR_OBJECTS
+
+
+
+
+
+
+    # @method get_archive_sdr_objects
+    # @return a set of SDR objects (can be empty, can be paginated)
+    # @example
+    #   request:
+    #     SDR_ROUTE='/archive/sdr_objects'
+    #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+    #   response:
+    #     status 200:  [
+    #                      {
+    #                          "sdr_object_id": "druid:bb002mz7474",
+    #                          "object_type": "item",
+    #                          "governing_object": "druid:fg586rn4119",
+    #                          "object_label": null,
+    #                          "latest_version": 1
+    #                      },
+    #                      {...}
+    #                  ]
+    #     status 206: result set is paginated
+    # @note response status 206 indicates pagination[https://developer.github.com/v3/#pagination]
+    get '/archive/sdr_objects' do
+      begin
+        dataset = ArchiveCatalogSQL::SdrObject.select
+        results = http_pagination(dataset)
+        response_negotiation(results.map{|i| i.values}, {:root => 'sdr_objects'})
+        status 206 unless results.page_count == 1
+      rescue
+        error 500, "Failed to process the SdrObject dataset."
+      end
+    end
+
+    # @method get_archive_sdr_objects_sdr_object_id
+    # @param sdr_object_id [String] Digital-Repository-Unique-ID (DRUID) [required]
+    # @return an SDR object record
+    # @example
+    #   request:
+    #     SDR_ROUTE='/archive/sdr_objects/druid:bb002mz7474'
+    #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+    #   response:
+    #     status 200:  [
+    #                      {
+    #                          "sdr_object_id": "druid:bb002mz7474",
+    #                          "object_type": "item",
+    #                          "governing_object": "druid:fg586rn4119",
+    #                          "object_label": null,
+    #                          "latest_version": 1
+    #                      }
+    #                  ]
+    #     status 404: No matching digital object found
+    # @note response data should be a single item, results are not paginated
+    get '/archive/sdr_objects/:sdr_object_id' do
+      begin
+        sdr_object_id = parse_object_id(params[:sdr_object_id])
+        results = ArchiveCatalogSQL::SdrObject.where(:sdr_object_id => sdr_object_id)
+        if results.first.nil?
+          error 404, "Did not find #{params[:sdr_object_id]}."
+        end
+        response_negotiation(results.map{|i| i.values}, {:root => 'sdr_objects'})
+      rescue
+        error 500, "Failed to process #{params[:sdr_object_id]}."
+      end
+    end
+
+
+
+    # @!endgroup
+
+
+
+
+
 
   end
 
