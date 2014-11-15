@@ -1,7 +1,8 @@
 require 'moab_stanford'
 require 'druid-tools'
 require 'sys/filesystem'
-require "sinatra/base"
+# require "sinatra/base"
+require_relative "sdr_base"
 require_relative 'archive_catalog_api'
 
 module Sdr
@@ -19,40 +20,12 @@ module Sdr
   # @see https://github.com/sul-dlss/sdr-services-app
   # @see https://github.com/sul-dlss/druid-tools
   #
-  class ServicesAPI < Sinatra::Base
+  class ServicesAPI < Sdr::Base
 
     use Sdr::ArchiveCatalogAPI
 
-    # Register extensions
-    configure :local, :development do
-      require "sinatra/reloader"
-      register Sinatra::Reloader
-      require 'sinatra/advanced_routes'
-      register Sinatra::AdvancedRoutes
-    end
-
-    # http://www.sinatrarb.com/configuration.html
-    # See Sinatra-error-handling for explanation of exception behavior
-    configure do
-      enable :logging
-      # Don't add backtraces to STDERR for an exception raised by a route or filter.
-      disable :dump_errors
-      # Exceptions are rescued and mapped to error handlers which typically
-      # set a 5xx status code and render a custom error page.
-      disable :raise_errors
-      # Use custom error blocks, see below.
-      disable :show_exceptions
-      #mime_type :plain, 'text/plain'
-      #mime_type :json, 'application/json'
-    end
-
-    set :public_folder, 'lib/sdr/public'
-
-    use Rack::Auth::Basic, "Restricted Area" do |username, password|
-      [username, password] == [SdrServices::Config.username, SdrServices::Config.password]
-    end
-
     helpers do
+
       def latest_version
         unless @latest_version
           @latest_version = Stanford::StorageServices.current_version(params[:druid])
@@ -169,39 +142,27 @@ module Sdr
         "<html><head>\n#{title}</head><body>\n#{h3}#{list}</body></html>\n"
       end
 
-      def format_error_message(msg_prefix=nil)
-        _datetime = DateTime.now.strftime('ERROR [%d/%b/%Y %H:%M:%S]')
-        _error = env['sinatra.error']
-        msg = msg_prefix ? "#{_datetime} - info    - #{msg_prefix}\n" : ''
-        msg += "#{_datetime} - message - #{_error.class} - #{_error.message}\n"
-        msg += "#{_datetime} - request - #{request.url}\n"
-        msg += "#{_datetime} - params  - #{request.params.to_s}\n"
-        return msg
-      end
-
     end
 
-
-    $showExceptions = Sinatra::ShowExceptions.new(self)
 
     error Moab::ObjectNotFoundException do
       @error = env['sinatra.error']
       env['rack.errors'].write(format_error_message)  # log error
-      body $showExceptions.pretty(env, @error)
+      body $show_exceptions.pretty(env, @error)
       status 404
     end
 
     error Moab::FileNotFoundException do
       @error = env['sinatra.error']
       env['rack.errors'].write(format_error_message)  # log error
-      body $showExceptions.pretty(env, @error)
+      body $show_exceptions.pretty(env, @error)
       status 404
     end
 
     error Moab::InvalidMetadataException do
       @error = env['sinatra.error']
       env['rack.errors'].write(format_error_message 'Bad Request: Invalid contentMetadata')  # log error
-      body $showExceptions.pretty(env, @error)
+      body $show_exceptions.pretty(env, @error)
       status 400
     end
 
@@ -210,7 +171,7 @@ module Sdr
       #logger.error "Unexpected Error:\n#{msg}"
       env['rack.errors'].write(msg)  # log error
       @error = env['sinatra.error']
-      body $showExceptions.pretty(env, @error)
+      body $show_exceptions.pretty(env, @error)
       status 500
     end
 

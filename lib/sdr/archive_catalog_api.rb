@@ -6,20 +6,10 @@
 # TODO: https://github.com/sul-dlss/dor-workflow-service/blob/master/lib/dor/services/workflow_service.rb
 
 
-require 'sinatra'
+require_relative 'sdr_base'
 require_relative 'pagination'
 require_relative 'archive_catalog_sql'
 #require_relative 'archive_catalog_mongo'
-
-# json-schema for description and validation of REST json data.
-# http://tools.ietf.org/id/draft-zyp-json-schema-03.html
-# http://tools.ietf.org/html/draft-zyp-json-schema-03
-require 'multi_json'
-require 'json-schema'
-
-# xml serialization
-require 'active_support'
-require 'active_support/core_ext'
 
 
 module Sdr
@@ -28,48 +18,26 @@ module Sdr
   # Stanford Digital Repository.  This is SDR metadata, primarily data
   # for tracking replication of objects in the preservation core.
   #
-  class ArchiveCatalogAPI < Sinatra::Base
+  class ArchiveCatalogAPI < Sdr::Base
 
     # Register extensions
     register Sinatra::Pagination
-    #register Sinatra::Namespace  # yard doesn't document namespace routes.
-
-    # http://www.sinatrarb.com/configuration.html
-    # See Sinatra-error-handling for explanation of exception behavior
-    configure do
-      enable :logging
-      # Don't add back-traces to STDERR for an exception raised by a route or filter.
-      disable :dump_errors
-      # Exceptions are rescued and mapped to error handlers which typically
-      # set a 5xx status code and render a custom error page.
-      disable :raise_errors
-      # Use custom error blocks, see below.
-      disable :show_exceptions
-      mime_type :plain, 'text/plain'
-      mime_type :json, 'application/json'
-      mime_type :xml, 'application/xml'
-    end
-
-    configure :local, :development do
-      require 'sinatra/advanced_routes'
-      register Sinatra::AdvancedRoutes
-      register Sinatra::Reloader
-    end
 
     @@sdr_druid_regex = Regexp.new '[[:lower:]]{2}[[:digit:]]{3}[[:lower:]]{2}[[:digit:]]{4}'
 
-    @@digital_object_schema = <<-END_JSON_SCHEMA_STR
-{
-  "type":"object",
-  "title":"Digital Object Identifier",
-  "description":"An object in a digital repository.",
-  "additionalProperties":false,
-  "properties":{
-    "digital_object_id":{ "type":"string", "required": true },
-    "home_repository":{ "type":"string", "required": true }
-  }
-}
-END_JSON_SCHEMA_STR
+    @@schema_path = File.join(File.absolute_path(File.dirname(__FILE__)), 'schemas')
+    begin
+      schema_file_path = File.join(@@schema_path, 'archive_digital_object.json')
+      @@digital_object_json_schema = File.read(schema_file_path)
+    rescue
+      puts "Failed to read schema file!"
+    end
+    begin
+      schema_file_path = File.join(@@schema_path, 'archive_digital_object.xsd')
+      @@digital_object_xml_schema = File.read(schema_file_path)
+    rescue
+      puts "Failed to read schema file!"
+    end
 
     helpers do
 
@@ -80,15 +48,32 @@ END_JSON_SCHEMA_STR
         }
       end
 
-      def digital_object_from_body(request)
+      def digital_object_from_body
         request.body.rewind
         data = request.body.read
-        unless validate_json(data, @@digital_object_schema)
-          error 422, "Malformed json request, must conform to json-schema:\n#{@@digital_object_schema}"
+        begin
+          if request.content_type =~ /json/i
+            unless validate_json(data, @@digital_object_json_schema)
+              error 422, "Malformed json, must conform to json-schema:\n#{@@digital_object_json_schema}"
+            end
+            obj = MultiJson.load(data, {:symbolize_keys => true})
+            obj[:digital_object_id] = parse_object_id(obj[:digital_object_id])
+            return obj
+          elsif request.content_type =~ /xml/i
+            unless validate_xml(data, @@digital_object_xml_schema)
+              error 422, "Malformed xml, must conform to xml-schema:\n#{@@digital_object_xml_schema}"
+            end
+            xml_obj = Hash.from_xml(data)
+            obj = xml_obj['digital_object'].symbolize_keys
+            obj[:digital_object_id] = parse_object_id(obj[:digital_object_id])
+            return obj
+          else
+            # 415 (Unsupported Media Type)
+            halt 415, "PUT accepts text/plain or application/json content, not: #{request.content_type}"
+          end
+        rescue
+          error 500, "Failed to parse request body: #{data}"
         end
-        json_data = MultiJson.load(data, {:symbolize_keys => true})
-        json_data[:digital_object_id] = parse_object_id(json_data[:digital_object_id])
-        return json_data
       end
 
       def parse_object_id(id)
@@ -99,64 +84,11 @@ END_JSON_SCHEMA_STR
         return id
       end
 
-      # Validate JSON object against a JSON schema.
-      # @note schema is only validated after json data fails to validate.
-      # @param [String] jsonData a json string that will be parsed by MultiJson.load
-      # @param [String] jsonSchemaString a json schema string that will be parsed by MultiJson.load
-      # @param [boolean] list set it true for jsonObj array of items to validate against jsonSchemaString
-      def validate_json(jsonData, jsonSchemaString, list=false)
-        schemaVer = :draft3
-        jsonObj = MultiJson.load(jsonData)
-        jsonSchema = MultiJson.load(jsonSchemaString)
-        JSON::Validator.validate(jsonSchema, jsonObj, :list => list, :version => schemaVer)
-        #JSON::Validator.fully_validate(jsonSchema, jsonObj, :list => list, :version => schemaVer, :validate_schema => true)
-      end
-
-      def format_error_message(msg_prefix=nil)
-        _datetime = DateTime.now.strftime('ERROR [%d/%b/%Y %H:%M:%S]')
-        _error = env['sinatra.error']
-        msg = msg_prefix ? "#{_datetime} - info    - #{msg_prefix}\n" : ''
-        msg += "#{_datetime} - message - #{_error.class} - #{_error.message}\n"
-        msg += "#{_datetime} - request - #{request.url}\n"
-        msg += "#{_datetime} - params  - #{request.params.to_s}\n"
-        return msg
-      end
-
-      def response_negotiation(obj, options={})
-        json_idx = env['HTTP_ACCEPT'] =~ /json/i || 999
-        xml_idx  = env['HTTP_ACCEPT'] =~ /xml/i  || 999
-        if json_idx < xml_idx
-          # respond with json, if it is explicitly requested prior to xml
-          content_type :json
-          response.body = this_json(obj, options)
-        elsif xml_idx < json_idx
-          # respond with xml, if it is explicitly requested prior to json
-          content_type :xml
-          response.body = this_xml(obj, options)
-        else
-          # default to json
-          content_type :json
-          response.body = this_json(obj, options)
-        end
-      end
-
-      def this_json(obj, options={})
-        options.merge!({:pretty => true})
-        MultiJson.dump(obj, options)
-      end
-      def this_xml(obj, options={})
-        obj.to_xml(options) # from activesupport/core_ext
-      end
-
     end
 
     # generic processing prior to route processing
     before do
     end
-
-
-
-    @show_exceptions = Sinatra::ShowExceptions.new(self)
 
     error Sequel::DatabaseError do
       @error = env['sinatra.error']
@@ -170,7 +102,7 @@ END_JSON_SCHEMA_STR
       #logger.error "Unexpected Error:\n#{msg}"
       env['rack.errors'].write(msg)  # log error
       @error = env['sinatra.error']
-      body $showExceptions.pretty(env, @error)
+      body $show_exceptions.pretty(env, @error)
       status 500
     end
 
@@ -286,6 +218,33 @@ END_JSON_SCHEMA_STR
       end
     end
 
+    # @!macro [attach] sinatra.head
+    #   @overload HEAD "$1"
+    #
+    # @method head_archive_digital_objects_home_repository_digital_object_id
+    # @param home_repository [String] a value in /archive/digital_objects/repositories [required]
+    # @param digital_object_id [String] Digital-Object-ID, such as DRUID-ID, DPN-ID, etc. [required]
+    # @return the status header is the most useful value returned by this route
+    # @example
+    #   request:
+    #     SDR_ROUTE='/archive/digital_objects/sdr/druid:bb002mz7474'
+    #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+    #   response:
+    #     status 200: The digital object exists, data is available via GET
+    #     status 404: Not found (this could be the most useful response of this route)
+    head '/archive/digital_objects/:home_repository/:digital_object_id' do
+      begin
+        digital_object = digital_object_from_params(params)
+        results = ArchiveCatalogSQL::DigitalObject.where(digital_object)
+        if results.first.nil?
+          status 404
+        end
+        status 200
+      rescue
+        status 500
+      end
+    end
+
     # @!macro [attach] sinatra.put
     #   @overload PUT "$1"
     #
@@ -299,12 +258,9 @@ END_JSON_SCHEMA_STR
     #  curl -v -X PUT -H "Content-Type: application/json" --data "${SDR_DATA}" \
     #       -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
     put '/archive/digital_objects/:home_repository/:digital_object_id' do
-
-      #binding.pry
-
       # PUT: Store the Entity-Body at the URL
       digital_object_params = digital_object_from_params(params)
-      digital_object_data = digital_object_from_body(request)
+      digital_object_data = digital_object_from_body
       unless digital_object_data == digital_object_params
         error 422, "URI does not match json data: #{digital_object_data}"
       end
@@ -321,7 +277,8 @@ END_JSON_SCHEMA_STR
         begin
           success = ArchiveCatalogSQL::DigitalObject.insert(digital_object_data) == 0
           if success
-            halt 201, {'Location' => request.route}, 'Digital object created.'
+            # 201 (Created)
+            halt 201, {'Location' => request.path}, 'Digital object created.'
           else
             error 500
           end
@@ -337,10 +294,12 @@ END_JSON_SCHEMA_STR
         obj = objects.first
         if obj.values == digital_object_data
           # The request representation already exists, do nothing.
-          status 204
-          #halt 201, '/archive/:home_repository/object/:digital_object_id'
-          #halt 202, {'Location' => "/messages/#{message.id}"}, ''
+          # 304 (Not Modified)
+          halt 304, {'Location' => request.path}, 'Digital object exists.'
         else
+          # Note: should never arrive at this code block, because the
+          #       digital_object data would not match the route parameters.
+          #
           # The new representation should replace the existing representation.
           # A partial update could be a PATCH request, whereas a PUT must entirely
           # replace the resource content at this route. A PUT is idempotent.
@@ -348,14 +307,11 @@ END_JSON_SCHEMA_STR
             obj.delete
             success = ArchiveCatalogSQL::DigitalObject.insert(digital_object_data) == 0
             if success
-              status 201
-              # TODO
-              #halt 201, '/archive/:home_repository/object/:digital_object_id'
-              #halt 202, {'Location' => "/messages/#{message.id}"}, ''
+              # 204 (No Content)
+              halt 204, {'Location' => request.path}, ''
             else
-              error
+              error 500
             end
-
           rescue
             #TODO: ony catch Sequel exceptions here?
             error 500
