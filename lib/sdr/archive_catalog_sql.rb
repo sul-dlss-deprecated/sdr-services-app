@@ -4,7 +4,7 @@ require 'yaml'
 
 # Define a class method to paginate through ORM models
 class Sequel::Model
-  def self.page(page, per_page=10, *args)
+  def self.page(page, per_page=30, *args)
     # The page number comes as a string from the Sinatra controller.
     # Turn it into an integer and make it 1 if it was nil.
     page = (page || 1).to_i
@@ -14,7 +14,7 @@ end
 
 # Define a class method to paginate through datasets
 class Sequel::Dataset
-  def page(page, per_page=10, *args)
+  def page(page, per_page=30, *args)
     # The page number comes as a string from the Sinatra controller.
     # Turn it into an integer and make it 1 if it was nil.
     page = (page || 1).to_i
