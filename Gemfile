@@ -43,7 +43,7 @@ gem 'redcarpet'
 
 group :test, :local, :development do
   gem 'awesome_print'
-  gem 'capybara'
+  #gem 'capybara'
   gem 'cucumber'
   gem 'equivalent-xml'
   gem 'pry-doc'
