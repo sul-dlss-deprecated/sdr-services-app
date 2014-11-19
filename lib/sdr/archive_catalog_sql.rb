@@ -3,6 +3,9 @@ require 'sequel'
 require 'yaml'
 
 # Define a class method to paginate through ORM models
+# pagination is based on github recommendation, see
+# https://developer.github.com/guides/traversing-with-pagination/
+# see alternative at http://dev.librato.com/v1/pagination
 class Sequel::Model
   def self.page(page, per_page=30, *args)
     # The page number comes as a string from the Sinatra controller.
@@ -13,6 +16,9 @@ class Sequel::Model
 end
 
 # Define a class method to paginate through datasets
+# pagination is based on github recommendation, see
+# https://developer.github.com/guides/traversing-with-pagination/
+# see alternative at http://dev.librato.com/v1/pagination
 class Sequel::Dataset
   def page(page, per_page=30, *args)
     # The page number comes as a string from the Sinatra controller.

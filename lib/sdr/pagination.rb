@@ -6,6 +6,9 @@ module Sinatra
     module Helpers
 
       def http_pagination(sequel_dataset)
+        # pagination is based on github recommendation, see
+        # https://developer.github.com/guides/traversing-with-pagination/
+        # see alternative at http://dev.librato.com/v1/pagination
         @paginated = sequel_dataset.paginate(page, per_page)
         add_pagination_headers unless @paginated.page_count == 1
         return @paginated
