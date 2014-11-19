@@ -129,6 +129,7 @@ module Sdr
       def obj_to_json(obj, options={})
         options.merge!({:pretty => true})
         MultiJson.dump(obj, options)
+        #ActiveSupport::JSON.encode(obj, options)
       end
 
       def obj_to_xml(obj, options={})

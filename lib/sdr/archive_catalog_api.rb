@@ -108,6 +108,33 @@ module Sdr
 
     # @!group DIGITAL_OBJECTS
 
+    # @method get_archive_digital_objects
+    # @return a set of digital objects (can be empty, can be paginated)
+    # @example
+    #   request:
+    #     SDR_ROUTE='/archive/digital_objects'
+    #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+    #   response:
+    #     status 200: [
+    #                     {
+    #                         "digital_object_id": "druid:bb002mz7474",
+    #                         "home_repository": "sdr"
+    #                     },
+    #                     {...}
+    #                 ]
+    #     status 206: result set is paginated
+    # @note response status 206 indicates pagination[https://developer.github.com/v3/#pagination]
+    get '/archive/digital_objects' do
+      begin
+        dataset = ArchiveCatalogSQL::DigitalObject.select
+        results = http_pagination(dataset)
+        response_negotiation(results.map{|i| i.values}, {:root => 'digital_objects'})
+        status 206 unless results.page_count == 1
+      rescue
+        error 500, "Failed to process the digital objects dataset."
+      end
+    end
+
     # @!macro [attach] sinatra.get
     #   @overload GET "$1"
     #
@@ -126,35 +153,6 @@ module Sdr
       begin
         results = ArchiveCatalogSQL::DigitalObject.select(:home_repository).distinct
         response_negotiation(results.map{|i| i[:home_repository]}, {:root => 'repositories'})
-      rescue
-        error 500, "Failed to process the digital objects dataset."
-      end
-    end
-
-    # @method get_archive_digital_objects_objects
-    # @return a set of digital objects (can be empty, can be paginated)
-    # @example
-    #   request:
-    #     SDR_ROUTE='/archive/digital_objects/objects'
-    #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
-    #   response:
-    #     status 200: [
-    #                     {
-    #                         "digital_object_id": "druid:bb002mz7474",
-    #                         "home_repository": "sdr"
-    #                     },
-    #                     {...}
-    #                 ]
-    #     status 206: result set is paginated
-    # @note response status 206 indicates pagination[https://developer.github.com/v3/#pagination]
-    get '/archive/digital_objects/objects' do
-      begin
-        # Return everything about the objects, including the :home_repository.
-        # digital_object_id is a primary key, so .distinct is not required here.
-        dataset = ArchiveCatalogSQL::DigitalObject.select
-        results = http_pagination(dataset)
-        response_negotiation(results.map{|i| i.values}, {:root => 'digital_objects'})
-        status 206 unless results.page_count == 1
       rescue
         error 500, "Failed to process the digital objects dataset."
       end

@@ -43,11 +43,12 @@ gem 'redcarpet'
 
 group :test, :local, :development do
   gem 'awesome_print'
-  #gem 'capybara'
   gem 'cucumber'
+  gem 'database_cleaner'
   gem 'equivalent-xml'
   gem 'pry-doc'
-  gem 'rack-test', :require => "rack/test"
+  gem 'rack-test', :require => 'rack/test'
+  gem 'randexp'
   gem 'rspec', '< 3.0'
   gem 'simplecov', '~> 0.7.1'
   gem 'yard'
