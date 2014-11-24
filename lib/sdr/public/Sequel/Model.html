@@ -102,7 +102,11 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Define a class method to paginate through ORM models</p>
+<p>Define a class method to paginate through ORM models pagination is based on
+github recommendation, see <a
+href="https://developer.github.com/guides/traversing-with-pagination">developer.github.com/guides/traversing-with-pagination</a>/
+see alternative at <a
+href="http://dev.librato.com/v1/pagination">dev.librato.com/v1/pagination</a></p>
 
 
   </div>
@@ -132,7 +136,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#page-class_method" title="page (class method)">+ (Object) <strong>page</strong>(page, per_page = 10, *args) </a>
+      <a href="#page-class_method" title="page (class method)">+ (Object) <strong>page</strong>(page, per_page = 30, *args) </a>
     
 
     
@@ -163,7 +167,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="page-class_method">
   
-    + (<tt>Object</tt>) <strong>page</strong>(page, per_page = 10, *args) 
+    + (<tt>Object</tt>) <strong>page</strong>(page, per_page = 30, *args) 
   
 
   
@@ -175,17 +179,17 @@
       <pre class="lines">
 
 
-7
-8
-9
 10
 11
-12</pre>
+12
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_sql.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_sql.rb', line 10</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='id identifier rubyid_per_page'>per_page</span><span class='op'>=</span><span class='int'>10</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='id identifier rubyid_per_page'>per_page</span><span class='op'>=</span><span class='int'>30</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span>
   <span class='comment'># The page number comes as a string from the Sinatra controller.
 </span>  <span class='comment'># Turn it into an integer and make it 1 if it was nil.
 </span>  <span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_page'>page</span> <span class='op'>||</span> <span class='int'>1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span>
@@ -201,7 +205,7 @@
 </div>
 
     <div id="footer">
-  Generated on Fri Nov 14 16:23:34 2014 by
+  Generated on Mon Nov 24 11:54:00 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.1.3).
 </div>

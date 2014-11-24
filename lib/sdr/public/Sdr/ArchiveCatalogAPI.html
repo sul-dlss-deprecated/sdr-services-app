@@ -151,6 +151,30 @@ replication of objects in the preservation core.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#get_archive_digital_objects-instance_method" title="#get_archive_digital_objects (instance method)">- (Object) <strong>get_archive_digital_objects</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A set of digital objects (can be empty, can be paginated).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#get_archive_digital_objects_home_repository-instance_method" title="#GET (instance method)">- (Object) <strong>GET</strong>(&quot;/archive/digital_objects/:home_repository&quot;) </a>
     
 
@@ -192,30 +216,6 @@ paginated).</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>A digital object record.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#get_archive_digital_objects_objects-instance_method" title="#GET (instance method)">- (Object) <strong>GET</strong>(&quot;/archive/digital_objects/objects&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>A set of digital objects (can be empty, can be paginated).</p>
 </div></span>
   
 </li>
@@ -367,7 +367,108 @@ paginated).</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="get_archive_digital_objects_home_repository-instance_method">
+  <h3 class="signature first" id="get_archive_digital_objects-instance_method">
+  
+    - (<tt>Object</tt>) <strong>get_archive_digital_objects</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>response status 206 indicates <a
+href="https://developer.github.com/v3/#pagination">pagination</a></p>
+</div>
+  </div>
+
+
+<p>Returns a set of digital objects (can be empty, can be paginated)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code>request:
+  SDR_ROUTE=&#39;/archive/digital_objects&#39;
+  curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+response:
+  status 200: [
+                  {
+                      &quot;digital_object_id&quot;: &quot;druid:bb002mz7474&quot;,
+                      &quot;home_repository&quot;: &quot;sdr&quot;
+                  },
+                  {...}
+              ]
+  status 206: result set is paginated</code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>a set of digital objects (can be empty, can be paginated)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 127</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/archive/digital_objects</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_dataset'>dataset</span> <span class='op'>=</span> <span class='const'>ArchiveCatalogSQL</span><span class='op'>::</span><span class='const'>DigitalObject</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span>
+    <span class='id identifier rubyid_results'>results</span> <span class='op'>=</span> <span class='id identifier rubyid_http_pagination'>http_pagination</span><span class='lparen'>(</span><span class='id identifier rubyid_dataset'>dataset</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_response_negotiation'>response_negotiation</span><span class='lparen'>(</span><span class='id identifier rubyid_results'>results</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:root</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>digital_objects</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_status'>status</span> <span class='int'>206</span> <span class='kw'>unless</span> <span class='id identifier rubyid_results'>results</span><span class='period'>.</span><span class='id identifier rubyid_page_count'>page_count</span> <span class='op'>==</span> <span class='int'>1</span>
+  <span class='kw'>rescue</span>
+    <span class='id identifier rubyid_error'>error</span> <span class='int'>500</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to process the digital objects dataset.</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_archive_digital_objects_home_repository-instance_method">
   
     - (<tt>Object</tt>) <strong>GET</strong>(&quot;/archive/digital_objects/:home_repository&quot;) 
   
@@ -462,6 +563,8 @@ paginated)</p>
       <pre class="lines">
 
 
+178
+179
 180
 181
 182
@@ -469,12 +572,10 @@ paginated)</p>
 184
 185
 186
-187
-188
-189</pre>
+187</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 178</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/archive/digital_objects/:home_repository</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='kw'>begin</span>
@@ -599,6 +700,8 @@ response:
       <pre class="lines">
 
 
+206
+207
 208
 209
 210
@@ -608,12 +711,10 @@ response:
 214
 215
 216
-217
-218
-219</pre>
+217</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 208</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 206</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/archive/digital_objects/:home_repository/:digital_object_id</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='kw'>begin</span>
@@ -625,113 +726,6 @@ response:
     <span class='id identifier rubyid_response_negotiation'>response_negotiation</span><span class='lparen'>(</span><span class='id identifier rubyid_results'>results</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:root</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>digital_objects</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>rescue</span>
     <span class='id identifier rubyid_error'>error</span> <span class='int'>500</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to process </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:digital_object_id</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'> in the </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:home_repository</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'> repository.</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_archive_digital_objects_objects-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/archive/digital_objects/objects&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-  <div class="note notetag">
-    <strong>Note:</strong>
-    <div class='inline'>
-<p>response status 206 indicates <a
-href="https://developer.github.com/v3/#pagination">pagination</a></p>
-</div>
-  </div>
-
-
-<p>Returns a set of digital objects (can be empty, can be paginated)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  <div class="examples">
-    <p class="tag_title">Examples:</p>
-    
-      
-      <pre class="example code"><code>request:
-  SDR_ROUTE=&#39;/archive/digital_objects/objects&#39;
-  curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
-response:
-  status 200: [
-                  {
-                      &quot;digital_object_id&quot;: &quot;druid:bb002mz7474&quot;,
-                      &quot;home_repository&quot;: &quot;sdr&quot;
-                  },
-                  {...}
-              ]
-  status 206: result set is paginated</code></pre>
-    
-  </div>
-
-  
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>a set of digital objects (can be empty, can be paginated)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-150
-151
-152
-153
-154
-155
-156
-157
-158
-159
-160
-161</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 150</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/archive/digital_objects/objects</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='kw'>begin</span>
-    <span class='comment'># Return everything about the objects, including the :home_repository.
-</span>    <span class='comment'># digital_object_id is a primary key, so .distinct is not required here.
-</span>    <span class='id identifier rubyid_dataset'>dataset</span> <span class='op'>=</span> <span class='const'>ArchiveCatalogSQL</span><span class='op'>::</span><span class='const'>DigitalObject</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span>
-    <span class='id identifier rubyid_results'>results</span> <span class='op'>=</span> <span class='id identifier rubyid_http_pagination'>http_pagination</span><span class='lparen'>(</span><span class='id identifier rubyid_dataset'>dataset</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_response_negotiation'>response_negotiation</span><span class='lparen'>(</span><span class='id identifier rubyid_results'>results</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='symbol'>:root</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>digital_objects</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_status'>status</span> <span class='int'>206</span> <span class='kw'>unless</span> <span class='id identifier rubyid_results'>results</span><span class='period'>.</span><span class='id identifier rubyid_page_count'>page_count</span> <span class='op'>==</span> <span class='int'>1</span>
-  <span class='kw'>rescue</span>
-    <span class='id identifier rubyid_error'>error</span> <span class='int'>500</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Failed to process the digital objects dataset.</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -800,17 +794,17 @@ response:
       <pre class="lines">
 
 
-125
-126
-127
-128
-129
-130
-131
-132</pre>
+152
+153
+154
+155
+156
+157
+158
+159</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 152</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/archive/digital_objects/repositories</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='kw'>begin</span>
@@ -902,6 +896,8 @@ response:
       <pre class="lines">
 
 
+351
+352
 353
 354
 355
@@ -909,12 +905,10 @@ response:
 357
 358
 359
-360
-361
-362</pre>
+360</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 353</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 351</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/archive/sdr_objects</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='kw'>begin</span>
@@ -1026,6 +1020,8 @@ response:
       <pre class="lines">
 
 
+381
+382
 383
 384
 385
@@ -1035,12 +1031,10 @@ response:
 389
 390
 391
-392
-393
-394</pre>
+392</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 383</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 381</span>
 
 <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/archive/sdr_objects/:sdr_object_id</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='kw'>begin</span>
@@ -1154,6 +1148,8 @@ response:
       <pre class="lines">
 
 
+233
+234
 235
 236
 237
@@ -1163,12 +1159,10 @@ response:
 241
 242
 243
-244
-245
-246</pre>
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 235</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 233</span>
 
 <span class='id identifier rubyid_head'>head</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/archive/digital_objects/:home_repository/:digital_object_id</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='kw'>begin</span>
@@ -1282,6 +1276,8 @@ curl -v -X PUT -H &quot;Content-Type: application/json&quot; --data &quot;${SDR_
       <pre class="lines">
 
 
+258
+259
 260
 261
 262
@@ -1341,12 +1337,10 @@ curl -v -X PUT -H &quot;Content-Type: application/json&quot; --data &quot;${SDR_
 316
 317
 318
-319
-320
-321</pre>
+319</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 260</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/archive_catalog_api.rb', line 258</span>
 
 <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/archive/digital_objects/:home_repository/:digital_object_id</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='comment'># PUT: Store the Entity-Body at the URL
@@ -1420,7 +1414,7 @@ curl -v -X PUT -H &quot;Content-Type: application/json&quot; --data &quot;${SDR_
 </div>
 
     <div id="footer">
-  Generated on Fri Nov 14 16:23:34 2014 by
+  Generated on Mon Nov 24 11:54:00 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.1.3).
 </div>
