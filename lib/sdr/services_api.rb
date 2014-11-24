@@ -209,8 +209,13 @@ module Sdr
     # @method get_objects_druid_current_version
     # @param druid [String] DRUID-ID [required]
     # @return [String] DRUID current version (XML)
-    # @example Get the current version of druid:jq937jp0017
-    #    /objects/druid:jq937jp0017/current_version
+    # @example
+    #   request:
+    #     SDR_ROUTE='/objects/druid:jq937jp0017/current_version'
+    #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+    #   response:
+    #     status 200: <currentVersion>1</currentVersion>
+    #     status 404: cannot find DRUID-ID
     get '/objects/:druid/current_version' do
       current_version = Stanford::StorageServices.current_version(params[:druid])
       [200, {'content-type' => 'application/xml'}, "<currentVersion>#{current_version.to_s}</currentVersion>"]
@@ -219,8 +224,18 @@ module Sdr
     # @method get_objects_druid_version_metadata
     # @param druid [String] DRUID-ID [required]
     # @return [String] DRUID version metadata (XML)
-    # @example Get the version metadata of druid:jq937jp0017
-    #    /objects/druid:jq937jp0017/version_metadata
+    # @example
+    #   request:
+    #     SDR_ROUTE='/objects/druid:jq937jp0017/version_metadata'
+    #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+    #   response:
+    #     status 200:
+    #                 <versionMetadata>
+    #                   <version tag="1.0.0" versionId="1">
+    #                     <description>Initial Version</description>
+    #                   </version>
+    #                 </versionMetadata>
+    #     status 404: cannot find DRUID-ID
     get '/objects/:druid/version_metadata' do
       version_metadata = Stanford::StorageServices.version_metadata(params[:druid])
       [200, {'content-type' => 'application/xml'}, version_metadata.read]
@@ -241,7 +256,68 @@ module Sdr
     # @param compare [Integer] DRUID compare version number [required]
     # @return [String] DRUID version diffs (XML)
     # @example Get the differences between version 1 and 2 for druid:jq937jp0017
-    #    /objects/druid:jq937jp0017/version_differences?base=1&compare=2
+    #   request:
+    #     SDR_ROUTE='/objects/druid:jq937jp0017/version_differences?base=1&compare=2'
+    #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+    #   response:
+    #     status 200:
+    #                 <?xml version="1.0"?>
+    #                 <fileInventoryDifference objectId="druid:jq937jp0017" differenceCount="11" basis="v1" other="v0" reportDatetime="2014-11-24T21:05:04Z">
+    #                   <fileGroupDifference groupId="content" differenceCount="6" identical="0" copyadded="0" copydeleted="0" renamed="0" modified="0" added="0" deleted="6">
+    #                     <subset change="deleted" count="6">
+    #                       <file change="deleted" basisPath="intro-1.jpg" otherPath="">
+    #                         <fileSignature size="41981" md5="915c0305bf50c55143f1506295dc122c" sha1="60448956fbe069979fce6a6e55dba4ce1f915178" sha256=""/>
+    #                       </file>
+    #                       <file change="deleted" basisPath="intro-2.jpg" otherPath="">
+    #                         <fileSignature size="39850" md5="77f1a4efdcea6a476505df9b9fba82a7" sha1="a49ae3f3771d99ceea13ec825c9c2b73fc1a9915" sha256=""/>
+    #                       </file>
+    #                       <file change="deleted" basisPath="page-1.jpg" otherPath="">
+    #                         <fileSignature size="25153" md5="3dee12fb4f1c28351c7482b76ff76ae4" sha1="906c1314f3ab344563acbbbe2c7930f08429e35b" sha256=""/>
+    #                       </file>
+    #                       <file change="deleted" basisPath="page-2.jpg" otherPath="">
+    #                         <fileSignature size="39450" md5="82fc107c88446a3119a51a8663d1e955" sha1="d0857baa307a2e9efff42467b5abd4e1cf40fcd5" sha256=""/>
+    #                       </file>
+    #                       <file change="deleted" basisPath="page-3.jpg" otherPath="">
+    #                         <fileSignature size="19125" md5="a5099878de7e2e064432d6df44ca8827" sha1="c0ccac433cf02a6cee89c14f9ba6072a184447a2" sha256=""/>
+    #                       </file>
+    #                       <file change="deleted" basisPath="title.jpg" otherPath="">
+    #                         <fileSignature size="40873" md5="1a726cd7963bd6d3ceb10a8c353ec166" sha1="583220e0572640abcd3ddd97393d224e8053a6ad" sha256=""/>
+    #                       </file>
+    #                     </subset>
+    #                     <subset change="identical" count="0"/>
+    #                     <subset change="copyadded" count="0"/>
+    #                     <subset change="copydeleted" count="0"/>
+    #                     <subset change="renamed" count="0"/>
+    #                     <subset change="modified" count="0"/>
+    #                     <subset change="added" count="0"/>
+    #                   </fileGroupDifference>
+    #                   <fileGroupDifference groupId="metadata" differenceCount="5" identical="0" copyadded="0" copydeleted="0" renamed="0" modified="0" added="0" deleted="5">
+    #                     <subset change="deleted" count="5">
+    #                       <file change="deleted" basisPath="contentMetadata.xml" otherPath="">
+    #                         <fileSignature size="1619" md5="b886db0d14508884150a916089da840f" sha1="b2328faaf25caf037cfc0263896ad707fc3a47a7" sha256=""/>
+    #                       </file>
+    #                       <file change="deleted" basisPath="descMetadata.xml" otherPath="">
+    #                         <fileSignature size="3046" md5="a60bb487db6a1ceb5e0b5bb3cae2dfa2" sha1="edefc0e1d7cffd5bd3c7db6a393ab7632b70dc2d" sha256=""/>
+    #                       </file>
+    #                       <file change="deleted" basisPath="identityMetadata.xml" otherPath="">
+    #                         <fileSignature size="932" md5="f0815d7b45530491931d5897ccbe2dd1" sha1="4065ff5523e227c1914098372a3dc587f739030e" sha256=""/>
+    #                       </file>
+    #                       <file change="deleted" basisPath="provenanceMetadata.xml" otherPath="">
+    #                         <fileSignature size="5306" md5="17193dbf595571d728ba59aa31638db9" sha1="c8b91eacf9ad7532a42dc52b3c9cf03b4ad2c7f6" sha256=""/>
+    #                       </file>
+    #                       <file change="deleted" basisPath="versionMetadata.xml" otherPath="">
+    #                         <fileSignature size="224" md5="64e002bea8f3f4bd7e91882aa43d2f1d" sha1="0f344673dc1e51758a4d8ed589630cde6744d4ad" sha256=""/>
+    #                       </file>
+    #                     </subset>
+    #                     <subset change="identical" count="0"/>
+    #                     <subset change="copyadded" count="0"/>
+    #                     <subset change="copydeleted" count="0"/>
+    #                     <subset change="renamed" count="0"/>
+    #                     <subset change="modified" count="0"/>
+    #                     <subset change="added" count="0"/>
+    #                   </fileGroupDifference>
+    #                 </fileInventoryDifference>
+    #     status 404: cannot find DRUID-ID
     get '/objects/:druid/version_differences' do
       version_differences = Stanford::StorageServices.version_differences(params[:druid], params[:base].to_i, params[:compare].to_i)
       [200, {'content-type' => 'application/xml'}, version_differences.to_xml]

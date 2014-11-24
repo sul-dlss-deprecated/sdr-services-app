@@ -108,6 +108,9 @@ module Sdr
 
     # @!group DIGITAL_OBJECTS
 
+    # @!macro [attach] sinatra.get
+    #   @overload GET "$1"
+    #
     # @method get_archive_digital_objects
     # @return a set of digital objects (can be empty, can be paginated)
     # @example
@@ -135,9 +138,6 @@ module Sdr
       end
     end
 
-    # @!macro [attach] sinatra.get
-    #   @overload GET "$1"
-    #
     # @method get_archive_digital_objects_repositories
     # @return a set of repository identifiers (can be empty)
     # @example
@@ -226,7 +226,7 @@ module Sdr
     # @example
     #   request:
     #     SDR_ROUTE='/archive/digital_objects/sdr/druid:bb002mz7474'
-    #     curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+    #     curl -X HEAD -I -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
     #   response:
     #     status 200: The digital object exists, data is available via GET
     #     status 404: Not found (this could be the most useful response of this route)
@@ -235,11 +235,11 @@ module Sdr
         digital_object = digital_object_from_params(params)
         results = ArchiveCatalogSQL::DigitalObject.where(digital_object)
         if results.first.nil?
-          status 404
+          halt 404
         end
-        status 200
+        halt 200
       rescue
-        status 500
+        error 500
       end
     end
 
