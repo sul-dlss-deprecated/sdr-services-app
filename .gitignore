@@ -10,6 +10,7 @@
 .yardoc/
 config/deploy/*
 !config/deploy/development.rb
+!config/deploy/server_settings.rb
 config/environments/*
 !config/environments/development.rb
 config/database.yml

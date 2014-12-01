@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.x
-lock '3.2.1'
+#lock '3.2.1'
 
 set :application, 'sdr-services-app'
 
@@ -8,7 +8,7 @@ set :application, 'sdr-services-app'
 
 # NOTE: production is not working with https (old openssl?)
 # set :repo_url, 'https://github.com/sul-dlss/sdr-services-app.git'
-set :repo_url, 'git://github.com/sul-dlss/sdr-services-app.git'
+set :repo_url, 'git@github.com:sul-dlss/sdr-services-app.git'
 
 # Default branch is :master
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call

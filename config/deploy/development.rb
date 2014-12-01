@@ -16,12 +16,5 @@ set :default_env, {
     'SDR_HOST' => ENV['SDR_HOST'],
 }
 
-server ENV['SDR_HOST'], user: ENV['SDR_USER'], roles: %w{app}
-Capistrano::OneTimeKey.generate_one_time_key!
+require_relative 'server_settings'
 
-# Target path
-USER_HOME = `ssh #{ENV['SDR_USER']}@#{ENV['SDR_HOST']} 'echo $HOME'`.chomp
-set :deploy_to, "#{USER_HOME}/#{ENV['SDR_APP']}"
-
-# NOTE: development might require https instead of git protocol
-#set :repo_url, "https://github.com/sul-dlss/#{ENV['SDR_APP']}.git"
