@@ -6,9 +6,9 @@ set :application, 'sdr-services-app'
 # Default value for :scm is :git
 # set :scm, :git
 
-# NOTE: production is not working with https (old openssl?)
-# set :repo_url, 'https://github.com/sul-dlss/sdr-services-app.git'
-set :repo_url, 'git@github.com:sul-dlss/sdr-services-app.git'
+# NOTE: all deployment systems work with https, not git/ssh.
+# set :repo_url, 'git@github.com:sul-dlss/sdr-services-app.git'
+set :repo_url, 'https://github.com/sul-dlss/sdr-services-app.git'
 
 # Default branch is :master
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
