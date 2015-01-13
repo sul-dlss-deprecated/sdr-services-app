@@ -2,7 +2,7 @@ require 'moab_stanford'
 require 'druid-tools'
 require 'sys/filesystem'
 # require "sinatra/base"
-require_relative "sdr_base"
+require_relative 'sdr_base'
 require_relative 'archive_catalog_api'
 
 module Sdr

@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'sinatra/advanced_routes'
 # require 'sinatra/namespace'
 
 # require 'api/authentication'
@@ -22,13 +23,12 @@ module Sdr
     # register ::Sinatra::ErrorHandling
     # register ::Sinatra::Authentication
     # register ::Sinatra::Pagination
+    register Sinatra::AdvancedRoutes
 
     # Register development extensions
     configure :local, :development do
       require 'sinatra/reloader'
       register Sinatra::Reloader
-      require 'sinatra/advanced_routes'
-      register Sinatra::AdvancedRoutes
     end
 
     # http://www.sinatrarb.com/configuration.html
