@@ -1,5 +1,6 @@
 # Note: capistrano reads this file AFTER config/deploy.rb
 
+ENV['APP_ENV']  ||= 'development'
 ENV['SDR_APP']  ||= fetch(:application)
 ENV['SDR_HOST'] ||= 'localhost'
 ENV['SDR_USER'] ||= ENV['USER']
