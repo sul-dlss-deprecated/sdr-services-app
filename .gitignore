@@ -9,6 +9,7 @@
 .rvmrc
 .ruby-version
 .yardoc/
+bin/test_deploy*
 config/deploy/*
 !config/deploy/development.rb
 !config/deploy/server_settings.rb
