@@ -1,0 +1,66 @@
+
+namespace :sdr do
+
+    task :before_symlink do
+        :check_ruby_details
+        deploy.web.disable
+    end
+
+    task :check_ruby_details do
+        cmd = "pushd #{release_path}"
+        cmd += ' && echo "rvm = $(which rvm)"'
+        cmd += ' && echo "rvm version = $(rvm version)"'
+        cmd += ' && echo "rvm ruby = $(rvm which ruby)"'
+        cmd += ' && echo "rvm gem = $(rvm which gem)"'
+        cmd += ' && echo "gem version = $(gem --version)"'
+        cmd += ' && echo "GEM_HOME = $GEM_HOME"'
+        cmd += ' && echo "rvm bundle = $(rvm which bundle)"'
+        cmd += ' && echo "bundle version = $(bundle --version)"'
+        cmd += ' && echo "BUNDLE_PATH = $BUNDLE_PATH"'
+        cmd += ' && bundle platform '
+        cmd += ' && bundle show --paths | sort'
+        cmd += " && bundle check --gemfile #{release_path}/Gemfile --path #{shared_path}/bundle"
+        cmd += ' && popd'
+        run cmd
+    end
+
+
+    task :verify_deploy do
+        curl_opt = "--max-time 240 --connect-timeout 10 --retry 2"
+        curl_home = "curl -s -S --location --insecure #{curl_opt} #{SDR_URL}"
+        curl_docs = "curl -s -S --location --insecure #{curl_opt} #{SDR_URL}/doc"
+        #
+        # NOTE THESE GREP TESTS USED FIXED STRINGS!  They could be modified in the
+        # UI code independently of this deployment code.
+        #
+        grep_cmdContent = "grep -q -F 'API Documentation'"
+        #grep_cmdError = "grep -v -q -F 'We have been notified of this error.'" # Note -v option.
+        transaction do
+            # TODO: Call rollback if the verify_deploy task fails
+            on_rollback do
+                # The deployment probably failed.
+                #deploy_status = capture("#{curl_docs} | #{grep_cmd} && echo $?")
+                #run "echo 'deploy_status = #{deploy_status}'"
+                run "echo ':deploy_verify failed, calling deploy:rollback.'"
+                deploy.rollback
+            end
+            # Query the deployed UI, first to prompt apache/passenger to reload it,
+            # then to verify that it has expected content and no error page.
+            cmd_home = "#{curl_home} > /dev/null"
+            cmd_home += " && #{curl_home} | #{grep_cmdContent}"
+            #cmd_home += " && #{curl_home} | #{grep_cmdError}"
+            run cmd_home
+            #cmd_docs = "#{curl_docs} > /dev/null"
+            #cmd_docs += " && #{curl_docs} | #{grep_cmdContent}"
+            #cmd_docs += " && #{curl_docs} | #{grep_cmdError}"
+            #run cmd_docs
+            deploy.cleanup
+        end
+    end # :verify_deploy
+
+end # :sdr namespace
+
+before "deploy:create_symlink", "sdr:before_symlink"
+after "deploy:restart", "deploy:web:enable"
+after "deploy:web:enable", "sdr:verify_deploy"
+

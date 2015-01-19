@@ -1,4 +1,3 @@
--require 'pry'
 
 %html
   %head
@@ -84,46 +83,34 @@
             individual resources. Typically, the verbs will be used in conjunction with the URL that represents the id for
             a given resource. Here is how we interpret the verbs:
 
-            - <span class="label label-info">GET</span> Used to retrieve a resource or collection of resources.
-            - <span class="label label-info">POST</span> Used to create a resource when the server determines the resource's id.
-            - <span class="label label-info">PUT</span> Used to create a resource when a client determines the resource's id.
-            - <span class="label label-info">PATCH</span> Used to modify an existing resource. The attributes in a PATCH request will replace existing attributes.
-            - <span class="label label-info">DELETE</span> Used to delete an existing resource.
+            - <span class="label label-info">GET</span> Used to retrieve a resource or collection of resources
+            ([GET](http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics-21#section-5.3.1)).
 
-          -# TODO: work out how to use introspection to document routes, e.g.
-          -# TODO: The code I have for doing the introspection is here in case you want to look:
-          -# https://github.com/ncbo/ontologies_api/blob/master/controllers/home_controller.rb#L121-L152
-          -# I’m able to rely on the fact that we have conventional names, IE UsersController is for the User model. You would need a map otherwise. Good luck!
-          -# Paul
+            - <span class="label label-info">POST</span> Used to create a resource when the server determines the resource's id
+            ([POST](http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics-21#section-5.3.3)).
+
+            - <span class="label label-info">PUT</span> Used to create or update the entire entity-body at the URL
+            ([PUT](http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics-21#section-5.3.4)).
+
+            - <span class="label label-info">PATCH</span> Used to partially update an existing resource. The attributes in a PATCH request will replace existing attributes
+            ([PATCH](http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics-21#section-5.3.4)).
+
+            - <span class="label label-info">DELETE</span> Used to delete an existing resource
+            ([DELETE](http://tools.ietf.org/html/draft-ietf-httpbis-p2-semantics-21#section-5.3.5)).
 
 
-          %h2#nav_routes Routes
-          -routesGET = Sdr::ServicesApi.routes['GET'].sort {|a,b| a.path <=> b.path }
-          -routesPOST = Sdr::ServicesApi.routes['POST'].sort {|a,b| a.path <=> b.path }
-          -routeToYardDoc = request.path.sub('documentation','doc#')
+          %h2#nav_routes Application Routes
 
-          %ul
-            -routesGET.each do |route|
-              -#route.app.name   # "Sdr::ServicesApi"
-              %li
-                -yard_method_name = route_yard_name(route)
-                -yard_doc_link = routeToYardDoc + yard_method_name + '-instance_method'
-                ="<span class='label label-info'>#{route.verb}</span>" # get / head / post / put / delete
-                ="<a href='#{yard_doc_link}'>#{route.path}</a>"        # that's the path given as argument to get
-                -#route.file       # "some_sinatra_app.rb" or something
-                -#route.line       # the line number of the get/post/... statement
-                -#route.pattern    # that's the pattern internally used by sinatra
-                -#route.keys       # keys given when route was defined
-                -#route.conditions # conditions given when route was defined
-                -#route.block      # the route's closure
+          %h3#nav_sdr_routes SDR Services Routes
+          = haml :routes, :locals => { :routes => Sdr::ServicesAPI.routes,
+            :root_uri => request.path.sub('documentation',''),
+            :routeToYardDoc => request.path.sub('documentation','Sdr/ServicesAPI.html#') }
 
-          %ul
-            -routesPOST.each do |route|
-              %li
-                -yard_method_name = route_yard_name(route)
-                -yard_doc_link = routeToYardDoc + yard_method_name + '-instance_method'
-                ="<span class='label label-info'>#{route.verb}</span>"
-                ="<a href='#{yard_doc_link}'>#{route.path}</a>"
+          %h3#nav_sdr_routes Archive Catalog Routes
+          = haml :routes, :locals => {:routes => Sdr::ArchiveCatalogAPI.routes,
+            :root_uri => request.path.sub('documentation',''),
+            :routeToYardDoc => request.path.sub('documentation','Sdr/ArchiveCatalogAPI.html#') }
+
 
           %h2#nav_batch Batch Archive Transfers
 

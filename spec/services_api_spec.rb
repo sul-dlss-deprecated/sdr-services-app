@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Sdr::ServicesApi do
-  
+describe Sdr::ServicesAPI do
+
   def app
-    @app ||= Sdr::ServicesApi
+    @app ||= Sdr::ServicesAPI
   end
 
   describe "POST '/objects/{druid}/cm-inv-diff'" do
@@ -96,7 +96,7 @@ describe Sdr::ServicesApi do
       last_response.errors.should =~ /Moab::InvalidMetadataException/
       last_response.errors.should =~ /missing md5/
     end
-    
+
     it "returns a diff against the latest version if the version parameter is not passed in" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff', content_md
@@ -153,6 +153,7 @@ describe Sdr::ServicesApi do
 
   end
 
+
   describe "Version information" do
 
     it "returns a menu" do
@@ -180,30 +181,6 @@ EOF
       last_response.body.should == '<currentVersion>3</currentVersion>'
     end
 
-    it "returns 404 if object not in SDR" do
-      authorize SdrServices::Config.username, SdrServices::Config.password
-      get '/error_test/object_not_found'
-      last_response.should_not be_ok
-      last_response.status.should == 404
-      last_response.errors.should =~ /Moab::ObjectNotFoundException/
-    end
-
-    it "returns 404 if file not found" do
-      authorize SdrServices::Config.username, SdrServices::Config.password
-      get '/error_test/file_not_found'
-      last_response.should_not be_ok
-      last_response.status.should == 404
-      last_response.errors.should =~ /Moab::FileNotFoundException/
-    end
-
-    it "returns 400 if file not found" do
-      authorize SdrServices::Config.username, SdrServices::Config.password
-      get '/error_test/invalid_metadata'
-      last_response.should_not be_ok
-      last_response.status.should == 400
-      last_response.errors.should =~ /Moab::InvalidMetadataException/
-    end
-
     it "returns current version metadata" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/version_metadata'
@@ -220,6 +197,7 @@ EOF
 
   end
 
+
   describe "version differences" do
 
     it "returns a version differences report" do
@@ -227,6 +205,35 @@ EOF
       get '/objects/druid:jq937jp0017/version_differences?base=1&compare=3'
       last_response.should be_ok
       last_response.body.should =~ /<fileInventoryDifference objectId="druid:jq937jp0017"/
+    end
+
+  end
+
+
+  describe "Errors" do
+
+    it "returns 404 if object not in SDR" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      get '/test/error/object_not_found'
+      last_response.should_not be_ok
+      last_response.status.should == 404
+      last_response.errors.should =~ /Moab::ObjectNotFoundException/
+    end
+
+    it "returns 404 if file not found" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      get '/test/error/file_not_found'
+      last_response.should_not be_ok
+      last_response.status.should == 404
+      last_response.errors.should =~ /Moab::FileNotFoundException/
+    end
+
+    it "returns 400 if file not found" do
+      authorize SdrServices::Config.username, SdrServices::Config.password
+      get '/test/error/invalid_metadata'
+      last_response.should_not be_ok
+      last_response.status.should == 400
+      last_response.errors.should =~ /Moab::InvalidMetadataException/
     end
 
   end

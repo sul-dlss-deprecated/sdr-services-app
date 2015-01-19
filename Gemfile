@@ -1,43 +1,67 @@
-
+# vim: autoindent tabstop=2 shiftwidth=2 expandtab softtabstop=2 filetype=ruby
 source 'https://rubygems.org'
 
-gem 'json_pure'
+# Bundle 'group' names correspond to ENV['APP_ENV'] names, see
+# config/boot.rb for more information, esp. the use of
+# Bundler.require(:default, ENV['APP_ENV'])
+
+# Serializers
+gem 'builder' # for xml
+gem 'activesupport' # for xml
+gem 'multi_json', '~> 1.0'
+gem 'json-schema'
+
+gem 'rack', '~> 1.5'
+#gem 'rack-parser', :require => 'rack/parser'
+
 gem 'sinatra', '~> 1.4'
 gem 'sinatra-contrib'
 gem 'sinatra-advanced-routes'
+# https://github.com/rstacruz/sinatra-assetpack
+#gem 'sinatra-assetpack', :require => 'sinatra/assetpack'
 
-gem 'rack', '~> 1.5'
+# http://code.macournoyer.com/thin/
 gem 'thin'
-gem 'sys-filesystem'
+gem 'foreman' # includes .dotenv
+
 gem 'pry'
+gem 'sys-filesystem'
 gem 'slop'  # CLI parser
 
 gem 'druid-tools'
-gem 'moab-versioning', '~> 1.3' #, :path => '/Users/rnanders/Code/Ruby/moab-versioning' #
+gem 'moab-versioning', '~> 1.4' #, :path => '/data/src/dlss/moab-versioning' #
 #gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
+
+# Database
+gem 'ruby-oci8', :group => [:integration, :staging, :production]
+gem 'mysql', :group => [:test, :local, :development]
+gem 'sequel'
 
 # Templating for /views/documentation
 gem 'haml'
 gem 'redcarpet'
 
-group :development do
-	gem 'awesome_print'
-	gem 'equivalent-xml'
-  gem 'rack-test', :require => "rack/test"
-	gem 'rspec', '< 3.0'
-	gem 'simplecov', '~> 0.7.1'
+group :test, :local, :development do
+  gem 'awesome_print'
+  gem 'cucumber'
+  gem 'database_cleaner'
+  gem 'equivalent-xml'
+  gem 'pry-doc'
+  gem 'rack-test', :require => 'rack/test'
+  gem 'randexp'
+  gem 'rspec', '< 3.0'
+  gem 'simplecov', '~> 0.7.1'
   gem 'yard'
-  #gem 'yard-restful'
-  #gem 'yard-sinatra'
 end
 
 # Do not place the capistrano-related gems in the default or Rails.env bundle group
 # Otherwise the config/application.rb's Bundle.require command will try to load them
 # leading to failure because these gem's rake task files use capistrano DSL.
 group :deployment do
-# Use Capistrano for deployment
-  gem 'capistrano', '~> 3.1'
-  gem 'capistrano-bundler', '~> 1.1'
-  gem 'capistrano-rvm', '~> 0.1'
-  gem 'lyberteam-capistrano-devel', '~> 3.0'
+  # Use Capistrano for deployment
+  gem 'capistrano', '> 3.1'
+  gem 'capistrano-rvm', '> 0.1'
+  gem 'capistrano-bundler', '> 1.1'
+  gem 'lyberteam-capistrano-devel', '> 3.0'
 end
+
