@@ -61,23 +61,35 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><div id='filecontents'>
-<p>A web application for providing access to Digital Objects in SDR Storage</p>
+    <div id="content"><div id='filecontents'><p>A web application for providing access to Digital Objects in SDR Storage</p>
 
-<p>Getting Started ./bin/setup.sh ./bin/test.sh</p>
+<p>Getting Started
+./bin/setup.sh
+./bin/test.sh</p>
 
 <p>Environment variables are set in various places, with the following order
-of importance: - On deployed apps, running under Apache/Passenger, see
-/etc/httpd/conf.d/z*  - The content of the config files is managed by
-puppet - Command line values that precede ./bin/&lt;util&gt;, foreman, or
-rackup, e.g.  - APP_ENV=local RACK_ENV=development .binstubs/foreman start 
-- APP_ENV=local RACK_ENV=development .binstubs/rackup  - This is used in
-./bin/test.sh - .env file can supplement, without replacing existing values
-- ./config/boot.rb can set defaults for missing values</p>
+of importance:</p>
+
+<ul>
+<li>On deployed apps, running under Apache/Passenger, see /etc/httpd/conf.d/z*
+
+<ul>
+<li>The content of the config files is managed by puppet</li>
+</ul></li>
+<li>Command line values that precede ./bin/<util>, foreman, or rackup, e.g.
+
+<ul>
+<li>APP_ENV=local RACK_ENV=development .binstubs/foreman start</li>
+<li>APP_ENV=local RACK_ENV=development .binstubs/rackup</li>
+<li>This is used in ./bin/test.sh</li>
+</ul></li>
+<li>.env file can supplement, without replacing existing values</li>
+<li>./config/boot.rb can set defaults for missing values</li>
+</ul>
 </div></div>
 
     <div id="footer">
-  Generated on Mon Nov 24 13:33:40 2014 by
+  Generated on Mon Jan 19 07:22:15 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.1.3).
 </div>
