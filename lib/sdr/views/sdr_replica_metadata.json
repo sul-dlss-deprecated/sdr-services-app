@@ -1,0 +1,99 @@
+// https://gist.github.com/darrenleeweber/8bbfb2ff8e7552cebe65
+
+// digital objects collection
+{
+    "id": "{sdr_id} | {dpn_id} | {other_id?}",
+    "repository_id": "sdr | dpn | other?"
+}
+
+// DPN deposit document (deposits from external sources)
+// Assuming there is no associated SDR DRUID
+{
+    "id": "{dpn_uuid}",
+    "payload": {
+        "fixity": { "type": "sha256", "value": "{sha256_hash}" },
+        "tarfile_bytes": "N"
+    },
+    "events": {
+        "ingested": "{utc_date}",
+        "retrieved": [
+            {"requested": "{utc_date}", "delivered": "{utc_date}", "confirmed": "{utc_date}" }
+        ]
+    },
+    "replica": {
+        "tape": {
+            "archive": "{TSM_id}", // e.g. 20131120091834
+            "server": "SULBARDR1",
+            "node": "SDR_v2_01",
+            "events": {
+                "submitted": "{utc_date}", "accepted": "{utc_date}", "verified": "{utc_date}",
+                "retrieved": [
+                    {"requested": "{utc_date}", "delivered": "{utc_date}", "confirmed": "{utc_date}" }
+                ]
+            }
+        }
+    }
+}
+
+// SDR collection
+{
+    "druid": "{druid_id}",
+    "label": "{optional_label}",
+    "type": "{APO} | {collection} | {item} | {others?}",
+    "governing_object": "{APO_druid_id}", // must exist already
+    "format": "moab_object",
+    "storage": {
+        "host": "{hostname}",
+        "storage": "{file_system_absolute_path}",
+        "versions": [1,2,3]  // latest_version is last element
+    },
+    "versions": {
+        "1": {
+            "ingest_date": "{utc_date}",
+            "replica": {
+                "id": "{druid_id}_{v%04d}",
+                // current discussion includes replica policy in druid metadata
+                // "replica_policy": "{druid_id}",  // with version spec?
+                "created": "{utc_date}",
+                "payload": {
+                    "fixity": { "type": "sha256", "value": "{sha256_hash}" },
+                    "tarfile_bytes": "N"  // The size (in bytes) of the replica's tar file
+                },
+                "tape": {
+                    "archive": "{TSM_id}", // e.g. 20131120091834
+                    "server": "SULBARDR1",
+                    "node": "SDR_v2_01",
+                    "events": {
+                        "submitted": "{utc_date}", "accepted": "{utc_date}", "verified": "{utc_date}",
+                        "retrieved": [
+                            {"requested": "{utc_date}", "delivered": "{utc_date}", "confirmed": "{utc_date}" }
+                        ]
+                    }
+                },
+                "cloud": {
+                    "dpn": { "id": "{DPN_UUID}" }, // fixity info? brightening info?
+                    "google": { "id": "{google_books_id}" } // additional info?
+                    // "others?": {}
+                }
+                "audits": [
+                    {
+                        "storage_location": "disk | tape | dpn | others?",
+                        "requested": "{utc_date}", "completed": "{utc_date}", "status": "success|failure|pending"
+                    }
+                ],
+            },
+            "stats": {
+                "delta": { // diff on prior version
+                    // replace the object with an array of stat output on all files?
+                    "content":  { "files": "N", "bytes": "N", "blocks": "N" },
+                    "metadata": { "files": "N", "bytes": "N", "blocks": "N" }
+                },
+                "all": {
+                    // replace the object with an array of stat output on all files?
+                    "content":  { "files": "N", "bytes": "N", "blocks": "N" },
+                    "metadata": { "files": "N", "bytes": "N", "blocks": "N" }
+                }
+            }
+        }
+    }
+}

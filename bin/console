@@ -1,7 +1,22 @@
 #!/usr/bin/env ruby
 
-# config/boot.rb will load config/environment based on ENV['RACK_ENV']
-ENV['RACK_ENV'] = ARGV.pop unless ARGV.first.nil?
+if ARGV.first == '-h'
+    puts <<HELP
+3 ways to run this script:
+
+# ENV is set by .env or the defaults in config/boot.rb
+.binstubs/foreman run ./bin/console
+
+# ENV is set by .env or the defaults in config/boot.rb
+./bin/console
+
+# Explicit ENV will clobber anything in .env or the defaults in config/boot.rb
+APP_ENV=custom RACK_ENV=custom ./bin/console
+
+HELP
+exit!
+end
+
 require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
 require 'pry'
 binding.pry

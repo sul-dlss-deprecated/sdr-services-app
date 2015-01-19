@@ -1,9 +1,16 @@
 
-puts "RACK_ENV: " + ENV['RACK_ENV']
+# This app can be started by the two scripts in:
+# ./bin/test.sh
+# ./bin/boot.sh
+# Or by calling foreman or rackup directly:
+# .binstubs/foreman start
+# .binstubs/foreman run ./bin/console
+# .binstubs/rackup
+
 require File.dirname(__FILE__) + '/config/boot.rb'
 
 run Rack::URLMap.new({
-  "/"    => Sdr::ServicesApi,
+  "/"    => Sdr::ServicesAPI,
 })
 
 log = File.new("log/sdr.log", "a+")
@@ -18,7 +25,7 @@ log = File.new("log/sdr.log", "a+")
 #$stdout.reopen(log)
 
 # Hack for dev so log messages appear in terminal instead of log file
-unless ENV["TERM_PROGRAM"] == "Apple_Terminal"
+unless ENV['APP_ENV'] == 'local'
   $stderr.reopen(log)
   $stderr.sync = true
   $stdout.sync = true

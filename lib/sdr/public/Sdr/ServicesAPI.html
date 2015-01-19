@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-  Class: Sdr::ServicesApi
+  Class: Sdr::ServicesAPI
   
     &mdash; SDR Services REST API Documentation
   
@@ -17,7 +17,7 @@
 <script type="text/javascript" charset="utf-8">
   hasFrames = window.top.frames.main ? true : false;
   relpath = '../';
-  framesUrl = "../frames.html#!Sdr/ServicesApi.html";
+  framesUrl = "../frames.html#!Sdr/ServicesAPI.html";
 </script>
 
 
@@ -34,7 +34,7 @@
     <a href="../_index.html">Index (S)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../Sdr.html" title="Sdr (module)">Sdr</a></span></span>
      &raquo; 
-    <span class="title">ServicesApi</span>
+    <span class="title">ServicesAPI</span>
   
 
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
@@ -63,7 +63,7 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><h1>Class: Sdr::ServicesApi
+    <div id="content"><h1>Class: Sdr::ServicesAPI
   
   
   
@@ -73,14 +73,16 @@
   
     <dt class="r1">Inherits:</dt>
     <dd class="r1">
-      <span class="inheritName">Sinatra::Base</span>
+      <span class="inheritName"><span class='object_link'><a href="Base.html" title="Sdr::Base (class)">Base</a></span></span>
       
         <ul class="fullTree">
           <li>Object</li>
           
             <li class="next">Sinatra::Base</li>
           
-            <li class="next">Sdr::ServicesApi</li>
+            <li class="next"><span class='object_link'><a href="Base.html" title="Sdr::Base (class)">Base</a></span></li>
+          
+            <li class="next">Sdr::ServicesAPI</li>
           
         </ul>
         <a href="#" class="inheritanceTree">show all</a>
@@ -109,12 +111,13 @@ for authorized access.  The API specifies RESTful resources to access
 entire or partial digital content, referenced by digital repository unique
 identifiers (DRUIDs).</p>
 
-<p>A DRUID is a unique identifier, such as &#39;jq937jp0017&#39; or
-&#39;druid:jq937jp0017&#39;.  The identifier is designed to provide an
-efficient file system hierarchy, e.g. &#39;jq937jp0017&#39; will contain
-content somewhere in a file system at &#39;…/jq/937/jp/0017/.&#39; The
-DRUID regex pattern, using posix bracket notation, is: [[:lower:]]<a
-href=“[:digit:”>2</a>]<a href=“[:lower:”>3</a>]<a href=“[:digit:”>2</a>]4</p>
+<p>A DRUID is a unique identifier, such as <tt>&#39;jq937jp0017&#39;</tt> or
+<tt>&#39;druid:jq937jp0017&#39;</tt>.  The identifier is designed to provide an
+efficient file system hierarchy, e.g. <tt>&#39;jq937jp0017&#39;</tt> will contain
+content somewhere in a file system at <tt>&#39;…/jq/937/jp/0017/.&#39;</tt> The
+DRUID regex pattern, using posix bracket notation, is:</p>
+
+<pre class="code ruby"><code class="ruby">[[:lower:]]{2}[[:digit:]]{3}[[:lower:]]{2}[[:digit:]]{4}</code></pre>
 
 
   </div>
@@ -145,53 +148,6 @@ href=“[:digit:”>2</a>]<a href=“[:lower:”>3</a>]<a href=“[:digit:”>2<
     </h2>
 
     <ul class="summary">
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#%2F-instance_method" title="#GET (instance method)">- (Object) <strong>GET</strong>(&quot;/&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#%2Fobjects%2F%3Adruid%2Fcm-remediate-instance_method" title="#GET (instance method)">- (String) <strong>GET</strong>(&quot;/objects/:druid/cm-remediate&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Returns a remediated copy of the contentMetadata with fixity data filled
-in.</p>
-</div></span>
-  
-</li>
-
       
         <li class="public ">
   <span class="summary_signature">
@@ -244,54 +200,6 @@ in.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#get_gb_used-instance_method" title="#GET (instance method)">- (Integer) <strong>GET</strong>(&quot;/gb_used&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>The Gb used on SDR storage file systems.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#get_objects-instance_method" title="#GET (instance method)">- (Object) <strong>GET</strong>(&quot;/objects&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Placeholder to test logging (does not return a list of objects).</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#get_objects_druid-instance_method" title="#GET (instance method)">- (Object) <strong>GET</strong>(&quot;/objects/:druid&quot;) </a>
     
 
@@ -306,7 +214,34 @@ in.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>A menu of links to DRUID content (HTML).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_objects_druid_cm_remediate-instance_method" title="#GET (instance method)">- (String) <strong>GET</strong>(&quot;/objects/:druid/cm-remediate&quot;) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns a remediated copy of the contentMetadata with fixity data filled
+in.</p>
+</div></span>
   
 </li>
 
@@ -521,7 +456,7 @@ in.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>DRUID version list (HTML).</p>
+<p>A menu of links to DRUID versions (HTML).</p>
 </div></span>
   
 </li>
@@ -551,50 +486,6 @@ in.</p>
 </li>
 
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#get_root-instance_method" title="#GET (instance method)">- (Object) <strong>GET</strong>(&quot;/&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#get_test_file_id_param-instance_method" title="#GET (instance method)">- (Object) <strong>GET</strong>(&quot;/test/file_id_param/*&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
     </ul>
   
     <h2>
@@ -607,57 +498,7 @@ in.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#%2Fobjects%2F%3Adruid%2Fcm-adds-instance_method" title="#POST (instance method)">- (String) <strong>POST</strong>(&quot;/objects/:druid/cm-adds&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>An XML report of differences between the content metadata and the specified
-version.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#%2Fobjects%2F%3Adruid%2Fcm-inv-diff-instance_method" title="#POST (instance method)">- (String) <strong>POST</strong>(&quot;/objects/:druid/cm-inv-diff&quot;) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>An XML report of differences between the content metadata and the specified
-version.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#post_objects_transfer-instance_method" title="#POST (instance method)">- (String) <strong>POST</strong>(&quot;/objects/transfer&quot;) </a>
+      <a href="#%2Fobjects%2Ftransfer-instance_method" title="#POST (instance method)">- (String) <strong>POST</strong>(&quot;/objects/transfer&quot;) </a>
     
 
     
@@ -678,10 +519,66 @@ version.</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#post_objects_druid_cm_adds-instance_method" title="#POST (instance method)">- (String) <strong>POST</strong>(&quot;/objects/:druid/cm-adds&quot;) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>An XML report of differences between the content metadata and the specified
+version.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#post_objects_druid_cm_inv_diff-instance_method" title="#POST (instance method)">- (String) <strong>POST</strong>(&quot;/objects/:druid/cm-inv-diff&quot;) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>An XML report of differences between the content metadata and the specified
+version.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
 
+  
+  
+  
+  
+  
+  
   
 
   <div id="instance_method_details" class="method_details_list">
@@ -689,1963 +586,7 @@ version.</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="/-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-222
-223
-224</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 222</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/documentation</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="/objects/:druid/cm-adds-instance_method">
-  
-    - (<tt>String</tt>) <strong>POST</strong>(&quot;/objects/:druid/cm-adds&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns an XML report of differences between the content metadata and the
-specified version</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>new_content_metadata</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>The POST body should contain content metadata (xml) to be compared to the
-base</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>subset</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Specifies which subset of files to list in the inventories extracted from
-the contentMetadata (all|preserve|publish|shelve)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>base_version</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>The ID of the version whose inventory is the basis of, if nil use latest
-version</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>an XML report of differences between the content metadata and the specified
-version</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-400
-401
-402
-403
-404
-405</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 400</span>
-
-<span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/cm-adds</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_rewind'>rewind</span>
-  <span class='id identifier rubyid_cmd_xml'>cmd_xml</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span>
-  <span class='id identifier rubyid_additions'>additions</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_cm_version_additions'>cm_version_additions</span><span class='lparen'>(</span><span class='id identifier rubyid_cmd_xml'>cmd_xml</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_additions'>additions</span><span class='period'>.</span><span class='id identifier rubyid_to_xml'>to_xml</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="/objects/:druid/cm-inv-diff-instance_method">
-  
-    - (<tt>String</tt>) <strong>POST</strong>(&quot;/objects/:druid/cm-inv-diff&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns an XML report of differences between the content metadata and the
-specified version</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>new_content_metadata</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>The POST body should contain content metadata (xml) to be compared to the
-base</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>subset</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Specifies which subset of files to list in the inventories extracted from
-the contentMetadata (all|preserve|publish|shelve)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>base_version</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>The ID of the version whose inventory is the basis of, if nil use latest
-version</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>an XML report of differences between the content metadata and the specified
-version</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-413
-414
-415
-416
-417
-418
-419
-420
-421
-422</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 413</span>
-
-<span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/cm-inv-diff</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='comment'># Both technical-metadata and shelve robots currently make a call to Dor::Itemizable#get_content_diff which:
-</span>  <span class='comment'># 1. pulls new contentMetadata from Fedora
-</span>  <span class='comment'># 2. posts that contentMetadata to sdr-service&#39;s  cm-inv-diff
-</span>  <span class='comment'># 3. receives a fileInventoryDifferences report in response
-</span>  <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_rewind'>rewind</span>
-  <span class='id identifier rubyid_cmd_xml'>cmd_xml</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span>
-  <span class='id identifier rubyid_diff'>diff</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_compare_cm_to_version'>compare_cm_to_version</span><span class='lparen'>(</span><span class='id identifier rubyid_cmd_xml'>cmd_xml</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_subset_param'>subset_param</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rparen'>)</span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_diff'>diff</span><span class='period'>.</span><span class='id identifier rubyid_to_xml'>to_xml</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="/objects/:druid/cm-remediate-instance_method">
-  
-    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/cm-remediate&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns a remediated copy of the contentMetadata with fixity data filled in</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>version</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID version number</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Returns a remediated copy of the contentMetadata with fixity data filled in</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-344
-345
-346
-347</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 344</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/cm-remediate</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_remediated_cm'>remediated_cm</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_cm_remediate'>cm_remediate</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='rparen'>)</span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_remediated_cm'>remediated_cm</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_doc-instance_method">
-  
-    - (<tt>String</tt>) <strong>GET</strong>(&quot;/doc&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns REST API details (generated by YARD)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>REST API details (generated by YARD)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-228
-229
-230
-231
-232</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 228</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/doc</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='comment'># After set :public_folder above, redirect to static yard docs
-</span>  <span class='comment'>#send_file File.join(settings.public_folder, &#39;/Sdr/ServicesApi.html&#39;)
-</span>  <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/Sdr/ServicesApi.html</span><span class='tstring_end'>&#39;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_documentation-instance_method">
-  
-    - (<tt>String</tt>) <strong>GET</strong>(&quot;/documentation&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns REST API description (HTML)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>REST API description (HTML)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-236
-237
-238</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 236</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/documentation</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:documentation</span><span class='tstring_end'>&#39;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_gb_used-instance_method">
-  
-    - (<tt>Integer</tt>) <strong>GET</strong>(&quot;/gb_used&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns The Gb used on SDR storage file systems</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>The Gb used on SDR storage file systems</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-375
-376
-377
-378
-379
-380
-381</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 375</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/gb_used</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_gigabye_size'>gigabye_size</span> <span class='op'>=</span> <span class='int'>1024</span><span class='op'>*</span><span class='int'>1024</span><span class='op'>*</span><span class='int'>1024</span>
-  <span class='id identifier rubyid_storage_mounts'>storage_mounts</span> <span class='op'>=</span> <span class='const'>Sys</span><span class='op'>::</span><span class='const'>Filesystem</span><span class='period'>.</span><span class='id identifier rubyid_mounts'>mounts</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_mount'>mount</span><span class='op'>|</span> <span class='const'>SdrServices</span><span class='op'>::</span><span class='const'>Config</span><span class='period'>.</span><span class='id identifier rubyid_storage_filesystems'>storage_filesystems</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_mount'>mount</span><span class='period'>.</span><span class='id identifier rubyid_mount_point'>mount_point</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
-  <span class='id identifier rubyid_storage_stats'>storage_stats</span> <span class='op'>=</span> <span class='id identifier rubyid_storage_mounts'>storage_mounts</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_mount'>mount</span><span class='op'>|</span> <span class='const'>Sys</span><span class='op'>::</span><span class='const'>Filesystem</span><span class='period'>.</span><span class='id identifier rubyid_stat'>stat</span><span class='lparen'>(</span><span class='id identifier rubyid_mount'>mount</span><span class='period'>.</span><span class='id identifier rubyid_mount_point'>mount_point</span><span class='rparen'>)</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_used'>used</span> <span class='op'>=</span> <span class='id identifier rubyid_storage_stats'>storage_stats</span><span class='period'>.</span><span class='id identifier rubyid_inject'>inject</span><span class='lparen'>(</span><span class='int'>0</span><span class='rparen'>)</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_sum'>sum</span><span class='comma'>,</span><span class='id identifier rubyid_stat'>stat</span><span class='op'>|</span> <span class='id identifier rubyid_sum'>sum</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_stat'>stat</span><span class='period'>.</span><span class='id identifier rubyid_blocks'>blocks</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='op'>-</span><span class='id identifier rubyid_stat'>stat</span><span class='period'>.</span><span class='id identifier rubyid_blocks_available'>blocks_available</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='rparen'>)</span> <span class='op'>*</span><span class='id identifier rubyid_stat'>stat</span><span class='period'>.</span><span class='id identifier rubyid_block_size'>block_size</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span><span class='rparen'>)</span><span class='op'>/</span><span class='id identifier rubyid_gigabye_size'>gigabye_size</span> <span class='rbrace'>}</span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='id identifier rubyid_used'>used</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Placeholder to test logging (does not return a list of objects)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-242
-243
-244
-245
-246</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 242</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='comment'># TODO add exception logging
-</span>  <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>logging is working</span><span class='tstring_end'>&#39;</span></span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ok\n</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects/:druid&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-  <div class="note notetag">
-    <strong>Note:</strong>
-    <div class='inline'>
-<p>Displays DRUID links menu (HTML)</p>
-</div>
-  </div>
-
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>version</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID version number</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-252
-253
-254</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 252</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_menu'>menu</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='rparen'>)</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid_content-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects/:druid/content/*&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns DRUID content file</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  <div class="examples">
-    <p class="tag_title">Examples:</p>
-    
-      
-        <p class="example_title"><div class='inline'>
-<p>Retrieve the &#39;title.jpg&#39; file for druid:jq937jp0017</p>
-</div></p>
-      
-      <pre class="example code"><code>/objects/jq937jp0017/content/title.jpg</code></pre>
-    
-  </div>
-
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>filename</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID content filename (required)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>version</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID version number (optional)</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>signature</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID content file signature (e.g. md5 hash)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>DRUID content file</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-306
-307
-308</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 306</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/content/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid_current_version-instance_method">
-  
-    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/current_version&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns DRUID current version (XML)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID current version (XML)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-259
-260
-261
-262</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 259</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/current_version</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_current_version'>current_version</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_current_version'>current_version</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;currentVersion&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_current_version'>current_version</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/currentVersion&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid_list_category-instance_method">
-  
-    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/list/:category&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns a list of DRUID content (by category and version; HTML)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>category</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-category</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>version</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID version number</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>a list of DRUID content (by category and version; HTML)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-294
-295
-296</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 294</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/list/:category</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_file_list'>file_list</span><span class='lparen'>(</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:category</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='rparen'>)</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid_manifest-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects/:druid/manifest/*&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns DRUID manifest file</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>file</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID manifest file ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>version</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID version number</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>signature</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID content file signature (e.g. md5 hash)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>DRUID manifest file</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-326
-327
-328</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 326</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/manifest/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>manifest</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid_manifests-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects/:druid/manifests/*&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns DRUID manifest file</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>file</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID manifest file ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>version</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID version number</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>signature</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID content file signature (e.g. md5 hash)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>DRUID manifest file</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-336
-337
-338</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 336</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/manifests/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>manifest</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid_metadata-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects/:druid/metadata/*&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns DRUID metadata file</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>file</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID metadata file ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>version</span>
-      
-      
-        <span class='type'>(<tt>Integer</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID version number</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>signature</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID content file signature (e.g. md5 hash)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        
-        <div class='inline'>
-<p>DRUID metadata file</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-316
-317
-318</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 316</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/metadata/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>metadata</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid_transfer-instance_method">
-  
-    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/transfer&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns An rsync command that transfers the DRUID tree to a configured
-destination.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>An rsync command that transfers the DRUID tree to a configured destination.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-352
-353
-354
-355
-356
-357
-358
-359
-360
-361
-362
-363
-364
-365
-366
-367
-368
-369
-370
-371</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 352</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/transfer</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_rewind'>rewind</span>
-  <span class='id identifier rubyid_source_path'>source_path</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_object_path'>object_path</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_destination_host'>destination_host</span> <span class='op'>=</span> <span class='const'>SdrServices</span><span class='op'>::</span><span class='const'>Config</span><span class='period'>.</span><span class='id identifier rubyid_rsync_destination_host'>rsync_destination_host</span>
-  <span class='id identifier rubyid_destination_path'>destination_path</span> <span class='op'>=</span> <span class='const'>SdrServices</span><span class='op'>::</span><span class='const'>Config</span><span class='period'>.</span><span class='id identifier rubyid_rsync_destination_path'>rsync_destination_path</span>
-  <span class='id identifier rubyid_destination_path'>destination_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_destination_path'>destination_path</span><span class='comma'>,</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>:</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_destination_host'>destination_host</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='kw'>or</span> <span class='id identifier rubyid_destination_host'>destination_host</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
-    <span class='comment'># local copy (for testing purposes)
-</span>    <span class='comment'># create all directories in the destination path
-</span>    <span class='backtick'>`</span><span class='tstring_content'>mkdir -p </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_path'>destination_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>`</span></span>
-    <span class='comment'># note the trailing spaces to avoid creating already existing subdir at the destination
-</span>    <span class='id identifier rubyid_rsync_cmd'>rsync_cmd</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rsync -a &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_source_path'>source_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>/&#39; &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_path'>destination_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>/&#39;</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>else</span>
-    <span class='backtick'>`</span><span class='tstring_content'>ssh </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_host'>destination_host</span><span class='embexpr_end'>}</span><span class='tstring_content'> &#39;mkdir -p </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_path'>destination_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>`</span></span>
-    <span class='id identifier rubyid_rsync_cmd'>rsync_cmd</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rsync -a -e ssh &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_source_path'>source_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>/&#39; &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_host'>destination_host</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_path'>destination_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>/&#39;</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>end</span>
-  <span class='comment'># use at command to allow immediate response to caller
-</span>  <span class='backtick'>`</span><span class='tstring_content'>echo &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rsync_cmd'>rsync_cmd</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot; | at now</span><span class='tstring_end'>`</span></span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rsync_cmd'>rsync_cmd</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span> <span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid_version_differences-instance_method">
-  
-    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/version_differences&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns DRUID version diffs (XML)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>base</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-base-version</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
-        <span class='name'>compare</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-compare-version</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID version diffs (XML)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-284
-285
-286
-287</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 284</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/version_differences</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_version_differences'>version_differences</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_version_differences'>version_differences</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:base</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:compare</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_version_differences'>version_differences</span><span class='period'>.</span><span class='id identifier rubyid_to_xml'>to_xml</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid_version_list-instance_method">
-  
-    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/version_list&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns DRUID version list (HTML)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID version list (HTML)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-275
-276
-277</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 275</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/version_list</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_version_list'>version_list</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_objects_druid_version_metadata-instance_method">
-  
-    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/version_metadata&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns DRUID version metadata (XML)</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>druid</span>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID-ID</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>DRUID version metadata (XML)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-267
-268
-269
-270</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 267</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/version_metadata</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_version_metadata'>version_metadata</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_version_metadata'>version_metadata</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_version_metadata'>version_metadata</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_root-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-222
-223
-224</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 222</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/documentation</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="get_test_file_id_param-instance_method">
-  
-    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/test/file_id_param/*&quot;) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-
-  </div>
-</div>
-<div class="tags">
-  
-  
-
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-384
-385
-386</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 384</span>
-
-<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/test/file_id_param/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
-  <span class='id identifier rubyid_file_id_param'>file_id_param</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="post_objects_transfer-instance_method">
+  <h3 class="signature first" id="/objects/transfer-instance_method">
   
     - (<tt>String</tt>) <strong>POST</strong>(&quot;/objects/transfer&quot;) 
   
@@ -2728,7 +669,7 @@ into &lt;hostname&gt;</p>
       
         &mdash;
         <div class='inline'>
-<p>a path suffix (druid-id | druid-tree-short | druid-tree-long)</p>
+<p>a path suffix (druid-id | druid-tree-short | druid-tree-long) [optional]</p>
 </div>
       
     </li>
@@ -2760,27 +701,27 @@ into &lt;hostname&gt;</p>
       <pre class="lines">
 
 
-430
-431
-432
-433
-434
-435
-436
-437
-438
-439
-440
-441
-442
-443
-444
-445
-446
-447</pre>
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 430</span>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 461</span>
 
 <span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/transfer</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
   <span class='comment'># Parse the params to construct CLI args for the ./bin/druid_transfer.rb script
@@ -2805,14 +746,1881 @@ into &lt;hostname&gt;</p>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="get_doc-instance_method">
+  
+    - (<tt>String</tt>) <strong>GET</strong>(&quot;/doc&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns REST API details (generated by YARD)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>REST API details (generated by YARD)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+186
+187
+188
+189</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 186</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/doc</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='comment'># Given :public_folder setting above, redirect to static yard docs
+</span>  <span class='id identifier rubyid_redirect'>redirect</span> <span class='id identifier rubyid_to'>to</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/Sdr.html</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_documentation-instance_method">
+  
+    - (<tt>String</tt>) <strong>GET</strong>(&quot;/documentation&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns REST API description (HTML)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>REST API description (HTML)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+193
+194
+195</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 193</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/documentation</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_haml'>haml</span> <span class='symbol'>:documentation</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid-instance_method">
+  
+    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects/:druid&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a menu of links to DRUID content (HTML)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Display a menu of links to content for druid:jq937jp0017</p>
+</div></p>
+      
+      <pre class="example code"><code>/objects/druid:jq937jp0017
+/objects/jq937jp0017
+/objects/jq937jp0017?version=1</code></pre>
+    
+  </div>
+
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID version number [optional]</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>a menu of links to DRUID content (HTML)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+205
+206
+207</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 205</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_menu'>menu</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_cm_remediate-instance_method">
+  
+    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/cm-remediate&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a remediated copy of the contentMetadata with fixity data filled in</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID version number [optional]</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Returns a remediated copy of the contentMetadata with fixity data filled in</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+389
+390
+391
+392
+393</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 389</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/cm-remediate</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='comment'>#get &#39;/objects/:druid/cm_remediate&#39; do
+</span>  <span class='id identifier rubyid_remediated_cm'>remediated_cm</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_cm_remediate'>cm_remediate</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_remediated_cm'>remediated_cm</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_content-instance_method">
+  
+    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects/:druid/content/*&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns DRUID content file</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Retrieve the &#39;title.jpg&#39; file for druid:jq937jp0017</p>
+</div></p>
+      
+      <pre class="example code"><code>/objects/jq937jp0017/content/title.jpg</code></pre>
+    
+  </div>
+
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>filename</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID content filename [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID version number [optional]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>signature</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID content file signature(s).  This is a comma-delimited list, where the
+first value is the file size, and the remainder are one or more of md5,
+sha1, or sha256 checksums</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>DRUID content file</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+345
+346
+347</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 345</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/content/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_current_version-instance_method">
+  
+    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/current_version&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns DRUID current version (XML)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code>request:
+  SDR_ROUTE=&#39;/objects/druid:jq937jp0017/current_version&#39;
+  curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+response:
+  status 200: &lt;currentVersion&gt;1&lt;/currentVersion&gt;
+  status 404: cannot find DRUID-ID</code></pre>
+    
+  </div>
+
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID current version (XML)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+219
+220
+221
+222</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 219</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/current_version</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_current_version'>current_version</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_current_version'>current_version</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;currentVersion&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_current_version'>current_version</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/currentVersion&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_list_category-instance_method">
+  
+    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/list/:category&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a list of DRUID content (by category and version; HTML)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>category</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-category [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID version number</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a list of DRUID content (by category and version; HTML)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+331
+332
+333</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 331</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/list/:category</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_file_list'>file_list</span><span class='lparen'>(</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:category</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_manifest-instance_method">
+  
+    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects/:druid/manifest/*&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns DRUID manifest file</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>filename</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID manifest filename [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID version number [optional]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>signature</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID content file signature(s).  This is a comma-delimited list, where the
+first value is the file size, and the remainder are one or more of md5,
+sha1, or sha256 checksums</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>DRUID manifest file</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+369
+370
+371</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 369</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/manifest/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>manifest</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_manifests-instance_method">
+  
+    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects/:druid/manifests/*&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns DRUID manifest file</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>filename</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID manifest filename [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID version number [optional]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>signature</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID content file signature(s).  This is a comma-delimited list, where the
+first value is the file size, and the remainder are one or more of md5,
+sha1, or sha256 checksums</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>DRUID manifest file</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+381
+382
+383</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 381</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/manifests/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>manifest</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_metadata-instance_method">
+  
+    - (<tt>Object</tt>) <strong>GET</strong>(&quot;/objects/:druid/metadata/*&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns DRUID metadata file</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>filename</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID metadata filename [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID version number [optional]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>signature</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID content file signature(s).  This is a comma-delimited list, where the
+first value is the file size, and the remainder are one or more of md5,
+sha1, or sha256 checksums</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>DRUID metadata file</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+357
+358
+359</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 357</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/metadata/*</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_retrieve_file'>retrieve_file</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>metadata</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span><span class='id identifier rubyid_file_id_param'>file_id_param</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='comma'>,</span> <span class='id identifier rubyid_signature_param'>signature_param</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_transfer-instance_method">
+  
+    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/transfer&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns An rsync command that transfers the DRUID tree to a configured
+destination.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>An rsync command that transfers the DRUID tree to a configured destination.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 398</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/transfer</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_rewind'>rewind</span>
+  <span class='id identifier rubyid_source_path'>source_path</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_object_path'>object_path</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_destination_host'>destination_host</span> <span class='op'>=</span> <span class='const'>SdrServices</span><span class='op'>::</span><span class='const'>Config</span><span class='period'>.</span><span class='id identifier rubyid_rsync_destination_host'>rsync_destination_host</span>
+  <span class='id identifier rubyid_destination_path'>destination_path</span> <span class='op'>=</span> <span class='const'>SdrServices</span><span class='op'>::</span><span class='const'>Config</span><span class='period'>.</span><span class='id identifier rubyid_rsync_destination_path'>rsync_destination_path</span>
+  <span class='id identifier rubyid_destination_path'>destination_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_destination_path'>destination_path</span><span class='comma'>,</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>:</span><span class='regexp_end'>/</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_destination_host'>destination_host</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='kw'>or</span> <span class='id identifier rubyid_destination_host'>destination_host</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='comment'># local copy (for testing purposes)
+</span>    <span class='comment'># create all directories in the destination path
+</span>    <span class='backtick'>`</span><span class='tstring_content'>mkdir -p </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_path'>destination_path</span><span class='embexpr_end'>}</span><span class='tstring_end'>`</span></span>
+    <span class='comment'># note the trailing spaces to avoid creating already existing subdir at the destination
+</span>    <span class='id identifier rubyid_rsync_cmd'>rsync_cmd</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rsync -a &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_source_path'>source_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>/&#39; &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_path'>destination_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>/&#39;</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='backtick'>`</span><span class='tstring_content'>ssh </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_host'>destination_host</span><span class='embexpr_end'>}</span><span class='tstring_content'> &#39;mkdir -p </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_path'>destination_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>`</span></span>
+    <span class='id identifier rubyid_rsync_cmd'>rsync_cmd</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>rsync -a -e ssh &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_source_path'>source_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>/&#39; &#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_host'>destination_host</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_destination_path'>destination_path</span><span class='embexpr_end'>}</span><span class='tstring_content'>/&#39;</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='comment'># use at command to allow immediate response to caller
+</span>  <span class='backtick'>`</span><span class='tstring_content'>echo &quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rsync_cmd'>rsync_cmd</span><span class='embexpr_end'>}</span><span class='tstring_content'>&quot; | at now</span><span class='tstring_end'>`</span></span>
+  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rsync_cmd'>rsync_cmd</span><span class='embexpr_end'>}</span><span class='tstring_content'>\n</span><span class='tstring_end'>&quot;</span></span> <span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_version_differences-instance_method">
+  
+    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/version_differences&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns DRUID version diffs (XML)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Get the differences between version 1 and 2 for druid:jq937jp0017</p>
+</div></p>
+      
+      <pre class="example code"><code>request:
+  SDR_ROUTE=&#39;/objects/druid:jq937jp0017/version_differences?base=1&amp;compare=2&#39;
+  curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+response:
+  status 200:
+              &lt;?xml version=&quot;1.0&quot;?&gt;
+              &lt;fileInventoryDifference objectId=&quot;druid:jq937jp0017&quot; differenceCount=&quot;11&quot; basis=&quot;v1&quot; other=&quot;v0&quot; reportDatetime=&quot;2014-11-24T21:05:04Z&quot;&gt;
+                &lt;fileGroupDifference groupId=&quot;content&quot; differenceCount=&quot;6&quot; identical=&quot;0&quot; copyadded=&quot;0&quot; copydeleted=&quot;0&quot; renamed=&quot;0&quot; modified=&quot;0&quot; added=&quot;0&quot; deleted=&quot;6&quot;&gt;
+                  &lt;subset change=&quot;deleted&quot; count=&quot;6&quot;&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;intro-1.jpg&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;41981&quot; md5=&quot;915c0305bf50c55143f1506295dc122c&quot; sha1=&quot;60448956fbe069979fce6a6e55dba4ce1f915178&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;intro-2.jpg&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;39850&quot; md5=&quot;77f1a4efdcea6a476505df9b9fba82a7&quot; sha1=&quot;a49ae3f3771d99ceea13ec825c9c2b73fc1a9915&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;page-1.jpg&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;25153&quot; md5=&quot;3dee12fb4f1c28351c7482b76ff76ae4&quot; sha1=&quot;906c1314f3ab344563acbbbe2c7930f08429e35b&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;page-2.jpg&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;39450&quot; md5=&quot;82fc107c88446a3119a51a8663d1e955&quot; sha1=&quot;d0857baa307a2e9efff42467b5abd4e1cf40fcd5&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;page-3.jpg&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;19125&quot; md5=&quot;a5099878de7e2e064432d6df44ca8827&quot; sha1=&quot;c0ccac433cf02a6cee89c14f9ba6072a184447a2&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;title.jpg&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;40873&quot; md5=&quot;1a726cd7963bd6d3ceb10a8c353ec166&quot; sha1=&quot;583220e0572640abcd3ddd97393d224e8053a6ad&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                  &lt;/subset&gt;
+                  &lt;subset change=&quot;identical&quot; count=&quot;0&quot;/&gt;
+                  &lt;subset change=&quot;copyadded&quot; count=&quot;0&quot;/&gt;
+                  &lt;subset change=&quot;copydeleted&quot; count=&quot;0&quot;/&gt;
+                  &lt;subset change=&quot;renamed&quot; count=&quot;0&quot;/&gt;
+                  &lt;subset change=&quot;modified&quot; count=&quot;0&quot;/&gt;
+                  &lt;subset change=&quot;added&quot; count=&quot;0&quot;/&gt;
+                &lt;/fileGroupDifference&gt;
+                &lt;fileGroupDifference groupId=&quot;metadata&quot; differenceCount=&quot;5&quot; identical=&quot;0&quot; copyadded=&quot;0&quot; copydeleted=&quot;0&quot; renamed=&quot;0&quot; modified=&quot;0&quot; added=&quot;0&quot; deleted=&quot;5&quot;&gt;
+                  &lt;subset change=&quot;deleted&quot; count=&quot;5&quot;&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;contentMetadata.xml&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;1619&quot; md5=&quot;b886db0d14508884150a916089da840f&quot; sha1=&quot;b2328faaf25caf037cfc0263896ad707fc3a47a7&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;descMetadata.xml&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;3046&quot; md5=&quot;a60bb487db6a1ceb5e0b5bb3cae2dfa2&quot; sha1=&quot;edefc0e1d7cffd5bd3c7db6a393ab7632b70dc2d&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;identityMetadata.xml&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;932&quot; md5=&quot;f0815d7b45530491931d5897ccbe2dd1&quot; sha1=&quot;4065ff5523e227c1914098372a3dc587f739030e&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;provenanceMetadata.xml&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;5306&quot; md5=&quot;17193dbf595571d728ba59aa31638db9&quot; sha1=&quot;c8b91eacf9ad7532a42dc52b3c9cf03b4ad2c7f6&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                    &lt;file change=&quot;deleted&quot; basisPath=&quot;versionMetadata.xml&quot; otherPath=&quot;&quot;&gt;
+                      &lt;fileSignature size=&quot;224&quot; md5=&quot;64e002bea8f3f4bd7e91882aa43d2f1d&quot; sha1=&quot;0f344673dc1e51758a4d8ed589630cde6744d4ad&quot; sha256=&quot;&quot;/&gt;
+                    &lt;/file&gt;
+                  &lt;/subset&gt;
+                  &lt;subset change=&quot;identical&quot; count=&quot;0&quot;/&gt;
+                  &lt;subset change=&quot;copyadded&quot; count=&quot;0&quot;/&gt;
+                  &lt;subset change=&quot;copydeleted&quot; count=&quot;0&quot;/&gt;
+                  &lt;subset change=&quot;renamed&quot; count=&quot;0&quot;/&gt;
+                  &lt;subset change=&quot;modified&quot; count=&quot;0&quot;/&gt;
+                  &lt;subset change=&quot;added&quot; count=&quot;0&quot;/&gt;
+                &lt;/fileGroupDifference&gt;
+              &lt;/fileInventoryDifference&gt;
+  status 404: cannot find DRUID-ID</code></pre>
+    
+  </div>
+
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>base</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID base version number [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>compare</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID compare version number [required]</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID version diffs (XML)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+321
+322
+323
+324</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 321</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/version_differences</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_version_differences'>version_differences</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_version_differences'>version_differences</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:base</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:compare</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_version_differences'>version_differences</span><span class='period'>.</span><span class='id identifier rubyid_to_xml'>to_xml</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_version_list-instance_method">
+  
+    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/version_list&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a menu of links to DRUID versions (HTML)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Display a menu of links to versions for druid:jq937jp0017</p>
+</div></p>
+      
+      <pre class="example code"><code>/objects/druid:jq937jp0017/version_list</code></pre>
+    
+  </div>
+
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a menu of links to DRUID versions (HTML)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+249
+250
+251</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 249</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/version_list</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>text/html</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_version_list'>version_list</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_objects_druid_version_metadata-instance_method">
+  
+    - (<tt>String</tt>) <strong>GET</strong>(&quot;/objects/:druid/version_metadata&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns DRUID version metadata (XML)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code>request:
+  SDR_ROUTE=&#39;/objects/druid:jq937jp0017/version_metadata&#39;
+  curl -v -u ${SDR_USER}:${SDR_PASS} http://${SDR_HOST}:${SDR_PORT}${SDR_ROUTE}
+response:
+  status 200:
+              &lt;versionMetadata&gt;
+                &lt;version tag=&quot;1.0.0&quot; versionId=&quot;1&quot;&gt;
+                  &lt;description&gt;Initial Version&lt;/description&gt;
+                &lt;/version&gt;
+              &lt;/versionMetadata&gt;
+  status 404: cannot find DRUID-ID</code></pre>
+    
+  </div>
+
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID version metadata (XML)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+239
+240
+241
+242</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 239</span>
+
+<span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/version_metadata</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_version_metadata'>version_metadata</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_version_metadata'>version_metadata</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_version_metadata'>version_metadata</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="post_objects_druid_cm_adds-instance_method">
+  
+    - (<tt>String</tt>) <strong>POST</strong>(&quot;/objects/:druid/cm-adds&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns an XML report of differences between the content metadata and the
+specified version</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>new_content_metadata</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The POST body should contain content metadata (xml) to be compared to the
+base</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>subset</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Specifies which subset of files to list in the inventories extracted from
+the contentMetadata (all|preserve|publish|shelve)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>base_version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The ID of the version whose inventory is the basis of, if nil use latest
+version</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>an XML report of differences between the content metadata and the specified
+version</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+431
+432
+433
+434
+435
+436</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 431</span>
+
+<span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/cm-adds</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_rewind'>rewind</span>
+  <span class='id identifier rubyid_cmd_xml'>cmd_xml</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span>
+  <span class='id identifier rubyid_additions'>additions</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_cm_version_additions'>cm_version_additions</span><span class='lparen'>(</span><span class='id identifier rubyid_cmd_xml'>cmd_xml</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_additions'>additions</span><span class='period'>.</span><span class='id identifier rubyid_to_xml'>to_xml</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="post_objects_druid_cm_inv_diff-instance_method">
+  
+    - (<tt>String</tt>) <strong>POST</strong>(&quot;/objects/:druid/cm-inv-diff&quot;) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns an XML report of differences between the content metadata and the
+specified version</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>new_content_metadata</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The POST body should contain content metadata (xml) to be compared to the
+base</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>druid</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>DRUID-ID [required]</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>subset</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Specifies which subset of files to list in the inventories extracted from
+the contentMetadata (all|preserve|publish|shelve)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>base_version</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The ID of the version whose inventory is the basis of, if nil use latest
+version</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>an XML report of differences between the content metadata and the specified
+version</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sdr/services_api.rb', line 444</span>
+
+<span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/objects/:druid/cm-inv-diff</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>do</span>
+  <span class='comment'># Both technical-metadata and shelve robots currently make a call to Dor::Itemizable#get_content_diff which:
+</span>  <span class='comment'># 1. pulls new contentMetadata from Fedora
+</span>  <span class='comment'># 2. posts that contentMetadata to sdr-service&#39;s  cm-inv-diff
+</span>  <span class='comment'># 3. receives a fileInventoryDifferences report in response
+</span>  <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_rewind'>rewind</span>
+  <span class='id identifier rubyid_cmd_xml'>cmd_xml</span> <span class='op'>=</span> <span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span>
+  <span class='id identifier rubyid_diff'>diff</span> <span class='op'>=</span> <span class='const'>Stanford</span><span class='op'>::</span><span class='const'>StorageServices</span><span class='period'>.</span><span class='id identifier rubyid_compare_cm_to_version'>compare_cm_to_version</span><span class='lparen'>(</span><span class='id identifier rubyid_cmd_xml'>cmd_xml</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:druid</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_subset_param'>subset_param</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_version_param'>version_param</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>content-type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/xml</span><span class='tstring_end'>&#39;</span></span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_diff'>diff</span><span class='period'>.</span><span class='id identifier rubyid_to_xml'>to_xml</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Thu Aug 14 17:39:33 2014 by
+  Generated on Mon Nov 24 13:33:41 2014 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.4 (ruby-2.1.0).
+  0.8.7.6 (ruby-2.1.3).
 </div>
 
   </body>

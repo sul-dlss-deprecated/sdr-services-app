@@ -1,0 +1,11 @@
+{
+  "type":"object",
+  "title":"Digital Object Identifier",
+  "description":"An object in a digital repository.",
+  "additionalProperties":false,
+  "properties":{
+    "digital_object_id":{ "type":"string", "required": true },
+    "home_repository":{ "type":"string", "required": true }
+  }
+}
+
