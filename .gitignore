@@ -15,6 +15,7 @@ config/deploy/*
 !config/deploy/server_settings.rb
 config/environments/*
 !config/environments/development.rb
+!config/environments/test.rb
 config/database.yml
 coverage
 coverage/
