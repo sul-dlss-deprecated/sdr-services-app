@@ -5,7 +5,8 @@ rvm:
   - 2.2.0
 
 install:
-  - bundle install --binstubs .binstubs --clean --jobs=3 --retry=3 --without=integration, staging, production
+  - bundle config
+  - bundle install --binstubs .binstubs --clean --jobs=3 --retry=3 --without production
   - bundle show --paths
 
 script: ./bin/test.sh

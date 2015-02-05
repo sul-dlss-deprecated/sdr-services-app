@@ -2,7 +2,7 @@
 
 set -e
 
-bundle install --binstubs .binstubs --jobs=3 --retry=3
+bundle install --binstubs .binstubs --jobs=3 --retry=3 --without production
 bundle package --all --quiet
 
 # see commentary on this practice at
