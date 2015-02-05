@@ -1,4 +1,8 @@
 rvm:
-  - 2.1.0
-env:
-  - RACK_ENV=local
+  - 1.9.3
+  - 2.0.0
+  - 2.1.5
+  - 2.2.0
+
+script: ./bin/test.sh
+
