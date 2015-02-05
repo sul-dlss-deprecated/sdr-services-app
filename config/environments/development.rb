@@ -13,8 +13,8 @@ Moab::Config.configure do
 end
 
 SdrServices::Config.configure do
-  username 'devUser'
-  password 'devPass'
+  username 'sdrUser'
+  password 'sdrPass'
   admin_email ENV['USER']
   storage_filesystems ['/']
   rsync_destination_host 'localhost'

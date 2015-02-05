@@ -474,7 +474,7 @@ module Sdr
       return [200, "Scheduled DRUID transfers; details are emailed to SDR managers.\n"]
       # Note on how to test this with curl:
       # Start the server with 'rackup' (maybe comment out the STDIN/STDOUT redirection in config.ru), then issue:
-      # curl -X POST --user "devUser:devPass" --data "destination_host=localhost&destination_path='/tmp'&druids=druid:jq937jp0017" http://localhost:9292/objects/transfer
+      # curl -X POST --user "sdrUser:sdrPass" --data "destination_host=localhost&destination_path='/tmp'&druids=druid:jq937jp0017" http://localhost:9292/objects/transfer
     end
 
 
