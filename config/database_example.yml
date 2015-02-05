@@ -35,7 +35,7 @@ test:
   host: localhost
   port: 3306
   database: archive_catalog_test
-  user: sdrUser
+  user: sdrAdmin
   password: sdrPass
 
 # local is for developer workstations
@@ -44,7 +44,7 @@ local:
   host: localhost
   port: 3306
   database: archive_catalog_development
-  user: sdrUser
+  user: sdrAdmin
   password: sdrPass
 
 
