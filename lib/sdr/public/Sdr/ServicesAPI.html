@@ -739,7 +739,7 @@ into &lt;hostname&gt;</p>
   <span class='kw'>return</span> <span class='lbracket'>[</span><span class='int'>200</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Scheduled DRUID transfers; details are emailed to SDR managers.\n</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
   <span class='comment'># Note on how to test this with curl:
 </span>  <span class='comment'># Start the server with &#39;rackup&#39; (maybe comment out the STDIN/STDOUT redirection in config.ru), then issue:
-</span>  <span class='comment'># curl -X POST --user &quot;devUser:devPass&quot; --data &quot;destination_host=localhost&amp;destination_path=&#39;/tmp&#39;&amp;druids=druid:jq937jp0017&quot; http://localhost:9292/objects/transfer
+</span>  <span class='comment'># curl -X POST --user &quot;sdrUser:sdrPass&quot; --data &quot;destination_host=localhost&amp;destination_path=&#39;/tmp&#39;&amp;druids=druid:jq937jp0017&quot; http://localhost:9292/objects/transfer
 </span><span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2618,9 +2618,9 @@ version</p>
 </div>
 
     <div id="footer">
-  Generated on Mon Jan 19 07:22:15 2015 by
+  Generated on Thu Feb  5 13:51:21 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.1.3).
+  0.8.7.6 (ruby-2.2.0).
 </div>
 
   </body>
