@@ -7,7 +7,7 @@ if [ ! -e .env ]; then
     cp .env_example .env
 fi
 
-if [ ! -e ./config/database_example.yml ]; then
+if [ ! -e ./config/database.yml ]; then
     echo "config/database.yml doesn't exist; creating it from config/database_example.yml"
     cp config/database_example.yml config/database.yml
 fi
