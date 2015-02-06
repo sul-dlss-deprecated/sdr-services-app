@@ -11,10 +11,7 @@ before_script:
   - mysql -e 'create database archive_catalog_test;' -uroot
 #  - mysql -e 'create database myapp_test;'
 
-install:
-  - bundle config
-  - bundle install --binstubs .binstubs --clean --jobs=3 --retry=3 --without production
-  - bundle show --paths
+install: ./bin/setup.sh
 
 script: ./bin/test.sh
 
