@@ -1,4 +1,3 @@
-*.log
 .DS_Store
 .binstubs/
 .bundle/
@@ -22,5 +21,6 @@ coverage/
 coverage.data
 db/
 doc/
+log/*
 vendor/
 
