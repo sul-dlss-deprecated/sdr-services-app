@@ -19,7 +19,8 @@ config/database.yml
 coverage
 coverage/
 coverage.data
-db/
+db/*
+!db/mysql*
 doc/
 vendor/
 
