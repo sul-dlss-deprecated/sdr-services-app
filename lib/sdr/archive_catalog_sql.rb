@@ -35,8 +35,8 @@ end
 class ArchiveCatalogSQL
 
   APP_ENV = ENV['APP_ENV']
-
-  LOG = Logger.new('log/db.log')
+  APP_PATH = File.absolute_path(File.join(__FILE__,'..','..','..'))
+  LOG = Logger.new(File.join(APP_PATH,'log','db.log'))
 
   def self.log_model_info(m)
     if ['local','development'].include?(APP_ENV)
