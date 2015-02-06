@@ -21,6 +21,5 @@ coverage/
 coverage.data
 db/
 doc/
-log/*
 vendor/
 
