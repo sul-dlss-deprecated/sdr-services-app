@@ -48,6 +48,7 @@ gem 'redcarpet'
 
 group :test, :local, :development do
   gem 'awesome_print'
+  gem 'coveralls'
   gem 'cucumber'
   gem 'database_cleaner'
   gem 'equivalent-xml'
