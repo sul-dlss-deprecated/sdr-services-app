@@ -22,7 +22,8 @@ gem 'sinatra-advanced-routes'
 
 # http://code.macournoyer.com/thin/
 gem 'thin'
-gem 'foreman' # includes .dotenv
+gem 'foreman'
+gem 'dotenv'
 
 gem 'pry'
 gem 'sys-filesystem'
@@ -66,6 +67,7 @@ group :deployment do
   gem 'capistrano', '> 3.1'
   gem 'capistrano-rvm', '> 0.1'
   gem 'capistrano-bundler', '> 1.1'
+  gem 'capistrano-passenger'
   gem 'lyberteam-capistrano-devel', '> 3.0'
 end
 
