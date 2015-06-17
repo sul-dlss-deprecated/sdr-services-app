@@ -1,7 +1,4 @@
-[![Build Status](https://travis-ci.org/sul-dlss/sdr-services-app.svg?branch=master)](https://travis-ci.org/sul-dlss/sdr-services-app) [![Coverage Status](https://coveralls.io/repos/sul
--dlss/sdr-services-app/badge.png)](https://coveralls.io/r/sul-dlss/sdr-services-app) [![Dependency Status](https://gemnasium.com/sul-dlss/sdr-services-app.svg)](https://gemnasium.com/su
-l-dlss/sdr-services-app) [![Gem Version](https://badge.fury.io/rb/sdr-services-app.svg)](http://badge.fury.io/rb/sdr-services-app)
-
+[![Build Status](https://travis-ci.org/sul-dlss/sdr-services-app.svg?branch=master)](https://travis-ci.org/sul-dlss/sdr-services-app) [![Coverage Status](https://coveralls.io/repos/sul-dlss/sdr-services-app/badge.png)](https://coveralls.io/r/sul-dlss/sdr-services-app) [![Dependency Status](https://gemnasium.com/sul-dlss/sdr-services-app.svg)](https://gemnasium.com/sul-dlss/sdr-services-app) [![Gem Version](https://badge.fury.io/rb/sdr-services-app.svg)](http://badge.fury.io/rb/sdr-services-app)
 
 A web application for providing access to Digital Objects in SDR Storage
 
