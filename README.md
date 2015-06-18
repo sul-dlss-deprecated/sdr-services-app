@@ -5,6 +5,12 @@
 
 A web application for providing access to Digital Objects in SDR Storage.
 
+## Requirements
+
+- database service options
+  + mysql - test, local, development
+  + oracle - integration, staging, production
+
 ## Getting Started
   ```sh
   ./bin/setup.sh
@@ -30,3 +36,7 @@ of importance:
   - see `.env_example`
   - see https://github.com/bkeepers/dotenv
 - `./config/boot.rb` can set defaults for missing values
+
+## Deployment
+
+Capistrano is configured to run all the deployments.  See `cap -T` for all the options.  The target system configurations, and other private configuration files, are available in the private repo at https://github.com/sul-dlss/sdr-configs
