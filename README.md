@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/sul-dlss/sdr-services-app.svg?branch=master)](https://travis-ci.org/sul-dlss/sdr-services-app) [![Coverage Status](https://coveralls.io/repos/sul-dlss/sdr-services-app/badge.png)](https://coveralls.io/r/sul-dlss/sdr-services-app) [![Dependency Status](https://gemnasium.com/sul-dlss/sdr-services-app.svg)](https://gemnasium.com/sul-dlss/sdr-services-app) [![Gem Version](https://badge.fury.io/rb/sdr-services-app.svg)](http://badge.fury.io/rb/sdr-services-app)
+[![Build Status](https://travis-ci.org/sul-dlss/sdr-services-app.svg?branch=master)](https://travis-ci.org/sul-dlss/sdr-services-app) [![Coverage Status](https://coveralls.io/repos/sul-dlss/sdr-services-app/badge.png)](https://coveralls.io/r/sul-dlss/sdr-services-app) [![Dependency Status](https://gemnasium.com/sul-dlss/sdr-services-app.svg)](https://gemnasium.com/sul-dlss/sdr-services-app)
 
 
 # SDR Services Application
