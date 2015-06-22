@@ -12,6 +12,26 @@ A web application for providing access to Digital Objects in SDR Storage.
   + oracle - integration, staging, production
 
 ## Getting Started
+
+- `git clone` and `cd` into the cloned repository
+- setup mysql
+
+  - create the sdrAdmin user and the archive_catalog_test and archive_catalog_development databases.
+
+    ```sh
+    echo "For db creation, enter the 'root' user password:"
+    mysql --user=root -p < db/mysql_db_create.sql
+    ```
+
+  - create tables for the test and development databases.
+
+    ```sh
+    mysql --user=sdrAdmin --password=sdrPass --default-character-set=utf8 archive_catalog_test < db/mysql_structure_init.sql
+    mysql --user=sdrAdmin --password=sdrPass --default-character-set=utf8 archive_catalog_development < db/mysql_structure_init.sql
+    ```
+
+- setup ruby dependencies and run tests
+
   ```sh
   ./bin/setup.sh
   ./bin/test.sh
@@ -40,3 +60,4 @@ of importance:
 ## Deployment
 
 Capistrano is configured to run all the deployments.  See `cap -T` for all the options.  The target system configurations, and other private configuration files, are available in the private repo at https://github.com/sul-dlss/sdr-configs
+
