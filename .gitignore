@@ -1,4 +1,3 @@
-*.log
 .DS_Store
 .binstubs/
 .bundle/
@@ -9,17 +8,20 @@
 .rvmrc
 .ruby-version
 .yardoc/
+*.sublime-*
 bin/test_deploy*
 config/deploy/*
 !config/deploy/development.rb
 !config/deploy/server_settings.rb
 config/environments/*
 !config/environments/development.rb
+!config/environments/test.rb
 config/database.yml
 coverage
 coverage/
 coverage.data
-db/
+db/*
+!db/mysql*
 doc/
 vendor/
 

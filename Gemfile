@@ -22,7 +22,8 @@ gem 'sinatra-advanced-routes'
 
 # http://code.macournoyer.com/thin/
 gem 'thin'
-gem 'foreman' # includes .dotenv
+gem 'foreman'
+gem 'dotenv'
 
 gem 'pry'
 gem 'sys-filesystem'
@@ -33,8 +34,12 @@ gem 'moab-versioning', '~> 1.4' #, :path => '/data/src/dlss/moab-versioning' #
 #gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
 
 # Database
-gem 'ruby-oci8', :group => [:integration, :staging, :production]
-gem 'mysql', :group => [:test, :local, :development]
+group :integration, :staging, :production do
+  gem 'ruby-oci8'
+end
+group :test, :local, :development do
+  gem 'mysql'
+end
 gem 'sequel'
 
 # Templating for /views/documentation
@@ -43,6 +48,7 @@ gem 'redcarpet'
 
 group :test, :local, :development do
   gem 'awesome_print'
+  gem 'coveralls', require: false
   gem 'cucumber'
   gem 'database_cleaner'
   gem 'equivalent-xml'
@@ -62,6 +68,7 @@ group :deployment do
   gem 'capistrano', '> 3.1'
   gem 'capistrano-rvm', '> 0.1'
   gem 'capistrano-bundler', '> 1.1'
+  gem 'capistrano-passenger'
   gem 'lyberteam-capistrano-devel', '> 3.0'
 end
 

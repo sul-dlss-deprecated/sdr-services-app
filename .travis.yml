@@ -1,4 +1,19 @@
 rvm:
-  - 2.1.0
-env:
-  - RACK_ENV=local
+  - 2.0.0
+  - 2.1.5
+  - 2.2.0
+
+services:
+  - mysql
+#  - mongodb
+
+install: ./bin/setup.sh
+
+before_script:
+#  - mysql -e 'create database myapp_test;'
+#  - mysql -e 'create database archive_catalog_test;' -uroot
+  - mysql -u root < ./db/mysql_db_create.sql
+  - mysql -u root --default-character-set=utf8 archive_catalog_test < ./db/mysql_structure_init.sql
+
+script: ./bin/test.sh
+
