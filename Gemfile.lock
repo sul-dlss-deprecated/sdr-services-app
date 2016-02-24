@@ -85,7 +85,7 @@ GEM
     mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
-    moab-versioning (1.4.4)
+    moab-versioning (2.0.0)
       confstruct
       json
       nokogiri
@@ -194,7 +194,7 @@ DEPENDENCIES
   haml
   json-schema
   lyberteam-capistrano-devel (> 3.0)
-  moab-versioning (~> 1.4)
+  moab-versioning (~> 2.0)
   multi_json (~> 1.0)
   mysql
   pry

@@ -5,7 +5,7 @@ Signal.trap("INT") { exit 1 }
 
 # Setup the bundled gems in our environment
 require 'bundler/setup'
-require 'moab_stanford'
+require 'moab/stanford'
 require 'druid-tools'
 require 'sys/filesystem'
 require 'logger'
