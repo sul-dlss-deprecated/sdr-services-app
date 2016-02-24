@@ -68,6 +68,6 @@ group :deployment do
   gem 'capistrano-rvm', '> 0.1'
   gem 'capistrano-bundler', '> 1.1'
   gem 'capistrano-passenger'
-  gem 'lyberteam-capistrano-devel', '> 3.0'
+  gem 'dlss-capistrano', '> 3.0'
 end
 
