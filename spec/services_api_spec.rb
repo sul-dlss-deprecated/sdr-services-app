@@ -85,38 +85,38 @@ describe Sdr::ServicesAPI do
     it "returns diff xml between content metadata and a specific version" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff?version=1', content_md
-      last_response.should be_ok
-      last_response.body.should =~ /<fileInventoryDifference/
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(/<fileInventoryDifference/)
     end
 
     it "returns 400 Bad Request if posted content metadata is invalid" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff?version=1', bad_content_md
-      last_response.status.should eq(400)
-      last_response.errors.should =~ /Moab::InvalidMetadataException/
-      last_response.errors.should =~ /missing md5/
+      expect(last_response.status).to eq(400)
+      expect(last_response.errors).to match(/Moab::InvalidMetadataException/)
+      expect(last_response.errors).to match(/missing md5/)
     end
 
     it "returns a diff against the latest version if the version parameter is not passed in" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff', content_md
-      last_response.should be_ok
+      expect(last_response).to be_ok
       diff = Nokogiri::XML(last_response.body)
-      diff.at_xpath('/fileInventoryDifference/@basis').value.should == 'v3-contentMetadata-all'
+      expect(diff.at_xpath('/fileInventoryDifference/@basis').value).to eq('v3-contentMetadata-all')
     end
 
     it "returns a diff against the latest version if an empty version param (?version=) is passed in" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff?version=', content_md
-      last_response.should be_ok
+      expect(last_response).to be_ok
       diff = Nokogiri::XML(last_response.body)
-      diff.at_xpath('/fileInventoryDifference/@basis').value.should == 'v3-contentMetadata-all'
+      expect(diff.at_xpath('/fileInventoryDifference/@basis').value).to eq('v3-contentMetadata-all')
     end
 
     it "returns an empty diff if the base version does not exist and the requested subset is empty" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:ms205ty4764/cm-inv-diff?subset=shelve', empty_subset_md
-      last_response.should be_ok
+      expect(last_response).to be_ok
       diff1 = Nokogiri::XML(last_response.body)
       diff1.xpath('//@reportDatetime').remove
       inventory_diff = <<-EOF
@@ -134,21 +134,21 @@ describe Sdr::ServicesAPI do
       EOF
       diff2 = Nokogiri::XML(inventory_diff)
       diff = EquivalentXml.equivalent?(diff1, diff2, opts = { :element_order => false, :normalize_whitespace => true })
-      diff.should be true
+      expect(diff).to be true
     end
 
     it "returns versionAdditions xml between content metadata and a specific version" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-adds?version=3', content_md
-      last_response.should be_ok
-      last_response.body.should =~ /<fileInventory type="additions"/
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(/<fileInventory type="additions"/)
     end
 
     it "handles version as an optional paramater" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       post '/objects/druid:jq937jp0017/cm-inv-diff', content_md
-      last_response.should be_ok
-      last_response.body.should =~ /<fileInventoryDifference/
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(/<fileInventoryDifference/)
     end
 
   end
@@ -159,7 +159,7 @@ describe Sdr::ServicesAPI do
     it "returns a menu" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017'
-      last_response.body.should == <<-EOF
+      expect(last_response.body).to eq <<-EOF
 <html><head>
 <title>Object = druid:jq937jp0017 - Version = 3 of 3</title>
 </head><body>
@@ -177,22 +177,22 @@ EOF
     it "returns current version number" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/current_version'
-      last_response.should be_ok
-      last_response.body.should == '<currentVersion>3</currentVersion>'
+      expect(last_response).to be_ok
+      expect(last_response.body).to eq('<currentVersion>3</currentVersion>')
     end
 
     it "returns current version metadata" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/version_metadata'
-      last_response.should be_ok
-      last_response.body.should =~ /<versionMetadata objectId="druid:ab123cd4567">/
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(/<versionMetadata objectId="druid:ab123cd4567">/)
     end
 
     it "returns version list" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/version_list'
-      last_response.should be_ok
-      last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Versions</title>}
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(%r{<title>Object = druid:jq937jp0017 - Versions</title>})
     end
 
   end
@@ -203,8 +203,8 @@ EOF
     it "returns a version differences report" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/version_differences?base=1&compare=3'
-      last_response.should be_ok
-      last_response.body.should =~ /<fileInventoryDifference objectId="druid:jq937jp0017"/
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(/<fileInventoryDifference objectId="druid:jq937jp0017"/)
     end
 
   end
@@ -215,25 +215,25 @@ EOF
     it "returns 404 if object not in SDR" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/test/error/object_not_found'
-      last_response.should_not be_ok
-      last_response.status.should == 404
-      last_response.errors.should =~ /Moab::ObjectNotFoundException/
+      expect(last_response).not_to be_ok
+      expect(last_response.status).to eq(404)
+      expect(last_response.errors).to match(/Moab::ObjectNotFoundException/)
     end
 
     it "returns 404 if file not found" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/test/error/file_not_found'
-      last_response.should_not be_ok
-      last_response.status.should == 404
-      last_response.errors.should =~ /Moab::FileNotFoundException/
+      expect(last_response).not_to be_ok
+      expect(last_response.status).to eq(404)
+      expect(last_response.errors).to match(/Moab::FileNotFoundException/)
     end
 
     it "returns 400 if file not found" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/test/error/invalid_metadata'
-      last_response.should_not be_ok
-      last_response.status.should == 400
-      last_response.errors.should =~ /Moab::InvalidMetadataException/
+      expect(last_response).not_to be_ok
+      expect(last_response.status).to eq(400)
+      expect(last_response.errors).to match(/Moab::InvalidMetadataException/)
     end
 
   end
@@ -243,19 +243,19 @@ EOF
     it "should return a list of manifest files" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/list/manifests'
-      last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Manifests</title>}
+      expect(last_response.body).to match(%r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Manifests</title>})
     end
 
     it "should return a list of content files" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/list/content'
-      last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Content</title>}
+      expect(last_response.body).to match(%r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Content</title>})
     end
 
     it "should return a list of metadata files" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/list/metadata'
-      last_response.body.should =~ %r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Metadata</title>}
+      expect(last_response.body).to match(%r{<title>Object = druid:jq937jp0017 - Version = 3 of 3 - Metadata</title>})
     end
 
   end
@@ -265,15 +265,15 @@ EOF
     it "returns a content file" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/content/title.jpg?version=1'
-      last_response.should be_ok
-      last_response.header["content-type"].should =~ %r{image/jpeg}
+      expect(last_response).to be_ok
+      expect(last_response.header["content-type"]).to match(%r{image/jpeg})
     end
 
     it "returns a content file using a signature" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/content/title.jpg?signature=40873,1a726cd7963bd6d3ceb10a8c353ec166,583220e0572640abcd3ddd97393d224e8053a6ad'
-      last_response.should be_ok
-      last_response.header["content-type"].should =~ %r{image/jpeg}
+      expect(last_response).to be_ok
+      expect(last_response.header["content-type"]).to match(%r{image/jpeg})
     end
 
 
@@ -288,8 +288,8 @@ EOF
     it "returns a metadata file" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/metadata/provenanceMetadata.xml'
-      last_response.should be_ok
-      last_response.body.should =~ /<provenanceMetadata/
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(/<provenanceMetadata/)
     end
 
     #it "returns a metadata file signature" do
@@ -302,8 +302,8 @@ EOF
     it "returns the most recent manifest file if version param is omitted" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/manifest/signatureCatalog.xml'
-      last_response.should be_ok
-      last_response.body.should =~ /<signatureCatalog objectId="druid:jq937jp0017" versionId="3"/
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(/<signatureCatalog objectId="druid:jq937jp0017" versionId="3"/)
     end
 
     #it "returns a manifest file signature" do
@@ -316,17 +316,17 @@ EOF
     it "returns a remediated contentMetadata file" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/cm-remediate?version=1'
-      last_response.should be_ok
-      last_response.body.should =~ /<contentMetadata/
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(/<contentMetadata/)
     end
 
     it "returns 404 File not found, if requested file not found in repository" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/objects/druid:jq937jp0017/metadata/provenanceMetadata.xxx'
-      last_response.should_not be_ok
+      expect(last_response).not_to be_ok
       # last_response.status.should == 404 #(but error handlers not translating errors in dev)
-      last_response.errors.should =~ /Moab::FileNotFoundException/
-      last_response.errors.should =~ /metadata file provenanceMetadata.xxx not found/
+      expect(last_response.errors).to match(/Moab::FileNotFoundException/)
+      expect(last_response.errors).to match(/metadata file provenanceMetadata.xxx not found/)
     end
 
   end
@@ -361,8 +361,8 @@ EOF
       destination_path = '/tmp/sdr_transfers' # URI encode?
       destination_type = 'druid-id'
       post "/objects/transfer?druids=#{objects}&destination_host=#{destination_host}&destination_path=#{destination_path}&destination_type=#{destination_type}"
-      last_response.status.should == 200
-      last_response.body.should =~ /Scheduled DRUID transfers/
+      expect(last_response.status).to eq(200)
+      expect(last_response.body).to match(/Scheduled DRUID transfers/)
       # Cannot check with File.exists? because the transfer is async from the http response.
       # For cleanup of the destination_path, the 'at' scheduler should run this AFTER the transfer completes.
       system("echo 'rm -rf #{destination_path}' | at now + 1 minute")
@@ -371,8 +371,8 @@ EOF
     it "should return GB used by storage" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/gb_used'
-      last_response.should be_ok
-      last_response.body.should =~ /\d*/
+      expect(last_response).to be_ok
+      expect(last_response.body).to match(/\d*/)
     end
 
   end
@@ -381,9 +381,9 @@ EOF
     it "should correctly handle file paths" do
       authorize SdrServices::Config.username, SdrServices::Config.password
       get '/test/file_id_param/a'
-      last_response.body.should == 'a'
+      expect(last_response.body).to eq('a')
       get '/test/file_id_param/a/b'
-      last_response.body.should == 'a/b'
+      expect(last_response.body).to eq('a/b')
     end
 
   end

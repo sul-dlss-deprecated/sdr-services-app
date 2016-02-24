@@ -54,8 +54,8 @@ group :test, :local, :development do
   gem 'pry-doc'
   gem 'rack-test', :require => 'rack/test'
   gem 'randexp'
-  gem 'rspec', '< 3.0'
-  gem 'simplecov', '~> 0.7.1'
+  gem 'rspec', '~> 3.0'
+  gem 'simplecov', '~> 0.7'
   gem 'yard'
 end
 
