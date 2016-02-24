@@ -30,8 +30,7 @@ gem 'sys-filesystem'
 gem 'slop'  # CLI parser
 
 gem 'druid-tools'
-gem 'moab-versioning', '~> 1.4' #, :path => '/data/src/dlss/moab-versioning' #
-#gem 'moab-versioning', :git => 'https://github.com/sul-dlss/moab-versioning.git' #, :branch => 'ruby_ver2_update'
+gem 'moab-versioning', '~> 2.0'
 
 # Database
 group :integration, :staging, :production do
