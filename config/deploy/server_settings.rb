@@ -1,31 +1,14 @@
 # Note: this file is required in config/deploy/<environment>.rb
+ENV['SDR_APP'] ||= fetch(:application)
 
 puts "ENV['APP_ENV']  = #{ENV['APP_ENV']}"
 puts "ENV['SDR_APP']  = #{ENV['SDR_APP']}"
-puts "ENV['SDR_USER'] = #{ENV['SDR_USER']}"
-puts "ENV['SDR_HOST'] = #{ENV['SDR_HOST']}"
-puts "ENV['SDR_URL']  = #{ENV['SDR_URL']}"
 puts
 
 set :default_env, {
     'APP_ENV'  => ENV['APP_ENV'],
     'SDR_APP'  => ENV['SDR_APP'],
-    'SDR_USER' => ENV['SDR_USER'],
-    'SDR_HOST' => ENV['SDR_HOST'],
-    'SDR_URL'  => ENV['SDR_URL'],
 }
-
-server ENV['SDR_HOST'], user: ENV['SDR_USER'], roles: %w{app}
-Capistrano::OneTimeKey.generate_one_time_key!
-ssh_opts = fetch(:ssh_options)
-ssh_opts[:forward_agent] = true
-ssh_opts[:verbose] = false
-# The :ssh_options are set by
-# capistrano-one_time_key/blob/master/lib/capistrano/tasks/one_time_key.rake
-
-# Target path
-USER_HOME = `ssh #{ENV['SDR_USER']}@#{ENV['SDR_HOST']} 'echo $HOME'`.chomp
-set :deploy_to, "#{USER_HOME}/#{ENV['SDR_APP']}"
 
 def upload_configs(remote_path, config_files = [])
   config_files.each do |local_path|
@@ -59,4 +42,3 @@ namespace :deploy do
   end
 end
 after 'deploy:check:linked_dirs', 'deploy:upload_configs'
-
