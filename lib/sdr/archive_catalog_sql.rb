@@ -52,8 +52,8 @@ class ArchiveCatalogSQL
   raise "Missing db_config for APP_ENV=#{APP_ENV}" if db_config.nil?
 
   if ['test','local','development'].include?(APP_ENV)
-    require 'mysql'
-    DB = Sequel.mysql(:host=>db_config['host'],
+    require 'mysql2'
+    DB = Sequel.mysql2(:host=>db_config['host'],
                       :port=>db_config['port'],
                       :user=>db_config['user'],
                       :password=>db_config['password'],

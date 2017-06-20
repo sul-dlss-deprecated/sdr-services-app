@@ -37,7 +37,7 @@ group :integration, :staging, :production do
   gem 'ruby-oci8'
 end
 group :test, :local, :development do
-  gem 'mysql'
+  gem 'mysql2'
 end
 gem 'sequel'
 

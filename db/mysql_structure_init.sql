@@ -3,6 +3,13 @@
 -- mysql -u sdrAdmin -p --default-character-set=utf8 archive_catalog_test < db/mysql_structure_init.sql
 -- mysql -u sdrAdmin -p --default-character-set=utf8 archive_catalog_development < db/mysql_structure_init.sql
 
+-- Recent versions of MySQL use a "strict" mode that will not allow setting a zero date as a default.
+-- This SQL_MODE setting is a work-around to allow setting a zero date (the implicit default).
+SET SQL_MODE='ALLOW_INVALID_DATES';
+
+
+-- drop tables
+
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS digital_objects CASCADE;
 DROP TABLE IF EXISTS dpn_objects CASCADE;
@@ -16,7 +23,8 @@ DROP TABLE IF EXISTS tape_replicas CASCADE;
 DROP VIEW IF EXISTS new_replicas CASCADE;
 SET FOREIGN_KEY_CHECKS=1;
 
--- tables and constraints
+
+-- recreate tables and constraints
 
 CREATE TABLE digital_objects (
   digital_object_id VARCHAR(40) NOT NULL,
