@@ -1,4 +1,4 @@
-require 'moab_stanford'
+require 'moab/stanford'
 require 'druid-tools'
 require 'sys/filesystem'
 # require "sinatra/base"
@@ -55,7 +55,7 @@ module Sdr
           nil
         elsif params[:signature].split(',').size > 1
           values = params[:signature].split(',')
-          signature = FileSignature.new(:size=>values[0])
+          signature = Moab::FileSignature.new(:size=>values[0])
           values[1..-1].each do |checksum|
             case checksum.size
               when 32
