@@ -177,7 +177,7 @@ DEPENDENCIES
   coveralls
   cucumber
   database_cleaner
-  dlss-capistrano
+  dlss-capistrano (> 3.0)
   dotenv
   druid-tools
   equivalent-xml
@@ -206,4 +206,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.14.6
+   1.15.1
