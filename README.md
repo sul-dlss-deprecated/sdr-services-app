@@ -37,6 +37,15 @@ A web application for providing access to Digital Objects in SDR Storage.
   ./bin/test.sh
   ```
 
+### Note for osx users
+the current bundle requires eventmachine 1.0.7. This won't build on a modern mac
+without specifying where the ssl libraries are:
+
+```
+gem install eventmachine -v '1.0.7' -- --with-cppflags=-I/usr/local/opt/openssl/include
+```
+
+
 ## Configuration
 
 Environment variables are set in various places, with the following order
