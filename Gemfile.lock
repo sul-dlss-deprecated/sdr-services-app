@@ -63,7 +63,7 @@ GEM
     druid-tools (0.4.1)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
-    eventmachine (1.0.7)
+    eventmachine (1.2.3)
     ffi (1.9.8)
     foreman (0.64.0)
       dotenv (~> 0.7.0)
@@ -74,7 +74,7 @@ GEM
       tilt
     hashie (3.5.5)
     i18n (0.7.0)
-    json (1.8.3)
+    json (1.8.6)
     json-schema (2.5.1)
       addressable (~> 2.3.7)
     method_source (0.8.2)
@@ -89,7 +89,7 @@ GEM
       systemu
     multi_json (1.11.1)
     multi_test (0.1.2)
-    mysql (2.9.1)
+    mysql2 (0.4.6)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -191,7 +191,7 @@ DEPENDENCIES
   json-schema
   moab-versioning (~> 2.0)
   multi_json (~> 1.0)
-  mysql
+  mysql2
   pry
   pry-doc
   rack (~> 1.5)
