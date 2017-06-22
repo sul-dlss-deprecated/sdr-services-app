@@ -1,17 +1,15 @@
-# config valid only for Capistrano 3.x
-#lock '3.2.1'
-
 set :application, 'sdr-services-app'
 
 # Default value for :scm is :git
 # set :scm, :git
 
 # NOTE: all deployment systems work with https, not git/ssh.
-# set :repo_url, 'git@github.com:sul-dlss/sdr-services-app.git'
 set :repo_url, 'https://github.com/sul-dlss/sdr-services-app.git'
 
-# Default branch is :master
+# Prompt for a branch to deploy, uses the current branch as a default prompt.
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
+
+set :deploy_to, '/var/sdr2service/sdr-services-app'
 
 # Default value for :format is :pretty
 # set :format, :pretty
@@ -33,7 +31,7 @@ set :log_level, :info
 #set :bundle_flags, '--deployment --quiet'                       # this is default
 #set :bundle_env_variables, {}                                   # this is default
 set :bundle_binstubs, -> { shared_path.join('.binstubs') }
-set :bundle_without, %w{development local test}.join(' ')
+set :bundle_without, 'development local test'
 set :bundle_flags, '--deployment'
 
 # Default value for linked_dirs is []
@@ -65,6 +63,4 @@ namespace :deploy do
   after :publishing, :restart
 end
 
-# capistrano next reads config/deploy/#{target}.rb, e.g.:
-# config/deploy/development.rb
-
+# capistrano next reads config/deploy/#{stage}.rb, e.g. config/deploy/dev.rb

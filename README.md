@@ -45,6 +45,13 @@ of importance:
 - On deployed apps, running under Apache/Passenger:
   - see `/etc/httpd/conf.d/z*`
   - The content of the config files is managed by puppet
+  
+- Each deployment system has configurations, and other private files, available
+in the [dlss/shared_configs](https://github.com/sul-dlss/shared_configs) private repo; see
+  - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app-dev/config
+  - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app-stage/config
+  - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app-prod/config
+
 - Command line values that precede `./bin/<util>`, `foreman`, or `rackup`, e.g.
 
   ```sh
@@ -59,5 +66,4 @@ of importance:
 
 ## Deployment
 
-Capistrano is configured to run all the deployments.  See `cap -T` for all the options.  The target system configurations, and other private configuration files, are available in the private repo at https://github.com/sul-dlss/sdr-configs
-
+Capistrano is configured to run the deployments.  See `cap -T` for all the options.
