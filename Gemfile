@@ -7,7 +7,7 @@ source 'https://rubygems.org'
 
 # Serializers
 gem 'builder' # for xml
-gem 'activesupport' # for xml
+gem 'activesupport', '~> 4.0' # for xml
 gem 'multi_json', '~> 1.0'
 gem 'json-schema'
 
