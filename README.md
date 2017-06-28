@@ -48,9 +48,9 @@ of importance:
   
 - Each deployment system has configurations, and other private files, available
 in the [dlss/shared_configs](https://github.com/sul-dlss/shared_configs) private repo; see
-  - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app-dev/config
-  - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app-stage/config
-  - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app-prod/config
+  - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app_dev/config
+  - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app_stage/config
+  - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app_prod/config
 
 - Command line values that precede `./bin/<util>`, `foreman`, or `rackup`, e.g.
 
