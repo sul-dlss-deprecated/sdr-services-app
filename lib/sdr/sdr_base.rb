@@ -16,6 +16,8 @@ require 'json-schema'
 require 'active_support'
 require 'active_support/core_ext'
 
+require 'honeybadger'
+
 module Sdr
 
   class Base < ::Sinatra::Base
