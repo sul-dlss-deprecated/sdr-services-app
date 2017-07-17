@@ -44,7 +44,7 @@ set :linked_dirs, %w(.binstubs log config/environments)
 # manually placed on the deployment system into the shared path.
 # The shared/.env file contains deployment-specific ENV values,
 # and the config/deploy/{APP_ENV}.rb file contains a :default_env.
-set :linked_files, %w(.env config/database.yml)
+set :linked_files, %w(.env config/database.yml config/honeybadger.yml)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

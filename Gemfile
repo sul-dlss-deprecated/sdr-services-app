@@ -71,3 +71,4 @@ group :deployment do
   gem 'dlss-capistrano', '> 3.0'
 end
 
+gem 'honeybadger'
