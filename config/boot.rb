@@ -50,9 +50,6 @@ case ENV['APP_ENV'].to_sym
     # rspec config
     raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'test'" unless ENV['RACK_ENV'] == 'test'
     env_file = 'test'
-  when :integration
-    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'development'" unless ENV['RACK_ENV'] == 'development'
-    env_file = 'integration'
   when :stage, :staging
     raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'production'" unless ENV['RACK_ENV'] == 'production'
     env_file = 'staging'
