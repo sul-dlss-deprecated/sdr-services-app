@@ -33,7 +33,7 @@ A web application for providing access to Digital Objects in SDR Storage.
 - setup ruby dependencies and run tests
 
   ```sh
-  ./bin/setup.sh
+  bundle install --without production
   ./bin/test.sh
   ```
 
@@ -45,7 +45,7 @@ of importance:
 - On deployed apps, running under Apache/Passenger:
   - see `/etc/httpd/conf.d/z*`
   - The content of the config files is managed by puppet
-  
+
 - Each deployment system has configurations, and other private files, available
 in the [dlss/shared_configs](https://github.com/sul-dlss/shared_configs) private repo; see
   - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app_dev/config

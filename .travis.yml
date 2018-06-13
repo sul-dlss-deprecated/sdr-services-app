@@ -4,9 +4,8 @@ rvm:
 
 services:
   - mysql
-#  - mongodb
 
-install: ./bin/setup.sh
+bundler_args: --without production staging
 
 before_script:
 #  - mysql -e 'create database myapp_test;'
@@ -15,4 +14,3 @@ before_script:
   - mysql -u root --default-character-set=utf8 archive_catalog_test < ./db/mysql_structure_init.sql
 
 script: ./bin/test.sh
-

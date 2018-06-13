@@ -33,10 +33,10 @@ gem 'druid-tools'
 gem 'moab-versioning', '~> 2.0'
 
 # Database
-group :integration, :staging, :production do
+group :staging, :production do
   gem 'ruby-oci8'
 end
-group :test, :local, :development do
+group :test, :development do
   gem 'mysql2'
 end
 gem 'sequel'
@@ -45,7 +45,7 @@ gem 'sequel'
 gem 'haml'
 gem 'redcarpet'
 
-group :test, :local, :development do
+group :test, :development do
   gem 'awesome_print'
   gem 'coveralls', require: false
   gem 'cucumber'
@@ -62,7 +62,7 @@ end
 # Do not place the capistrano-related gems in the default or Rails.env bundle group
 # Otherwise the config/application.rb's Bundle.require command will try to load them
 # leading to failure because these gem's rake task files use capistrano DSL.
-group :deployment do
+group :development do
   # Use Capistrano for deployment
   gem 'capistrano', '> 3.1'
   gem 'capistrano-rvm', '> 0.1'

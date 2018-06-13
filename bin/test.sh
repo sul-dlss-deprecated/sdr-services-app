@@ -15,6 +15,5 @@ fi
 export APP_ENV='test'
 export RACK_ENV='test'
 
-.binstubs/rspec
-.binstubs/cucumber --strict
-
+bundle exec rspec
+bundle exec cucumber --strict
