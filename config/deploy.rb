@@ -31,7 +31,7 @@ set :log_level, :info
 #set :bundle_flags, '--deployment --quiet'                       # this is default
 #set :bundle_env_variables, {}                                   # this is default
 set :bundle_binstubs, -> { shared_path.join('.binstubs') }
-set :bundle_without, 'development local test'
+set :bundle_without, 'development test'
 set :bundle_flags, '--deployment'
 
 # Default value for linked_dirs is []

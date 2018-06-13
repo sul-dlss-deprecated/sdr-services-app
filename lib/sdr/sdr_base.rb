@@ -28,7 +28,7 @@ module Sdr
     register Sinatra::AdvancedRoutes
 
     # Register development extensions
-    configure :local, :development do
+    configure :development do
       require 'sinatra/reloader'
       register Sinatra::Reloader
     end

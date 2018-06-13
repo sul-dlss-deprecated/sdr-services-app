@@ -33,20 +33,14 @@ test:
 #  host: localhost
 #  port: 3306
   database: archive_catalog_test
-#  database: myapp_test
   encoding: utf8
   user: sdrAdmin
   password: sdrPass
-#  username: travis
-#  password:
 
-# local is for developer workstations
-local:
+development:
   adapter: mysql2
 #  host: localhost
 #  port: 3306
   database: archive_catalog_development
   user: sdrAdmin
   password: sdrPass
-
-

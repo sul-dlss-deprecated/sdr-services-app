@@ -25,9 +25,8 @@ log = File.new("log/sdr.log", "a+")
 #$stdout.reopen(log)
 
 # Hack for dev so log messages appear in terminal instead of log file
-unless ENV['APP_ENV'] == 'local'
+unless ENV['APP_ENV'] == 'development'
   $stderr.reopen(log)
   $stderr.sync = true
   $stdout.sync = true
 end
-

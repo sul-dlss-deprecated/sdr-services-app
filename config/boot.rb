@@ -50,13 +50,6 @@ case ENV['APP_ENV'].to_sym
     # rspec config
     raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'test'" unless ENV['RACK_ENV'] == 'test'
     env_file = 'test'
-  when :local
-    # developer workstation config
-    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'development'" unless ENV['RACK_ENV'] == 'development'
-    env_file = 'local'
-  when :integration
-    raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'development'" unless ENV['RACK_ENV'] == 'development'
-    env_file = 'integration'
   when :stage, :staging
     raise "Invalid RACK_ENV=#{ENV['RACK_ENV']}, should be 'production'" unless ENV['RACK_ENV'] == 'production'
     env_file = 'staging'
@@ -80,4 +73,3 @@ puts "Loaded #{env_path}"
 # behavior. Sequel will automatically reconnect on an as needed basis in the child
 # processes, so you only need to do the following in the parent process:
 ArchiveCatalogSQL::DB.disconnect
-

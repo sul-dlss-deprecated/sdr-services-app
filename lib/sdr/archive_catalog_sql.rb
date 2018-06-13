@@ -40,7 +40,7 @@ class ArchiveCatalogSQL
   LOG = Logger.new(log_file)
 
   def self.log_model_info(m)
-    if ['local','development'].include?(APP_ENV)
+    if ['development'].include?(APP_ENV)
       LOG.info "table: #{m.table_name}, columns: #{m.columns}, pk: #{m.primary_key}"
     end
   end
@@ -51,7 +51,7 @@ class ArchiveCatalogSQL
   db_config = db_configs[APP_ENV]
   raise "Missing db_config for APP_ENV=#{APP_ENV}" if db_config.nil?
 
-  if ['test','local','development'].include?(APP_ENV)
+  if ['test', 'development'].include?(APP_ENV)
     require 'mysql2'
     DB = Sequel.mysql2(:host=>db_config['host'],
                       :port=>db_config['port'],
@@ -169,6 +169,3 @@ class ArchiveCatalogSQL
   #DigitalObject.all.each {|d| d.delete }
 
 end
-
-
-

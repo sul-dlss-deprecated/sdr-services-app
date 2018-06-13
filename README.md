@@ -8,8 +8,8 @@ A web application for providing access to Digital Objects in SDR Storage.
 ## Requirements
 
 - database service options
-  + mysql - test, local, development
-  + oracle - integration, staging, production
+  + mysql - test, development
+  + oracle - staging, production
 
 ## Getting Started
 
@@ -33,7 +33,7 @@ A web application for providing access to Digital Objects in SDR Storage.
 - setup ruby dependencies and run tests
 
   ```sh
-  ./bin/setup.sh
+  bundle install --without production
   ./bin/test.sh
   ```
 
@@ -45,7 +45,7 @@ of importance:
 - On deployed apps, running under Apache/Passenger:
   - see `/etc/httpd/conf.d/z*`
   - The content of the config files is managed by puppet
-  
+
 - Each deployment system has configurations, and other private files, available
 in the [dlss/shared_configs](https://github.com/sul-dlss/shared_configs) private repo; see
   - https://github.com/sul-dlss/shared_configs/tree/sdr-services-app_dev/config
@@ -55,8 +55,8 @@ in the [dlss/shared_configs](https://github.com/sul-dlss/shared_configs) private
 - Command line values that precede `./bin/<util>`, `foreman`, or `rackup`, e.g.
 
   ```sh
-  APP_ENV=local RACK_ENV=development .binstubs/foreman start
-  APP_ENV=local RACK_ENV=development .binstubs/rackup
+  APP_ENV=development RACK_ENV=development .binstubs/foreman start
+  APP_ENV=development RACK_ENV=development .binstubs/rackup
   ```
 
 - `.env` file settings can supplement, without replacing, existing values
