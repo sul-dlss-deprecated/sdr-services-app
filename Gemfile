@@ -59,7 +59,8 @@ group :test, :development do
   gem 'database_cleaner'
   gem 'equivalent-xml'
   gem 'pry-doc'
-  gem 'rack-test', :require => 'rack/test'
+  # rack-test 1.0 requires Ruby >= 2.2
+  gem 'rack-test', '< 1', :require => 'rack/test'
   gem 'randexp'
   gem 'rspec', '~> 3.0'
   gem 'simplecov', '~> 0.7'
