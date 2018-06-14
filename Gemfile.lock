@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (4.2.8)
+    activesupport (4.2.10)
       i18n (~> 0.7)
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
@@ -33,6 +33,7 @@ GEM
     capistrano-shared_configs (0.1.2)
     coderay (1.1.0)
     colorize (0.7.7)
+    concurrent-ruby (1.0.5)
     confstruct (1.0.2)
       hashie (~> 3.3)
     coveralls (0.8.21)
@@ -74,13 +75,14 @@ GEM
       tilt
     hashie (3.5.5)
     honeybadger (3.1.2)
-    i18n (0.8.4)
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
     json (2.1.0)
     json-schema (2.5.1)
       addressable (~> 2.3.7)
     method_source (0.8.2)
     mini_portile2 (2.3.0)
-    minitest (5.10.2)
+    minitest (5.11.3)
     moab-versioning (2.0.0)
       confstruct
       json
@@ -163,7 +165,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.1)
     tins (1.14.0)
-    tzinfo (1.2.3)
+    tzinfo (1.2.5)
       thread_safe (~> 0.1)
     yard (0.8.7.6)
 
@@ -211,4 +213,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.15.4
+   1.16.1
