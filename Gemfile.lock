@@ -195,7 +195,7 @@ DEPENDENCIES
   moab-versioning (~> 2.0)
   multi_json (~> 1.0)
   mysql2
-  pry
+  pry (~> 0.10.1)
   pry-doc
   rack (~> 1.5)
   rack-test

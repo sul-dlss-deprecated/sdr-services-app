@@ -25,7 +25,7 @@ gem 'thin'
 gem 'foreman'
 gem 'dotenv'
 
-gem 'pry'
+gem 'pry', '~> 0.10.1'
 gem 'sys-filesystem'
 gem 'slop'  # CLI parser
 
