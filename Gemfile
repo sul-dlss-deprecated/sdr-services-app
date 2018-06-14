@@ -26,6 +26,12 @@ gem 'foreman'
 gem 'dotenv'
 
 gem 'pry', '~> 0.10.1'
+
+# Note, we only have a transitive dependency on net-ssh, but we need to restrict
+# The version to < 5 because we are deploying on Ruby 2.1 and net-ssh 5 requires
+# ruby >= 2.2.6.  When we upgrade Ruby, we can remove this line:
+gem 'net-ssh', '< 5'
+
 gem 'sys-filesystem'
 gem 'slop'  # CLI parser
 
