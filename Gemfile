@@ -25,7 +25,13 @@ gem 'thin'
 gem 'foreman'
 gem 'dotenv'
 
-gem 'pry'
+gem 'pry', '~> 0.10.1'
+
+# Note, we only have a transitive dependency on net-ssh, but we need to restrict
+# The version to < 5 because we are deploying on Ruby 2.1 and net-ssh 5 requires
+# ruby >= 2.2.6.  When we upgrade Ruby, we can remove this line:
+gem 'net-ssh', '< 5'
+
 gem 'sys-filesystem'
 gem 'slop'  # CLI parser
 
@@ -48,11 +54,13 @@ gem 'redcarpet'
 group :test, :development do
   gem 'awesome_print'
   gem 'coveralls', require: false
-  gem 'cucumber'
+  # Cucumber 3 requires Ruby >= 2.2
+  gem 'cucumber', '< 3'
   gem 'database_cleaner'
   gem 'equivalent-xml'
   gem 'pry-doc'
-  gem 'rack-test', :require => 'rack/test'
+  # rack-test 1.0 requires Ruby >= 2.2
+  gem 'rack-test', '< 1', :require => 'rack/test'
   gem 'randexp'
   gem 'rspec', '~> 3.0'
   gem 'simplecov', '~> 0.7'
