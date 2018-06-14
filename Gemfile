@@ -54,8 +54,8 @@ gem 'redcarpet'
 group :test, :development do
   gem 'awesome_print'
   gem 'coveralls', require: false
-  # Cucumber 3.1 requires Ruby >= 2.2
-  gem 'cucumber', '~> 3.0.2'
+  # Cucumber 3 requires Ruby >= 2.2
+  gem 'cucumber', '< 3'
   gem 'database_cleaner'
   gem 'equivalent-xml'
   gem 'pry-doc'
