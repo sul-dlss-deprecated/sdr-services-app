@@ -74,7 +74,7 @@ GEM
     gherkin (4.1.3)
     haml (4.0.6)
       tilt
-    hashie (3.5.5)
+    hashie (3.5.7)
     honeybadger (3.1.2)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
@@ -84,7 +84,7 @@ GEM
     method_source (0.8.2)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    moab-versioning (2.0.0)
+    moab-versioning (2.1.0)
       confstruct
       json
       nokogiri
@@ -96,9 +96,9 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
-    nokogiri (1.8.1)
+    nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
-    nokogiri-happymapper (0.5.9)
+    nokogiri-happymapper (0.6.0)
       nokogiri (~> 1.5)
     pry (0.10.1)
       coderay (~> 1.1.0)
