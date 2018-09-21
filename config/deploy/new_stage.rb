@@ -6,4 +6,4 @@ Capistrano::OneTimeKey.generate_one_time_key!
 
 set :deploy_to, '/opt/app/sdr2service/sdr-services-app'
 
-set :linked_files, %w(config/database.yml)
+set :linked_files, %w(.env config/database.yml)
