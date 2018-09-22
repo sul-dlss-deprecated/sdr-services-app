@@ -25,7 +25,7 @@ end
 # determine environment variables based on the host name
 environment = (
   case `hostname -s`.chomp
-    when "sul-sdr-services"
+    when "sul-sdr-services", "sdr-services-app-stage"
       "production.rb"
     when "sdr-services-test"
       "sdr-services-test.rb"
