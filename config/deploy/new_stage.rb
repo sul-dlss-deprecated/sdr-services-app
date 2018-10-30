@@ -1,3 +1,5 @@
+# NOTE: you should still use stage.rb for now.  this deployment config is WIP towards attempting to move sdr-services-app to a new VM.
+
 ENV['APP_ENV'] ||= 'staging'
 
 server 'sdr-services-app-stage.stanford.edu', user: 'sdr2service', roles: %w{app}
