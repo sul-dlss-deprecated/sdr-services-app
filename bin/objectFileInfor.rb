@@ -24,7 +24,7 @@ end
 
 environment = (
   case `hostname -s`.chomp
-    when "sul-sdr-services", "sdr-services-app-stage"
+    when "sul-sdr-services", "sdr-services-app-stage", "sdr-services-app-prod"
       "production.rb"
     when "sdr-services-test"
       "sdr-services-test.rb"
