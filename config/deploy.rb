@@ -9,7 +9,7 @@ set :repo_url, 'https://github.com/sul-dlss/sdr-services-app.git'
 # Prompt for a branch to deploy, uses the current branch as a default prompt.
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-set :deploy_to, '/var/sdr2service/sdr-services-app'
+set :deploy_to, '/opt/app/sdr2service/sdr-services-app'
 
 # Default value for :format is :pretty
 # set :format, :pretty
