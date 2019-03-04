@@ -76,6 +76,7 @@ module Sdr
         if file_id == []
           [400, "file id not specified"]
         else
+          # Note retrieving can cause a Moab::ObjectNotFoundException to be raised.
           if signature.nil?
             content_file = Stanford::StorageServices.retrieve_file(category, file_id, druid, version)
           else
