@@ -64,12 +64,3 @@ end
 env_path = File.expand_path(File.dirname(__FILE__) + "/environments/#{env_file}")
 require env_path
 puts "Loaded #{env_path}"
-
-
-# If you are using a forking webserver such as unicorn or passenger, with a feature that
-# loads your Sequel code before forking connections (code preloading), then you must
-# disconnect your database connections before forking. If you don't do this, you can
-# end up with child processes sharing database connections and all sorts of weird
-# behavior. Sequel will automatically reconnect on an as needed basis in the child
-# processes, so you only need to do the following in the parent process:
-ArchiveCatalogSQL::DB.disconnect

@@ -40,11 +40,11 @@ set :bundle_flags, '--deployment'
 set :linked_dirs, %w(.binstubs log config/environments)
 
 # Default value for :linked_files is []
-# The .env and config/database.yml are private files that must be
+# The .env is a private files that must be
 # manually placed on the deployment system into the shared path.
 # The shared/.env file contains deployment-specific ENV values,
 # and the config/deploy/{APP_ENV}.rb file contains a :default_env.
-set :linked_files, %w(.env config/database.yml config/honeybadger.yml)
+set :linked_files, %w(.env config/honeybadger.yml)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
