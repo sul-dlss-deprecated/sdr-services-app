@@ -3,7 +3,6 @@ require 'druid-tools'
 require 'sys/filesystem'
 # require "sinatra/base"
 require_relative 'sdr_base'
-require_relative 'archive_catalog_api'
 
 module Sdr
 
@@ -21,8 +20,6 @@ module Sdr
   # @see https://github.com/sul-dlss/druid-tools
   #
   class ServicesAPI < Sdr::Base
-
-    use Sdr::ArchiveCatalogAPI
 
     helpers do
 

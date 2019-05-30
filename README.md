@@ -5,30 +5,9 @@
 
 A web application for providing access to Digital Objects in SDR Storage.
 
-## Requirements
-
-- database service options
-  + mysql - test, development
-  + oracle - staging, production
-
 ## Getting Started
 
 - `git clone` and `cd` into the cloned repository
-- setup mysql
-
-  - create the sdrAdmin user and the archive_catalog_test and archive_catalog_development databases.
-
-    ```sh
-    echo "For db creation, enter the 'root' user password:"
-    mysql --user=root -p < db/mysql_db_create.sql
-    ```
-
-  - create tables for the test and development databases.
-
-    ```sh
-    mysql --user=sdrAdmin --password=sdrPass --default-character-set=utf8 archive_catalog_test < db/mysql_structure_init.sql
-    mysql --user=sdrAdmin --password=sdrPass --default-character-set=utf8 archive_catalog_development < db/mysql_structure_init.sql
-    ```
 
 - setup ruby dependencies and run tests
 
@@ -57,12 +36,17 @@ in the [dlss/shared_configs](https://github.com/sul-dlss/shared_configs) private
   ```sh
   APP_ENV=development RACK_ENV=development .binstubs/foreman start
   APP_ENV=development RACK_ENV=development .binstubs/rackup
-  ```
+   ```
 
 - `.env` file settings can supplement, without replacing, existing values
   - see `.env_example`
   - see https://github.com/bkeepers/dotenv
 - `./config/boot.rb` can set defaults for missing values
+
+## Run locally
+```
+bundler exec rackup
+```
 
 ## Deployment
 
