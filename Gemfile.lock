@@ -65,7 +65,7 @@ GEM
       temple (>= 0.8.0)
       tilt
     hashie (3.6.0)
-    honeybadger (4.3.1)
+    honeybadger (4.4.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     json (2.2.0)
