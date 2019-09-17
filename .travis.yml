@@ -1,9 +1,17 @@
+dist: bionic
 rvm:
   - 2.5.3 # deployed
+
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up bundle install
+
+cache: bundler
+
 before_install:
   - gem update --system
   - gem install bundler
 
-bundler_args: --without production staging
+bundler_args: --without production staging deployment
 
 script: ./bin/test.sh
