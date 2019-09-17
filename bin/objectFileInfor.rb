@@ -7,6 +7,10 @@
 # NOTE: I ususally output this script like so: ruby /tmp/rmetz/objectFileInfo.rb /tmp/rmetz/sdrget-2078.txt > /tmp/rmetz/sdrget-2078.csv
 #and then download it for use in excel
 
+# ******************
+# 2019-09-17:  THIS SCRIPT IS DEPRECATED - it has been replaced by the "Checksum Report" bulk action in Argo
+# ******************
+
 require 'rubygems'
 require 'bundler/setup'
 require 'moab/stanford'
