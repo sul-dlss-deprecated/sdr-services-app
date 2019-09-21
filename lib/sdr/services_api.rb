@@ -27,6 +27,7 @@ module Sdr
     helpers do
 
       def latest_version
+        Honeybadger.notify("ServicesAPI deprecated method `latest_version` called - use preservation-client current_version instead")
         @latest_version ||= Stanford::StorageServices.current_version(params[:druid])
       end
       deprecation_deprecate latest_version: 'use preservation-client current_version instead'
@@ -216,7 +217,9 @@ module Sdr
     #     status 200: <currentVersion>1</currentVersion>
     #     status 404: cannot find DRUID-ID
     get '/objects/:druid/current_version' do
-      Deprecation.warn(nil, 'HTTP GET /objects/:druid/current_version is deprecated; use preservation-client current_version instead')
+      depr_msg = 'HTTP GET /objects/:druid/current_version is deprecated; use preservation-client current_version instead'
+      Deprecation.warn(nil, depr_msg)
+      Honeybadger.notify(depr_msg)
       current_version = Stanford::StorageServices.current_version(params[:druid])
       [200, {'content-type' => 'application/xml'}, "<currentVersion>#{current_version.to_s}</currentVersion>"]
     end
