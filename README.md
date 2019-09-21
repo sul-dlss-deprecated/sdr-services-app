@@ -1,9 +1,11 @@
-[![Build Status](https://travis-ci.org/sul-dlss/sdr-services-app.svg)](https://travis-ci.org/sul-dlss/sdr-services-app) [![Coverage Status](https://coveralls.io/repos/sul-dlss/sdr-services-app/badge.png)](https://coveralls.io/r/sul-dlss/sdr-services-app) 
+[![Build Status](https://travis-ci.org/sul-dlss/sdr-services-app.svg)](https://travis-ci.org/sul-dlss/sdr-services-app) [![Coverage Status](https://coveralls.io/repos/sul-dlss/sdr-services-app/badge.png)](https://coveralls.io/r/sul-dlss/sdr-services-app)
 
 
 # SDR Services Application
 
-A web application for providing access to Digital Objects in SDR Storage.
+A Sinatra web application for providing access to Digital Objects in SDR Storage.
+
+This will be replaced by preservation-catalog as a more robust, easier to maintain approach that won't have to go to the preservation storage roots for absolutely everything.
 
 ## Getting Started
 

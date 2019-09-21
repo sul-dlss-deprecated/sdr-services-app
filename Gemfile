@@ -36,6 +36,8 @@ gem 'moab-versioning', '~> 2.0'
 gem 'haml'
 gem 'redcarpet'
 
+gem 'deprecation'
+
 group :test, :development do
   gem 'awesome_print'
   gem 'coveralls', require: false

@@ -173,6 +173,7 @@ DEPENDENCIES
   capistrano-passenger
   capistrano-rvm (> 0.1)
   coveralls
+  deprecation
   dlss-capistrano (> 3.0)
   dotenv
   druid-tools
@@ -200,4 +201,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   2.0.1
+   2.0.2
