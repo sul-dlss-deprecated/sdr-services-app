@@ -1,6 +1,7 @@
 require 'moab/stanford'
 require 'druid-tools'
 require 'sys/filesystem'
+require 'deprecation'
 # require "sinatra/base"
 require_relative 'sdr_base'
 
@@ -20,15 +21,16 @@ module Sdr
   # @see https://github.com/sul-dlss/druid-tools
   #
   class ServicesAPI < Sdr::Base
+    extend Deprecation
+    self.deprecation_horizon = 'sdr-services-app is being replaced by preservation-catalog'
 
     helpers do
 
       def latest_version
-        unless @latest_version
-          @latest_version = Stanford::StorageServices.current_version(params[:druid])
-        end
-        @latest_version
+        Honeybadger.notify("ServicesAPI deprecated method `latest_version` called - use preservation-client current_version instead")
+        @latest_version ||= Stanford::StorageServices.current_version(params[:druid])
       end
+      deprecation_deprecate latest_version: 'use preservation-client current_version instead'
 
       def caption(version)
         "Object = #{params[:druid]} - Version = #{version ? version.to_s : latest_version} of #{latest_version}"
@@ -215,6 +217,9 @@ module Sdr
     #     status 200: <currentVersion>1</currentVersion>
     #     status 404: cannot find DRUID-ID
     get '/objects/:druid/current_version' do
+      depr_msg = 'HTTP GET /objects/:druid/current_version is deprecated; use preservation-client current_version instead'
+      Deprecation.warn(nil, depr_msg)
+      Honeybadger.notify(depr_msg)
       current_version = Stanford::StorageServices.current_version(params[:druid])
       [200, {'content-type' => 'application/xml'}, "<currentVersion>#{current_version.to_s}</currentVersion>"]
     end
