@@ -61,7 +61,7 @@ GEM
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     eventmachine (1.2.7)
-    ffi (1.11.2)
+    ffi (1.11.3)
     foreman (0.86.0)
     haml (5.1.2)
       temple (>= 0.8.0)
