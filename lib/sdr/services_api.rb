@@ -449,6 +449,9 @@ module Sdr
       # 1. pulls new contentMetadata from Fedora
       # 2. posts that contentMetadata to sdr-service's  cm-inv-diff
       # 3. receives a fileInventoryDifferences report in response
+      depr_msg = 'HTTP POST /objects/:druid/cm-inv-diff is deprecated; use preservation-client content_inventory_diff instead'
+      Deprecation.warn(nil, depr_msg)
+      Honeybadger.notify(depr_msg)
       request.body.rewind
       cmd_xml = request.body.read
       diff = Stanford::StorageServices.compare_cm_to_version(cmd_xml, params[:druid], subset_param(), version_param())
