@@ -361,6 +361,9 @@ module Sdr
     #   the remainder are one or more of md5, sha1, or sha256 checksums
     # @return DRUID metadata file
     get '/objects/:druid/metadata/*' do
+      depr_msg = 'HTTP GET /objects/:druid/metadata is deprecated; use preservation-client .metadata instead'
+      Deprecation.warn(nil, depr_msg)
+      Honeybadger.notify(depr_msg)
       retrieve_file(params[:druid],'metadata',file_id_param, version_param, signature_param)
     end
 
