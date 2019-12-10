@@ -29,7 +29,7 @@ module Sdr
     helpers do
 
       def latest_version
-        Honeybadger.notify("ServicesAPI deprecated method `latest_version` called - use preservation-client current_version instead")
+        Honeybadger.notify("ServicesAPI deprecated method `latest_version` called - use preservation-client .current_version instead")
         @latest_version ||= Stanford::StorageServices.current_version(params[:druid])
       end
       deprecation_deprecate latest_version: 'use preservation-client current_version instead'
@@ -225,7 +225,7 @@ module Sdr
     #     status 200: <currentVersion>1</currentVersion>
     #     status 404: cannot find DRUID-ID
     get '/objects/:druid/current_version' do
-      depr_msg = 'HTTP GET /objects/:druid/current_version is deprecated; use preservation-client current_version instead'
+      depr_msg = 'HTTP GET /objects/:druid/current_version is deprecated; use preservation-client .current_version instead'
       Deprecation.warn(nil, depr_msg)
       Honeybadger.notify(depr_msg)
       current_version = Stanford::StorageServices.current_version(params[:druid])
@@ -362,6 +362,9 @@ module Sdr
     # @example  Retrieve the 'title.jpg' file for druid:jq937jp0017
     #    /objects/jq937jp0017/content/title.jpg
     get '/objects/:druid/content/*' do
+      depr_msg = 'HTTP GET /objects/:druid/content is deprecated; use preservation-client .content instead'
+      Deprecation.warn(nil, depr_msg)
+      Honeybadger.notify(depr_msg)
       retrieve_file(params[:druid],'content',file_id_param, version_param, signature_param)
     end
 
@@ -374,6 +377,9 @@ module Sdr
     #   the remainder are one or more of md5, sha1, or sha256 checksums
     # @return DRUID metadata file
     get '/objects/:druid/metadata/*' do
+      depr_msg = 'HTTP GET /objects/:druid/metadata is deprecated; use preservation-client .metadata instead'
+      Deprecation.warn(nil, depr_msg)
+      Honeybadger.notify(depr_msg)
       retrieve_file(params[:druid],'metadata',file_id_param, version_param, signature_param)
     end
 
@@ -472,7 +478,7 @@ module Sdr
       # 1. pulls new contentMetadata from Fedora
       # 2. posts that contentMetadata to sdr-service's  cm-inv-diff
       # 3. receives a fileInventoryDifferences report in response
-      depr_msg = 'HTTP POST /objects/:druid/cm-inv-diff is deprecated; use preservation-client content_inventory_diff instead'
+      depr_msg = 'HTTP POST /objects/:druid/cm-inv-diff is deprecated; use preservation-client .content_inventory_diff instead'
       Deprecation.warn(nil, depr_msg)
       Honeybadger.notify(depr_msg)
       request.body.rewind
