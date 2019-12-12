@@ -392,6 +392,9 @@ module Sdr
     #   the remainder are one or more of md5, sha1, or sha256 checksums
     # @return DRUID manifest file
     get '/objects/:druid/manifest/*' do
+      depr_msg = 'HTTP GET /objects/:druid/manifest is deprecated; use preservation-client .manifest or .signature_catalog instead'
+      Deprecation.warn(nil, depr_msg)
+      Honeybadger.notify(depr_msg)
       retrieve_file(params[:druid],'manifest',file_id_param, version_param, signature_param)
     end
 
