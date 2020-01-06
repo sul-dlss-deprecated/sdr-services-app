@@ -11,7 +11,7 @@ gem 'activesupport', '~> 5.2' # for xml
 gem 'multi_json', '~> 1.0'
 gem 'json-schema'
 
-gem 'rack', '~> 1.5'
+gem 'rack', '~> 1.6'
 #gem 'rack-parser', :require => 'rack/parser'
 
 gem 'sinatra', '~> 1.4'
