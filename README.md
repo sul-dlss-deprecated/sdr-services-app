@@ -1,3 +1,8 @@
+# DEPRECATED
+
+functionality has been ported to https://github.com/sul-dlss/preservation_catalog
+
+
 [![Build Status](https://travis-ci.org/sul-dlss/sdr-services-app.svg)](https://travis-ci.org/sul-dlss/sdr-services-app) [![Coverage Status](https://coveralls.io/repos/sul-dlss/sdr-services-app/badge.png)](https://coveralls.io/r/sul-dlss/sdr-services-app)
 
 
